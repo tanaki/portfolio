@@ -1,0 +1,37 @@
+	
+	body {
+		overflow:hidden;
+		background:#222;
+		
+		font-family: Arial, sans-serif;
+	}
+	
+	#main-canvas,
+	#content,
+	#drop-area {
+		position:absolute;
+		left:0;
+		top:0;
+	}
+	
+	#content {
+		height:100%;
+		width:100%;
+	}
+	
+	#drop-area {
+		height:100%;
+		width:30%;
+		background:#fff;
+		opacity:.2;
+	}
+	
+	#pull {
+		position:absolute;
+		right:11%;
+		top:49%;
+		
+		color:#fff;
+		text-decoration:none;
+		width:110px;
+	}
