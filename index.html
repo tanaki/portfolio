@@ -10,6 +10,9 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
 		
+		<script type="text/javascript" src="js/lib/jquery-css-transform.js"></script>
+		<script type="text/javascript" src="js/lib/jquery-animate-css-rotate-scale.js"></script>
+		<script type="text/javascript" src="js/lib/jquery.animate-enhanced.min.js"></script>
 		<script type="text/javascript" src="js/common.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/lib/paper.js"></script>
@@ -17,12 +20,40 @@
 		
 		<link rel="stylesheet" type="text/css" href="css/reset.css" />
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		
+		<!--[if IE]>
+			<link rel="stylesheet" type="text/css" href="css/ie.css" />
+		<![endif]-->	
 	</head>
 	<body>
 		<canvas id="main-canvas" resize keepalive="true"></canvas>
 		<div id="content">
 			<div id="drop-area"></div>
-			<a href="#" id="pull">Nicolas Pigelet</a>
+			<div id="menu">
+				<a href="/about" class="menu-current" id="pull"><span>Nicolas Pigelet</span></a>
+				<a href="/work" id="work"><span>Work</span></a>
+				<a href="/lifestream" id="lifestream"><span>Lifestream</span></a>
+				<a href="/links" id="links"><span>Links</span></a>
+				
+				<div id="about-icon" class="icon"></div>
+				<div id="work-icon" class="icon">
+					<img src="img/work-icon.png" alt="Work Icon" />
+				</div>
+				<div id="lifestream-icon" class="icon">
+					<img src="img/lifestream-icon.png" alt="Lifestream Icon" />
+				</div>
+				<div id="links-icon" class="icon">
+					<img src="img/links-icon.png" alt="Links Icon" />
+				</div>
+			</div>
+			<div id="footer">
+				<ul>
+					<li><a href="http://twitter.com/tanaki" data-rel="external">Twitter</a>&nbsp;|&nbsp;</li>
+					<li><a href="http://uk.linkedin.com/in/nicolaspigelet" data-rel="external">LinkedIn</a>&nbsp;|&nbsp;</li>
+					<li><a href="/data/CV_Nicolas-Pigelet.pdf" data-rel="external">CV</a>&nbsp;|&nbsp;</li>
+					<li><a href="/credits" data-rel="external">Credits</a></li>
+				</ul>
+			</div>
 		</div>
 	</body>
 </html>

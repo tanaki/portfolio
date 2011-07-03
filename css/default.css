@@ -1,11 +1,17 @@
 	
+	@font-face { 
+		font-family: Copy0855; 
+		src: url('font/copy0855.ttf'); 
+	} 
+	
 	body {
 		overflow:hidden;
 		background:#222;
 		
-		font-family: Arial, sans-serif;
+		font-family: Copy0855, Arial, sans-serif;
 	}
 	
+/* INTRO */
 	#main-canvas,
 	#content,
 	#drop-area {
@@ -21,17 +27,120 @@
 	
 	#drop-area {
 		height:100%;
-		width:55%;
-		background:#fff;
-		opacity:.2;
+		width:75%;
+		/* 
+		background:#333;
+		opacity: .2;
+		 */
+	}
+	
+/* MENU */
+	#menu {
+		
+	}
+	
+	#menu a {
+		font-size:8px;
+		position:absolute;
+		display:block;
+		color:#fff;
+		text-decoration:none;
+		text-align:center;
+		
+		outline: none;
 	}
 	
 	#pull {
-		position:absolute;
 		right:11%;
 		top:49%;
 		
-		color:#fff;
-		text-decoration:none;
-		width:110px;
+		width:70px;
+		height:20px;
+		padding:3px;
+		background:#222;
 	}
+	
+	#menu #work,
+	#menu #lifestream,
+	#menu #links {
+		left:33.3%;
+		top:50%;
+		text-align:center;
+		padding:20px;
+		display:none;
+	}
+	#menu #work span,
+	#menu #lifestream span,
+	#menu #links span {
+		display:none;
+	}
+	
+	#lifestream {
+		margin :-175px 0 0 105px;
+	}
+	#lifestream span {
+		padding-bottom:20px;
+	}
+	#lifestream.menu-current {
+		background: url(/img/lifestream-select.png) no-repeat 25px 35px;
+	}
+	#links {
+		margin :-83px 0 0 260px;
+	}
+	#links span {
+		padding-left:30px;
+	}
+	#links.menu-current {
+		background: url(/img/links-select.png) no-repeat 6px 8px;
+	}
+	#work {
+		margin : 50px 0 0 190px;
+	}
+	#work span {
+		padding-top:20px;
+	}
+	#work.menu-current {
+		background: url(/img/work-select.png) no-repeat left top;
+	}
+	
+	#menu .icon {
+		display:none;
+		position:absolute;
+		left:33.3%;
+		top:50%;
+		
+		width:182px;
+		height:182px;
+		
+		margin :-115px 0 0 95px;
+		overflow:hidden;
+	}
+	
+/* FOOTER */
+	
+	#footer {
+		position:absolute;
+		right:20px;
+		bottom:20px;
+	}
+	#footer ul {
+		list-style:none;
+		margin:0;
+		padding:0;
+	}
+	#footer ul li {
+		cursor:default;
+		color:#555;
+		float:left;
+		font-size:8px;
+		display:none;
+	}
+	#footer ul li a {
+		color:#555;
+		text-decoration:none;
+	}
+	#footer ul li a:hover {
+		color:#fff;
+	}
+
+
