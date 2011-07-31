@@ -10,11 +10,15 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
 		
+		<script type="text/javascript" src="js/lib/jquery.address-1.3.2.min.js"></script>
 		<script type="text/javascript" src="js/lib/jquery-css-transform.js"></script>
 		<script type="text/javascript" src="js/lib/jquery-animate-css-rotate-scale.js"></script>
 		<script type="text/javascript" src="js/lib/jquery.animate-enhanced.min.js"></script>
-		<script type="text/javascript" src="js/common.js"></script>
+		
 		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/NP/Controller.js"></script>
+		<script type="text/javascript" src="js/NP/Menu.js"></script>
+		
 		<script type="text/javascript" src="js/lib/paper.js"></script>
 		<script type="text/paperscript" src="js/portfolio-paper.js" canvas="main-canvas"></script>
 		
@@ -30,12 +34,14 @@
 		<div id="content">
 			<div id="drop-area"></div>
 			<div id="menu">
-				<a href="/about" class="menu-current" id="pull"><span>Nicolas Pigelet</span></a>
+				<a href="/about" id="pull"><span>Nicolas Pigelet</span></a>
 				<a href="/work" id="work"><span>Work</span></a>
 				<a href="/lifestream" id="lifestream"><span>Lifestream</span></a>
 				<a href="/links" id="links"><span>Links</span></a>
 				
-				<div id="about-icon" class="icon"></div>
+				<div id="pull-icon" class="icon">
+					<img src="img/about-icon.png" alt="About Icon" />
+				</div>
 				<div id="work-icon" class="icon">
 					<img src="img/work-icon.png" alt="Work Icon" />
 				</div>

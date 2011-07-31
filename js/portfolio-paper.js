@@ -17,7 +17,7 @@ var offsetHeight = Math.round(view.size.height * .2);
 
 // About
 var about = new Symbol(circle);
-var aboutX = $("#pull").position().left + $("#pull").width() + 10;
+var aboutX = $("#pull").position().left + $("#pull").width() + 30;
 var aboutY = $("#pull").position().top + 10;
 var aboutPoint = new Point( aboutX, aboutY );
 
@@ -49,6 +49,23 @@ function onFrame(event) {
 		case "menu_selected" :
 			onFrameMenu();
 		break;
+		case "page" :
+
+			var aboutCircle = project.activeLayer.children[2];
+			var lifestreamCircle = project.activeLayer.children[3];
+			var linksCircle = project.activeLayer.children[4];
+			var workCircle = project.activeLayer.children[5];
+			
+			if ( aboutCircle && lifestreamCircle && linksCircle && workCircle ) {
+				aboutCircle.remove();
+				lifestreamCircle.remove();
+				linksCircle.remove();
+				workCircle.remove();
+			}
+			
+			rectangle.removeSegments();
+			shape.removeSegments();
+		break;
 	}
 }
 
@@ -58,7 +75,7 @@ function onFrameIntro () {
 	var linksCircle = project.activeLayer.children[4];
 	var workCircle = project.activeLayer.children[5];
 	
-	aboutX = $("#pull").position().left + $("#pull").width() + 10;
+	aboutX = $("#pull").position().left + $("#pull").width() + 30;
 	aboutY = $("#pull").position().top + 10;
 	aboutPoint = new Point( aboutX, aboutY );
 	aboutCircle.position = aboutPoint;
@@ -106,7 +123,7 @@ function onFrameMenu() {
 	var linksCircle = project.activeLayer.children[4];
 	var workCircle = project.activeLayer.children[5];
 	
-	aboutX = $("#pull").position().left + $("#pull").width() + 10;
+	aboutX = $("#pull").position().left + $("#pull").width() + 30;
 	aboutY = $("#pull").position().top + 10;
 	aboutPoint = new Point( aboutX, aboutY );
 	aboutCircle.position = aboutPoint;

@@ -56,8 +56,21 @@
 		
 		width:70px;
 		height:20px;
-		padding:3px;
-		background:#222;
+		padding:20px 34px 20px 6px;
+		margin-top:-18px;
+	}
+	#pull.menu-displayed {
+		left:33.3%;
+		top : 50%;
+		text-align: right;
+		margin:-14px 0px 0px 14px;
+		padding:17px 34px 23px 6px;
+	}
+	#pull.menu-current {
+		background: url(/img/about-select.png) no-repeat right top;
+	}
+	#pull span {
+		margin-right:5px;
 	}
 	
 	#menu #work,
@@ -76,7 +89,7 @@
 	}
 	
 	#lifestream {
-		margin :-175px 0 0 105px;
+		margin :-175px 0 0 125px;
 	}
 	#lifestream span {
 		padding-bottom:20px;
@@ -85,7 +98,7 @@
 		background: url(/img/lifestream-select.png) no-repeat 25px 35px;
 	}
 	#links {
-		margin :-83px 0 0 260px;
+		margin :-83px 0 0 280px;
 	}
 	#links span {
 		padding-left:30px;
@@ -94,7 +107,7 @@
 		background: url(/img/links-select.png) no-repeat 6px 8px;
 	}
 	#work {
-		margin : 50px 0 0 190px;
+		margin : 50px 0 0 210px;
 	}
 	#work span {
 		padding-top:20px;
@@ -102,6 +115,7 @@
 	#work.menu-current {
 		background: url(/img/work-select.png) no-repeat left top;
 	}
+	
 	
 	#menu .icon {
 		display:none;
@@ -112,10 +126,56 @@
 		width:182px;
 		height:182px;
 		
-		margin :-115px 0 0 95px;
+		margin :-115px 0 0 115px;
 		overflow:hidden;
 	}
 	
+/* MENU ABOUT */
+/* MENU WORKS */
+	#menu.page-work {
+		
+	}
+	#menu.page-work a {
+		display:block !important;
+		width:20px;
+		height:20px;
+		margin:-20px 0 0;
+		
+		-webkit-transition: .8s linear;
+		-moz-transition: .8s linear;
+		-o-transition: .8s linear;
+		transition: .8s linear;
+	}
+	#menu.page-work #pull {
+		left:20px;
+		padding:10px;
+		background:url(/img/circle-1.png) no-repeat center center;
+	}
+	/* ca sera reparer en meme temps que la reparation du menu a letat initial */
+	#menu.page-work #pull span {
+		display:none;
+	}
+	#menu.page-work #links {
+		left:60px;
+		padding:10px;
+		background:url(/img/circle-2.png) no-repeat center center;
+	}
+	#menu.page-work #lifestream {
+		left:100px;
+		padding:10px;
+		background:url(/img/circle-3.png) no-repeat center center;
+	}
+	#menu.page-work #work {
+		left:200px;
+		background:url(/img/circle-work.png) no-repeat center center;
+	}
+	#menu.page-work #work span {
+		display:none !important;
+	}
+/* MENU LIFESTREAM */
+/* MENU LINKS */
+	
+
 /* FOOTER */
 	
 	#footer {

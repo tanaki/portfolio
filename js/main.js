@@ -1,63 +1,32 @@
 $(document).ready(function(){
+	/*
+	switch ( $.address.value() ) {
+		case "/menu" : 
+			initMenu();
+		break;
+		default:
+			initIntro();
+		break;
+	}
+	*/
+	initIntro();
 	
-	$("#pull")
-		.hover(
-			displayPull, 
-			function(){
-				if ( !$("#pull").hasClass("ui-draggable-dragging") ) 
-					displayName();
-			}
-		)
-		.click(function(e){
-			e.preventDefault();
-		})
-		.draggable({
-			revert: "invalid",
-			scroll: false,
-			stop : displayName
-		});
-		
-	$("#drop-area").droppable({
-		drop : function(){
-			
-			siteStatus = "menu";
-			
-			$("#pull")
-				//.draggable("disable")
-				.animate({
-					"left" : Math.round($(window).width() / 3),
-					"top" : Math.round($(window).height() / 2)
-				}, function(){
-					
-					$(this)
-						.draggable("destroy")
-						.html("<span>Nicolas Pigelet</span>")
-						.css({
-							"left" : "33.3%",
-							"top" : "50%"
-						})
-						.unbind()
-						.mouseenter(function(){
-							siteStatus = "menu";
-							toggleMenu(this);
-						});
-				})
-			
-		}
-	});
 });
 
 $(window).bind({
 	"MENU_READY" : function(){
 		
-		$("#menu a:not(#pull)")
+		$("#menu a")
 			.show()
-			.mouseenter( 
-				function(){
-					window.siteStatus = "menu_selected";
-					toggleMenu(this);
-				}
-			);
+			.mouseenter(function(){
+				window.siteStatus = "menu_selected";
+				toggleMenu(this);
+			})
+			.click(function(e){
+				e.preventDefault();
+				window.siteStatus = "page";
+				Menu.init($(this).attr('href'));
+			});
 		
 		// scale all icon to .25
 		$(".icon").scale(0.25);
@@ -97,6 +66,41 @@ function toggleMenu (target){
 	$this.addClass("menu-current");
 }
 
+function initIntro () {
+
+	$("#pull")
+		.hover(
+			displayPull, 
+			function(){
+				if ( !$("#pull").hasClass("ui-draggable-dragging") ) 
+					displayName();
+			}
+		)
+		.click(function(e){
+			e.preventDefault();
+		})
+		.draggable({
+			revert: "invalid",
+			scroll: false,
+			stop : displayName
+		});
+		
+	$("#drop-area").droppable({
+		drop : function(){
+			
+			siteStatus = "menu";
+			
+			$("#pull")
+				//.draggable("disable")
+				.animate({
+					"left" : Math.round($(window).width() / 3),
+					"top" : Math.round($(window).height() / 2)
+				}, initMenu)
+			
+		}
+	});
+}
+
 function displayPull() {
 	$(this).text("Pull");
 }
@@ -107,5 +111,28 @@ function displayName() {
 		.css({
 			"top" : "",
 			"left" : ""
+		});
+}
+
+function initMenu(){
+	
+	$(window).trigger("MENU_READY");
+	
+	window.siteStatus = "menu_ready";
+	$.address.value("/menu");
+	
+	$("#pull")
+		.draggable("destroy")
+		.html("<span>About</span>")
+		.addClass("menu-displayed")
+		.css({
+			"top" : "",
+			"left" : "",
+			"-webkit-transition-property" : ""
+		})
+		.unbind()
+		.mouseenter(function(){
+			siteStatus = "menu";
+			toggleMenu(this);
 		});
 }
