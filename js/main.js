@@ -1,20 +1,16 @@
 $(document).ready(function(){
-	/*
-	switch ( $.address.value() ) {
-		case "/menu" : 
-			initMenu();
-		break;
-		default:
-			initIntro();
-		break;
-	}
-	*/
-	initIntro();
+	
+	Controller.init();
+	Intro.init();
+	Stuffs.init();
 	
 });
 
 $(window).bind({
 	"MENU_READY" : function(){
+		
+		$("#menu a:first").addClass();
+		toggleMenu( $("#menu a:first") );
 		
 		$("#menu a")
 			.show()
@@ -44,11 +40,12 @@ function toggleMenu (target){
 	if ( $this.hasClass("menu-current") ) return;
 	
 	$("span", target)
-		.stop()
-		.fadeIn(200);
+		.stop(true, true)
+		.fadeIn(200)
+		.css("display", "block");
 		
 	$(".menu-current span")
-		.stop()
+		.stop(true, true)
 		.fadeOut(200);
 	
 	$( "#" + $(".menu-current").attr("id") + "-icon" )
@@ -64,75 +61,4 @@ function toggleMenu (target){
 		
 	$(".menu-current").removeClass("menu-current");
 	$this.addClass("menu-current");
-}
-
-function initIntro () {
-
-	$("#pull")
-		.hover(
-			displayPull, 
-			function(){
-				if ( !$("#pull").hasClass("ui-draggable-dragging") ) 
-					displayName();
-			}
-		)
-		.click(function(e){
-			e.preventDefault();
-		})
-		.draggable({
-			revert: "invalid",
-			scroll: false,
-			stop : displayName
-		});
-		
-	$("#drop-area").droppable({
-		drop : function(){
-			
-			siteStatus = "menu";
-			
-			$("#pull")
-				//.draggable("disable")
-				.animate({
-					"left" : Math.round($(window).width() / 3),
-					"top" : Math.round($(window).height() / 2)
-				}, initMenu)
-			
-		}
-	});
-}
-
-function displayPull() {
-	$(this).text("Pull");
-}
-
-function displayName() {
-	$("#pull")
-		.text("Nicolas Pigelet")
-		.css({
-			"top" : "",
-			"left" : ""
-		});
-}
-
-function initMenu(){
-	
-	$(window).trigger("MENU_READY");
-	
-	window.siteStatus = "menu_ready";
-	$.address.value("/menu");
-	
-	$("#pull")
-		.draggable("destroy")
-		.html("<span>About</span>")
-		.addClass("menu-displayed")
-		.css({
-			"top" : "",
-			"left" : "",
-			"-webkit-transition-property" : ""
-		})
-		.unbind()
-		.mouseenter(function(){
-			siteStatus = "menu";
-			toggleMenu(this);
-		});
 }

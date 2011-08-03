@@ -1,0 +1,21 @@
+	
+	.breadcrumb li.link a,
+	.page-about .cv,
+	.page-links .content a
+	{
+		-webkit-transition: .2s linear;
+		-moz-transition: .2s linear;
+		-o-transition: .2s linear;
+		transition: .2s linear;
+	}
+	
+	.page-links .line {
+		-webkit-transform:rotate(-2deg);
+		-moz-transform:rotate(-2deg);
+		-o-transform:rotate(-2deg);
+	}
+	.page-links .az-selected .line {
+		-webkit-transform:rotate(2deg);
+		-moz-transform:rotate(2deg);
+		-o-transform:rotate(2deg);
+	}

@@ -2,8 +2,6 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="dewplayer, dewmovieplayer, dewtube, flv, f4v, flash, lecteur flash, video, podcast, adobe, alsacreations, agence web">
 	
 		<title>Nicolas Pigelet - Portfolio - Multimedia Developer</title>
 		
@@ -13,10 +11,12 @@
 		<script type="text/javascript" src="js/lib/jquery.address-1.3.2.min.js"></script>
 		<script type="text/javascript" src="js/lib/jquery-css-transform.js"></script>
 		<script type="text/javascript" src="js/lib/jquery-animate-css-rotate-scale.js"></script>
-		<script type="text/javascript" src="js/lib/jquery.animate-enhanced.min.js"></script>
+		<!--script type="text/javascript" src="js/lib/jquery.animate-enhanced.min.js"></script-->
 		
 		<script type="text/javascript" src="js/main.js"></script>
+		
 		<script type="text/javascript" src="js/NP/Controller.js"></script>
+		<script type="text/javascript" src="js/NP/Intro.js"></script>
 		<script type="text/javascript" src="js/NP/Menu.js"></script>
 		
 		<!--
@@ -34,26 +34,30 @@
 	<body>
 		<canvas id="main-canvas" resize keepalive="true"></canvas>
 		<div id="content">
+			
 			<div id="drop-area"></div>
+			<a href="#" id="pull"><span>Nicolas Pigelet</span></a>
+			
 			<div id="menu">
-				<a href="/about" id="pull"><span>Nicolas Pigelet</span></a>
+				<a href="/about" id="about"><span>About</span></a>
 				<a href="/work" id="work"><span>Work</span></a>
 				<a href="/lifestream" id="lifestream"><span>Lifestream</span></a>
 				<a href="/links" id="links"><span>Links</span></a>
 				
-				<div id="pull-icon" class="icon">
-					<img src="img/about-icon.png" alt="About Icon" />
+				<div id="about-icon" class="icon">
+					<img src="img/intro/about-icon.png" alt="About Icon" />
 				</div>
 				<div id="work-icon" class="icon">
-					<img src="img/work-icon.png" alt="Work Icon" />
+					<img src="img/intro/work-icon.png" alt="Work Icon" />
 				</div>
 				<div id="lifestream-icon" class="icon">
-					<img src="img/lifestream-icon.png" alt="Lifestream Icon" />
+					<img src="img/intro/lifestream-icon.png" alt="Lifestream Icon" />
 				</div>
 				<div id="links-icon" class="icon">
-					<img src="img/links-icon.png" alt="Links Icon" />
+					<img src="img/intro/links-icon.png" alt="Links Icon" />
 				</div>
 			</div>
+			
 			<div id="footer">
 				<ul>
 					<li><a href="http://twitter.com/tanaki" data-rel="external">Twitter</a>&nbsp;|&nbsp;</li>

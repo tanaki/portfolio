@@ -1,19 +1,24 @@
-console.log("change 3");
-
+var Controller = {
 	
-$.address
-	.init(function(event) {
-		console.log("init");
-	})
-	.change(function(event) {
-		console.log("tatata");
-		
-		switch ( $.address.value() ) {
-			case "/menu" : 
+	init : function () {
+	
+		$.address
+			.init(function(event) {
+				console.log("init");
+			})
+			.change(function(event) {
+				console.log("tatata");
 				
-			break;
-			default:
-				
-			break;
-		}
-	});
+				switch ( $.address.value() ) {
+					case "/menu" : 
+						
+					break;
+					default:
+						
+					break;
+				}
+			});
+			
+	}
+	
+};
