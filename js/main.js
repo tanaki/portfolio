@@ -2,6 +2,7 @@ $(document).ready(function(){
 	
 	Controller.init();
 	Intro.init();
+	Menu.init();
 	Stuffs.init();
 	
 });

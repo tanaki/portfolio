@@ -1,6 +1,5 @@
 	
 	.breadcrumb li.link a,
-	.page-about .cv,
 	.page-links .content a
 	{
 		-webkit-transition: .2s linear;
@@ -8,14 +7,19 @@
 		-o-transition: .2s linear;
 		transition: .2s linear;
 	}
+	.page-about .cv,
+	.page-links .content li a,
+	footer a {
+		-webkit-transition: .1s linear;
+		-moz-transition: .1s linear;
+		-o-transition: .1s linear;
+		transition: .1s linear;
+	}
 	
 	.page-links .line {
-		-webkit-transform:rotate(-2deg);
-		-moz-transform:rotate(-2deg);
-		-o-transform:rotate(-2deg);
+		-webkit-transition: .27s linear;
+		-moz-transition: .27s linear;
+		-o-transition: .27s linear;
+		transition: .27s linear;
 	}
-	.page-links .az-selected .line {
-		-webkit-transform:rotate(2deg);
-		-moz-transform:rotate(2deg);
-		-o-transform:rotate(2deg);
-	}
+	
