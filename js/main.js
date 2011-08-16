@@ -18,12 +18,13 @@ $(window).bind({
 			.mouseenter(function(){
 				window.siteStatus = "menu_selected";
 				toggleMenu(this);
-			})
+			})/*
 			.click(function(e){
 				e.preventDefault();
 				window.siteStatus = "page";
 				Menu.init($(this).attr('href'));
 			});
+			*/
 		
 		// scale all icon to .25
 		$(".icon").scale(0.25);

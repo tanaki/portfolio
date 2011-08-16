@@ -12,11 +12,15 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
 		
+		<script type="text/javascript" src="/js/lib/jquery.shuffle.js"></script>
+		
 		<script type="text/javascript" src="/js/NP/Menu.js"></script>
+		<script type="text/javascript" src="/js/NP/Work.js"></script>
 		<script type="text/javascript" src="/js/NP/Stuffs.js"></script>
 		<script type="text/javascript">
 			$(window).ready(function(){
 				Menu.init();
+				Work.init();
 				Stuffs.init();
 			});
 		</script>

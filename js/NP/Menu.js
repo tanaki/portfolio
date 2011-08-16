@@ -6,17 +6,25 @@ var Menu = {
 			defaultText = $(".breadcrumb .current").text();
 		$("nav a:not(.selected)").hover(
 			function(){
+				
+				if ( $(".breadcrumb .link").length > 1 )
+					$(".breadcrumb .link:last").hide(200);
+				
 				var text = $("span", this).text();
-				self._shuffle(".breadcrumb .current", text);
+				self._shuffleLetters(".breadcrumb .current", text);
 			},
 			function(){
-				self._shuffle(".breadcrumb .current", defaultText);
+			
+				if ( $(".breadcrumb .link").length > 1 )
+					$(".breadcrumb .link:last").show(200);
+				
+				self._shuffleLetters(".breadcrumb .current", defaultText);
 			}
 		);
 		
 	},
 	
-	_shuffle : function(target, str){
+	_shuffleLetters : function(target, str){
 		
 		var progress = str.length - 2;
 		var timer = setInterval(function() {

@@ -1,6 +1,7 @@
 	
 	.breadcrumb li.link a,
-	.page-links .content a
+	.page-links .content a,
+	.transition
 	{
 		-webkit-transition: .2s linear;
 		-moz-transition: .2s linear;
