@@ -42,7 +42,6 @@
 			
 			var background = paper.path("M"+ x +","+ y +"L"+ x +","+ y +"L"+ x +","+ y +"L"+ x +","+ y +"L"+ x +","+ y);
 			
-			/*
 			background
 				.attr({
 					"fill" : "#fff",
@@ -73,7 +72,6 @@
 			setTimeout(function() {
 				console.log("Hide RAPHAEL / SHOW BLOCK");
 			}, 1000);
-			 */
 		});
 		
 	</script>

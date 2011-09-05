@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	
+		<title>Nicolas Pigelet - Portfolio - Multimedia Developer</title>
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		
+		<script type="text/javascript" src="/js/lib/raphael-min.js"></script>
+		
+		<script type="text/javascript">
+			
+			window.onload = function () {
+                var W = 640,
+                    H = 480,
+                    r = Raphael("drag-area", W, H),
+                    values = [],
+                    len = 7;
+                for (var i = len; i--;) {
+                    values.push(50);
+                }
+                
+                function translate(x, y) {
+                    return [
+                        50 + (W - 60) / (values.length - 1) * x,
+                        H - 10 - (H - 20) / 100 * y
+                    ];
+                }
+                
+                function getAnchors(p1x, p1y, p2x, p2y, p3x, p3y) {
+                    var l1 = (p2x - p1x) / 2,
+                        l2 = (p3x - p2x) / 2,
+                        a = Math.atan((p2x - p1x) / Math.abs(p2y - p1y)),
+                        b = Math.atan((p3x - p2x) / Math.abs(p2y - p3y));
+                    a = p1y < p2y ? Math.PI - a : a;
+                    b = p3y < p2y ? Math.PI - b : b;
+                    var alpha = Math.PI / 2 - ((a + b) % (Math.PI * 2)) / 2,
+                        dx1 = l1 * Math.sin(alpha + a),
+                        dy1 = l1 * Math.cos(alpha + a),
+                        dx2 = l2 * Math.sin(alpha + b),
+                        dy2 = l2 * Math.cos(alpha + b);
+                    return {
+                        x1: p2x - dx1,
+                        y1: p2y + dy1,
+                        x2: p2x + dx2,
+                        y2: p2y + dy2
+                    };
+                }
+                
+                function drawPath() {
+                    for (var j = 0, jj = X.length - 1; j < jj; j++) {
+                        if (j) {
+                            var a = getAnchors(X[j - 1], Y[j - 1], X[j], Y[j], X[j + 1], Y[j + 1]);
+                            p = p.concat([a.x1, a.y1, X[j], Y[j], a.x2, a.y2]);
+                        } else {
+                            p = ["M", X[j], Y[j], "C", X[j], Y[j]];
+                        }
+                    }
+                    p = p.concat([X[jj], Y[jj], X[jj], Y[jj]]);
+                    var subaddon = "L" + (W - 10) + "," + (H - 10) + ",50," + (H - 10) + "z";
+                    path.attr({path: p});
+                    sub.attr({path: p + subaddon});
+                }
+                
+                var p = [["M"].concat(translate(0, values[0]))],
+                    color = "hsb(240°, 1, 1)",
+                    X = [],
+                    Y = [],
+                    blankets = r.set(),
+                    buttons = r.set(),
+                    w = (W - 60) / values.length,
+                    isDrag = -1,
+                    start = null,
+                    sub = r.path().attr({stroke: "none", fill: [90, color, color].join("-"), opacity: 0}),
+                    path = r.path().attr({stroke: color, "stroke-width": 2}),
+                    unhighlight = function () {};
+                var ii;
+                for (i = 0, ii = values.length - 1; i < ii; i++) {
+                    var xy = translate(i, values[i]),
+                        xy1 = translate(i + 1, values[i + 1]),
+                        f;
+                    X[i] = xy[0];
+                    Y[i] = xy[1];
+                    (f = function (i, xy) {
+                        buttons.push(r.circle(xy[0], xy[1], 5).attr({fill: color, stroke: "none"}));
+                        blankets.push(r.circle(xy[0], xy[1], w / 2).attr({stroke: "none", fill: "#fff", opacity: 0}).mouseover(function () {
+                            if (isDrag + 1) {
+                                unhighlight = function () {};
+                            } else {
+                                buttons.items[i].animate({r: 10}, 200);
+                            }
+                        }).mouseout(function () {
+                            if (isDrag + 1) {
+                                unhighlight = function () {
+                                    buttons.items[i].animate({r: 5}, 200);
+                                };
+                            } else {
+                                buttons.items[i].animate({r: 5}, 200);
+                            }
+                        }).drag(function (dx, dy) {
+                            var start = this.start;
+                            start && update(start.i, start.p + dy);
+                        }, function (x, y) {
+                            this.start = {i: i, m: y, p: Y[i]};
+                        }));
+                        blankets.items[blankets.items.length - 1].node.style.cursor = "move";
+                    })(i, xy);
+                    if (i == ii - 1) {
+                        f(i + 1, xy1);
+                    }
+                }
+                xy = translate(ii, values[ii]);
+                X.push(xy[0]);
+                Y.push(xy[1]);
+                
+                drawPath();
+                var update = function (i, d) {
+                    (d > H - 10) && (d = H - 10);
+                    (d < 10) && (d = 10);
+                    Y[i] = d;
+                    drawPath();
+                    buttons.items[i].attr({cy: d});
+                    blankets.items[i].attr({cy: d});
+                    r.safari();
+                };
+            };
+			
+		</script>
+		
+		<style type="text/css">
+		
+			#drag-area {
+				height:100%;
+				width:100%;
+			}
+			
+		</style>
+		
+	</head>
+	<body>
+		<!--canvas id="main-canvas" resize keepalive="true"></canvas-->
+		<div id="content">
+		
+			<div id="drag-area"></div>
+			<!--div id="drop-area"></div-->
+			<!--a href="#" id="pull"><span>Nicolas Pigelet</span></a-->
+			
+			<div id="footer">
+				<ul>
+					<li><a href="http://twitter.com/tanaki" data-rel="external">Twitter</a>&nbsp;|&nbsp;</li>
+					<li><a href="http://uk.linkedin.com/in/nicolaspigelet" data-rel="external">LinkedIn</a>&nbsp;|&nbsp;</li>
+					<li><a href="/data/CV_Nicolas-Pigelet.pdf" data-rel="external">CV</a>&nbsp;|&nbsp;</li>
+					<li><a href="/credits" data-rel="external">Credits</a></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

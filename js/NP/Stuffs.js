@@ -42,6 +42,13 @@ var Stuffs = {
 			"margin-left" : marginLeft
 		});
 		
+		$(".a-z ul").animate({
+			"opacity" : (isAZ ? 1 : 0)
+		});
+		$(".gobelins ul").animate({
+			"opacity" : (isAZ ? 0 : 1)
+		});
+		
 		$(".line").toggleClass("line-toggled");
 	}
 	
