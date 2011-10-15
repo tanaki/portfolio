@@ -13,19 +13,18 @@ var EventCenter = (function(){
 			registerEvent = function(eventType, callback){
 				$(this).bind(eventType, callback);
 			},
-
 			dispatchEvent = function(eventType, params) {
 				$(this).trigger(eventType, params);
 			};
+
 		return {
 			registerEvent : registerEvent,
 			dispatchEvent : dispatchEvent
 		}
-    }
+	}
 
-    var 
+	var
 		instance = null,
-
 		getInstance = function(){
 			if (instance == null) {
 				instance = new EventCenter();
@@ -33,8 +32,8 @@ var EventCenter = (function(){
 			}
 			return instance;
 		};
-	
-    return {
-        getInstance: getInstance
-   };
+
+	return {
+		getInstance: getInstance
+	};
 })();

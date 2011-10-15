@@ -13,7 +13,7 @@
 		<![endif]-->	
 	</head>
 	<body>
-		<canvas id="main-canvas"></canvas>
+		<div id="intro"></div>
 		
 		<!-- CDN -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
@@ -21,8 +21,9 @@
 		
 		<!-- LIBS -->
 		<script type="text/javascript" src="js/lib/jquery.address-1.3.2.min.js"></script>
-		<script type="text/javascript" src="js/lib/raphael-min.js"></script>
-		<script type="text/javascript" src="js/lib/scale.raphael.js"></script>
+		<!-- WARNING CHECK https://github.com/DmitryBaranovskiy/raphael/issues/199 before MINIFYING -->
+		<script type="text/javascript" src="js/lib/raphael.js"></script>
+		<!--script type="text/javascript" src="js/lib/raphael-min.js"></script-->
 		
 		<!-- SRC -->
 		<script type="text/javascript" src="js/NP/events/EventCenter.js"></script>

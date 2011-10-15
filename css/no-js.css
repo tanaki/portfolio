@@ -1,8 +1,9 @@
 
+	
 	@font-face { 
-		font-family: Copy0855; 
+		font-family: Copy0855;
 		src: url('font/copy0855.ttf'); 
-	} 
+	}
 	
 	body {
 		overflow:hidden;
