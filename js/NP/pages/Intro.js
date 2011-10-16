@@ -17,6 +17,8 @@ var Intro = function(initOptions){
 		R = null,
 
 		name = null,
+		blob = null,
+
 		bgName = null,
 		labelName = null,
 		circleName = null,
@@ -27,6 +29,7 @@ var Intro = function(initOptions){
 
 		lineTop = null,
 		lineBottom = null,
+		circleBlob = null,
 		
 		ox = 0,
 		oy = 0,
@@ -101,13 +104,13 @@ var Intro = function(initOptions){
 	* @private
 	*/
 	_initGraphics = function(){
+		blob = R.set();
 		name = R.set();
 
 		bgName = R.rect(960, 280, 100, 40);
 		bgName.attr({
 			"stroke-width" : 0,
 			"stroke-opacity" : 0,
-			"fill": "#222",
 			"cursor": "pointer"
 		});
 		bgName
@@ -127,18 +130,19 @@ var Intro = function(initOptions){
 		name.push(labelName);
 
 		// create circle name/about
-		circleName = R.circle(1000, 300, 3);
+		circleName = R.circle(1000, 300, 5);
 		circleName.attr({
 			"stroke-width" : "0",
 			"stroke-opacity" : "0",
-			"fill" : "#fff"
+			"fill" : "#ddd"
 		});
 		name.push(circleName);
-
-
 			
 		name.drag(_handleMove, _handleStart, _handleStop);
 		_resizeRaphael();
+
+		_drawLines();
+		_drawBlob();
 	},
 
 	_displayPull = function(){
@@ -167,6 +171,9 @@ var Intro = function(initOptions){
 			"x": ox + dx + offsetBgX,
 			"y": oy + dy + offsetBgY
 		});
+
+		_drawLines();
+		_drawBlob();
 	},
 
 	/**
@@ -190,6 +197,7 @@ var Intro = function(initOptions){
 	* @private
 	*/
 	_handleStop = function(e){
+		
 		var 
 			winWidth = $(window).width(),
 			winHeight = $(window).height(),
@@ -206,7 +214,7 @@ var Intro = function(initOptions){
 
 			labelName.attr("text", "About");
 			offsetCircleX = 40;
-			offsetCircleY = 2;
+			offsetCircleY = 1;
 			
 			labelNameX = Math.round(winWidth * .33),
 			labelNameY = Math.round(winHeight * .49);
@@ -228,6 +236,119 @@ var Intro = function(initOptions){
 			"x" : labelNameX + offsetBgX,
 			"y" : labelNameY + offsetBgY
 		}, 300, ">");
+
+		_drawLines( true );
+		_drawBlob( true );
+		
+	},
+
+	/**
+	* draw the lines that are draggable
+	* @return void
+	* @private
+	*/
+	_drawLines = function( animate ){
+
+		var
+			winWidth = $(window).width(),
+			winHeight = $(window).height(),
+			lineOriginX = animate ? (isMenu ? Math.round(winWidth * .33) : ox) + offsetCircleX : circleName.attr("cx"),
+			lineOriginY = animate ? (isMenu ? Math.round(winHeight * .49) : oy) + offsetCircleY : circleName.attr("cy"),
+			topPath = "M" + lineOriginX + "," + lineOriginY + "L" + ($(window).width() - 10) + ",-20",
+			bottomPath = "M" + lineOriginX + "," + lineOriginY + "L" + ($(window).width() - 10) + "," + ($(window).height() + 20);
+
+		if ( !lineTop ) {
+			lineTop = R.path(topPath);
+			lineTop.attr({
+				"stroke" : "#666",
+				"stroke-width" : "1"
+			});
+			blob.push(lineTop);
+		} else if ( animate == true ) {
+			lineTop.animate({
+				"path": topPath
+			}, 300, ">");
+		} else {
+			lineTop.attr("path", topPath);
+		}
+
+		if ( !lineBottom ) {
+			lineBottom = R.path(bottomPath);
+			lineBottom.attr({
+				"stroke" : "#666",
+				"stroke-width" : "1"
+			});
+			blob.push(lineBottom);
+		} else if ( animate == true ) {
+			lineBottom.animate({
+				"path" : bottomPath
+			}, 300, ">");
+		} else {
+			lineBottom.attr("path", bottomPath);
+		}
+		
+		circleName.toFront();
+	},
+
+	/**
+	* draw the blob circle
+	* @return void
+	* @private
+	*/
+	_drawBlob = function( animate ) {
+
+		var
+			winWidth = $(window).width(),
+			winHeight = $(window).height(),
+			circleNameX = animate ? (isMenu ? Math.round(winWidth * .33) : ox) + offsetCircleX : circleName.attr("cx"),
+			circleNameY = animate ? (isMenu ? Math.round(winHeight * .49) : oy) + offsetCircleY : circleName.attr("cy"),
+			
+			blobOriginX = circleNameX + 20,
+			blobOriginY = circleNameY,
+			bottomX = $(window).width() - 5,
+			bottomY = $(window).height(),
+			leftBottomMiddleX = ($(window).width() - 10 + circleNameX) / 2,
+			leftBottomMiddleY = ($(window).height() + 20 + circleNameY) / 2,
+			rightBottomMiddleX = $(window).width() + 20,
+			rightBottomMiddleY = ($(window).height() + circleNameY) / 2,
+			rightX = $(window).width() + 10,
+			rightY = blobOriginY,
+			rightTopMiddleX = $(window).width() + 20,
+			rightTopMiddleY = circleNameY / 2,
+			leftTopMiddleX = ($(window).width() - 10 + circleNameX) / 2,
+			leftTopMiddleY = rightTopMiddleY,
+			topX = bottomX,
+			topY = 0;
+
+		var blobPath = "M" + rightX + "," + rightY;
+		blobPath += "R" + rightTopMiddleX + "," + rightTopMiddleY;
+		blobPath += "," + topX + "," + topY;
+		blobPath += "," + leftTopMiddleX + "," + leftTopMiddleY;
+		blobPath += "," + blobOriginX + "," + blobOriginY;
+		blobPath += "," + leftBottomMiddleX + "," + leftBottomMiddleY;
+		blobPath += "," + bottomX + "," + bottomY;
+		blobPath += "," + rightBottomMiddleX + "," + rightBottomMiddleY;
+		blobPath += "," + rightX + "," + rightY;
+		
+
+		if ( !circleBlob ) {
+			circleBlob = R.path( blobPath );
+			circleBlob.attr({
+				"fill" : "#161616",
+				"stroke-width" : "0",
+				"stroke-opacity" : "0"
+			});
+		} else if ( animate == true ) {
+			circleBlob.animate({
+				"path" : blobPath
+			}, 300, ">");
+		} else {
+			circleBlob.attr("path", blobPath);
+		}
+
+		blob.push( circleBlob );
+		blob.toBack();
+		
 	},
 
 	/**
