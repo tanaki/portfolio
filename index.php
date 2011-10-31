@@ -27,6 +27,7 @@
 		
 		<!-- SRC -->
 		<script type="text/javascript" src="js/NP/events/EventCenter.js"></script>
+		<script type="text/javascript" src="js/NP/components/Menu.js"></script>
 		<script type="text/javascript" src="js/NP/pages/Intro.js"></script>
 		<script type="text/javascript" src="js/NP/Portfolio.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>

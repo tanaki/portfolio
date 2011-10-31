@@ -30,6 +30,8 @@ var Intro = function(initOptions){
 		lineTop = null,
 		lineBottom = null,
 		circleBlob = null,
+
+		menu = null,
 		
 		ox = 0,
 		oy = 0,
@@ -218,6 +220,8 @@ var Intro = function(initOptions){
 			
 			labelNameX = Math.round(winWidth * .33),
 			labelNameY = Math.round(winHeight * .49);
+
+			menu = new Menu();
 		} else {
 			bgName
 				.mouseover(_displayPull)
@@ -230,7 +234,8 @@ var Intro = function(initOptions){
 		}, 300, ">");
 		circleName.animate({
 			"cx" : labelNameX + offsetCircleX,
-			"cy" : labelNameY + offsetCircleY
+			"cy" : labelNameY + offsetCircleY,
+			"r" : 4
 		}, 300, ">");
 		bgName.animate({
 			"x" : labelNameX + offsetBgX,
@@ -254,8 +259,12 @@ var Intro = function(initOptions){
 			winHeight = $(window).height(),
 			lineOriginX = animate ? (isMenu ? Math.round(winWidth * .33) : ox) + offsetCircleX : circleName.attr("cx"),
 			lineOriginY = animate ? (isMenu ? Math.round(winHeight * .49) : oy) + offsetCircleY : circleName.attr("cy"),
-			topPath = "M" + lineOriginX + "," + lineOriginY + "L" + ($(window).width() - 10) + ",-20",
-			bottomPath = "M" + lineOriginX + "," + lineOriginY + "L" + ($(window).width() - 10) + "," + ($(window).height() + 20);
+			topX = isMenu ? Math.round(winWidth * .33) + 112 : ($(window).width() - Math.round((winWidth - circleName.attr("cx")) * .1)),
+			topY = isMenu ? Math.round(winHeight * .49) - 140 : -20,
+			bottomX = isMenu ? Math.round(winWidth * .33) + 175 : topX,
+			bottomY = isMenu ? Math.round(winHeight * .49) + 85 : ($(window).height() + 20),
+			topPath = "M" + lineOriginX + "," + lineOriginY + "L" + topX + "," + topY,
+			bottomPath = "M" + lineOriginX + "," + lineOriginY + "L" + bottomX + "," + bottomY;
 
 		if ( !lineTop ) {
 			lineTop = R.path(topPath);
@@ -271,7 +280,7 @@ var Intro = function(initOptions){
 		} else {
 			lineTop.attr("path", topPath);
 		}
-
+		
 		if ( !lineBottom ) {
 			lineBottom = R.path(bottomPath);
 			lineBottom.attr({
