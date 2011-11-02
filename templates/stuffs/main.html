@@ -1,0 +1,9 @@
+<ul>
+	<% _.each(stuffs, function(stuff){ %>
+		<li>
+			<span class="title"><%= stuff.get("name") %></span>
+			<span class="text"><%= stuff.get("text") %></span>
+			<img alt="<%= stuff.get('name') %>" src="<%= stuff.get('img') %>" />
+		</li>
+	<% }); %>
+</ul>
