@@ -1,0 +1,26 @@
+	
+	.breadcrumb li.link a,
+	.page-links .content a,
+	.transition
+	{
+		-webkit-transition: .2s linear;
+		-moz-transition: .2s linear;
+		-o-transition: .2s linear;
+		transition: .2s linear;
+	}
+	.page-about .cv,
+	.page-links .content li a,
+	footer a {
+		-webkit-transition: .1s linear;
+		-moz-transition: .1s linear;
+		-o-transition: .1s linear;
+		transition: .1s linear;
+	}
+	
+	.page-links .line {
+		-webkit-transition: .27s linear;
+		-moz-transition: .27s linear;
+		-o-transition: .27s linear;
+		transition: .27s linear;
+	}
+	
