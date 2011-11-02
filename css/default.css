@@ -39,8 +39,7 @@
 		
 	}
 	
-	#menu a,
-	#pull {
+	#menu a {
 		font-size:8px;
 		position:absolute;
 		display:block;
@@ -52,7 +51,7 @@
 	}
 	
 	#pull {
-		left:89%;
+		right:11%;
 		top:49%;
 		
 		width:70px;
@@ -67,8 +66,13 @@
 		margin:-14px 0px 0px 14px;
 		padding:17px 34px 23px 6px;
 	}
+	#pull.menu-current {
+		background: url(/img/about-select.png) no-repeat right top;
+	}
+	#pull span {
+		margin-right:5px;
+	}
 	
-	#menu #about,
 	#menu #work,
 	#menu #lifestream,
 	#menu #links {
@@ -78,64 +82,40 @@
 		padding:20px;
 		display:none;
 	}
-	#menu.visible #about,
-	#menu.visible #work,
-	#menu.visible #lifestream,
-	#menu.visible #links {
-		display:block;
-	}
-	#menu #about span,
 	#menu #work span,
 	#menu #lifestream span,
 	#menu #links span {
 		display:none;
 	}
 	
-	#about {
-		width:45px;
-		height:13px;
-		margin-left: 40px;
-		padding: 16px 20px 24px;
-	}
-	#about.menu-current {
-		background: url(/img/intro/about-select.png) no-repeat right top;
-	}
-	#about span {
-		padding-right:20px;
-	}
 	#lifestream {
-		width:47px;
-		height:33px;
 		margin :-175px 0 0 125px;
 	}
 	#lifestream span {
 		padding-bottom:20px;
 	}
 	#lifestream.menu-current {
-		background: url(/img/intro/lifestream-select.png) no-repeat 25px 35px;
+		background: url(/img/lifestream-select.png) no-repeat 25px 35px;
 	}
 	#links {
-		width:52px;
-		height:13px;
 		margin :-83px 0 0 280px;
 	}
 	#links span {
 		padding-left:30px;
 	}
 	#links.menu-current {
-		background: url(/img/intro/links-select.png) no-repeat 6px 8px;
+		background: url(/img/links-select.png) no-repeat 6px 8px;
 	}
 	#work {
-		width:24px;
-		height:13px;
 		margin : 50px 0 0 210px;
 	}
 	#work span {
 		padding-top:20px;
 	}
 	#work.menu-current {
-		background: url(/img/intro/work-select.png) no-repeat left top;
+		background: url(/img/work-select.png) no-repeat left top;
 	}
+	
 	
 	#menu .icon {
 		display:none;
@@ -160,11 +140,20 @@
 		width:20px;
 		height:20px;
 		margin:-20px 0 0;
+		
+		-webkit-transition: .8s linear;
+		-moz-transition: .8s linear;
+		-o-transition: .8s linear;
+		transition: .8s linear;
 	}
-	#menu.page-work #about {
+	#menu.page-work #pull {
 		left:20px;
 		padding:10px;
 		background:url(/img/circle-1.png) no-repeat center center;
+	}
+	/* ca sera reparer en meme temps que la reparation du menu a letat initial */
+	#menu.page-work #pull span {
+		display:none;
 	}
 	#menu.page-work #links {
 		left:60px;
