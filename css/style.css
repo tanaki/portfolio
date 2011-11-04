@@ -286,11 +286,9 @@ table { border-collapse: collapse; border-spacing: 0; }
 	}
 	nav a.second span {
 		background: #888;
-		/*background-image:url(/img/menu/circle-2.png);*/
 	}
 	nav a.third span {
 		background: #555;
-		/*background-image:url(/img/menu/circle-3.png);*/
 	}
 	nav a.selected {
 		float:right;
@@ -301,10 +299,28 @@ table { border-collapse: collapse; border-spacing: 0; }
 		margin: -91px 0 0 -91px;
 		background: none;
 		border: 8px solid #333;
-		
+
 		-moz-border-radius:91px;
 		-webkit-border-radius:91px;
 		border-radius:91px;
+	}
+
+	nav a#about.selected span {
+		background: url(/img/about/portrait.png) no-repeat center center;
+	}
+	nav a#links.selected span,
+	nav a#works.selected span {
+		background: no-repeat center center;
+	}
+	nav a#links img {
+		display: none;
+	}
+	nav a#links.selected img {
+		display: block;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin: -10px 0 0 -10px;
 	}
 
 /* ABOUT & STUFFS */
@@ -442,7 +458,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		font-size:8px;
 		display:block;
 		padding-top:20px;
-		margin-top:-40px;
+		margin-top:-50px;
 		background:url(/img/about/bg_cv_24.png) no-repeat center -20px;
 	}
 	.page-about .cv:hover {
@@ -451,9 +467,8 @@ table { border-collapse: collapse; border-spacing: 0; }
 	.page-about .cv span {
 		display:block;
 		background:#333;
-		padding:8px;
-
-		border-radius:15px;
+		padding:25px 12px;
+		border-radius:40px;
 	}
 
 

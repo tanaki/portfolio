@@ -6,7 +6,8 @@ define([
 	
 	var worksModel = Backbone.Model.extend({
 		defaults: {
-			
+			slug: "project",
+			title: "Project"
 		},
 		initialize: function(){
 

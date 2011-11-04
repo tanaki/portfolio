@@ -29,6 +29,7 @@ define([
 					.removeClass("second")
 					.removeClass("third")
 					.addClass(i == 0 ? "first" : (i == 1 ? "second" : "third"))
+				$("span", a).css("background-image", "");
 			});
 
 			return this;
@@ -43,26 +44,17 @@ define([
 						$(".breadcrumb .link:last").hide(200);
 
 					var text = $("span", this).text();
-					self._shuffleLetters(".breadcrumb .current", text);
+					text.shuffle( $(".breadcrumb .current") );
 				},
 				"mouseleave" : function(){
 					if ( $(".breadcrumb .link").length > 1 )
 						$(".breadcrumb .link:last").show(200);
 
-					self._shuffleLetters(".breadcrumb .current", this.breadcrumbText);
+					this.breadcrumbText = window.location.hash.slice(2).split("/")[0].capitalize();
+					this.breadcrumbText.shuffle( $(".breadcrumb .current") );
 				}
 			});
 		},
-
-		_shuffleLetters: function(target, str){
-			if (str === undefined) str = window.location.hash.slice(2).split("/")[0].capitalize();
-			var progress = str.length - 2;
-			var timer = setInterval(function() {
-				$(target).text(str.substring(0, progress++));
-				if (progress > str.length) clearInterval(timer);
-			}, 80);
-		},
-
 		updateBreadcrumb: function(idView){
 			this.breadcrumbText = idView.capitalize();
 			$(".current", this.breadcrumb).text( this.breadcrumbText );

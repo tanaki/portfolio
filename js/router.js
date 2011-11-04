@@ -24,6 +24,7 @@ define([
 		routes: {
 			// Define URL routes
 			'/works': 'showWorks',
+			'/works/:slug': 'showWorkDetail',
 			'/about': 'showAbout',
 			'/stuffs': 'showStuffs',
 			'/links': 'showLinks',
@@ -36,6 +37,9 @@ define([
 			currentView = worksListView;
 			this.hide();
 			this.updateBreadcrumb();
+		},
+		showWorkDetail : function(slug){
+			console.log(slug);
 		},
 		showAbout: function(){
 			currentView = aboutView;

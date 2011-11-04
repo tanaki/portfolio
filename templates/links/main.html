@@ -2,29 +2,35 @@
 	<div class="a-z">
 		<a class="link-gobelins selected" href="#">Gobelins</a>
 		<ul>
-			<li><a href="#">Frederik Delmotte</a></li>
-			<li><a href="#">Grgrdvrt</a></li>
-			<li><a href="#">James Booth</a></li>
-			<li><a href="#">Kenzo Mayama</a></li>
-			<li><a href="#">Mr Gnou</a></li>
-			<li><a href="#">Pete Goodman</a></li>
-			<li><a href="#">Philippe Valette</a></li>
-			<li><a href="#">PR4SS</a></li>
-			<li><a href="#">S&eacute;rgio Garcez</a></li>
+			<% _.each(links, function(link){
+				if ( link.get("type") == "az" ) {
+			%>
+				<li><a data-slug="<%= link.get('slug') %>" rel="external" href="http://<%= link.get('url') %>"><%= link.get("name") %></a></li>
+			<%
+				}
+			}); %>
 		</ul>
 	</div>
 	<div class="gobelins">
 		<a class="link-az" href="#">A-Z</a>
 		<ul>
-			<li>Yummy Team</li>
-			<li><a href="#">Marie Laurent</a></li>
-			<li><a href="#">Sylvain Bernardi</a></li>
-			<li><a href="#">Muriel Bougherdani</a></li>
-			<li class="subtitle">CRMA 2010</li>
-			<li><a href="#">Arnaud Tanielian</a></li>
-			<li><a href="#">Faustine Clavert</a></li>
-			<li><a href="#">Jocelyn Lecamus</a></li>
-			<li><a href="#">S&eacute;bastien Bourdu</a></li>
+			<%
+				_.each(links, function(link, i){
+					if ( link.get("isSubtitle") && link.get("class") ) {
+				%>
+					<li class="subtitle"><%= link.get("name") %></li>
+				<%
+					} else if ( link.get("isSubtitle") ) {
+				%>
+					<li><%= link.get("name") %></li>
+				<%
+					} else if ( link.get("type") == "gobelins" ) {
+				%>
+					<li><a data-slug="<%= link.get('slug') %>" rel="external" href="http://<%= link.get('url') %>"><%= link.get("name") %></a></li>
+				<%
+					}
+				});
+			%>
 		</ul>
 	</div>
 </div>

@@ -1,0 +1,40 @@
+{
+    "projects": [
+		{
+			"slug" : "marie-laurent",
+			"title" : "Marie Laurent"
+		},
+		{
+			"slug" : "mindreader",
+			"title" : "Mindreader"
+		},
+		{
+			"slug" : "inq-mobile",
+			"title" : "INQ Mobile"
+		},
+		{
+			"slug" : "my-toblerone",
+			"title" : "My Toblerone"
+		},
+		{
+			"slug" : "nokia-push",
+			"title" : "Nokia Push"
+		},
+		{
+			"slug" : "yummy",
+			"title" : "Yummy"
+		},
+		{
+			"slug" : "arduin-hockey",
+			"title" : "Arduin'Hockey"
+		},
+		{
+			"slug" : "howbama",
+			"title" : "Howbama"
+		},
+		{
+			"slug" : "renault",
+			"title" : "Renault"
+		}
+	]
+}
