@@ -7,23 +7,19 @@ require.config({
 		jQueryShuffle: 'libs/jquery/jquery.shuffle',
 		Underscore: 'libs/underscore/underscore',
 		Backbone: 'libs/backbone/backbone',
+		Raphael: 'libs/raphael/raphael',
 		templates: '../templates'
 	}
 });
 
 require([
-
 	'portfolio',
 	'order!libs/jquery/jquery-min',
 	'order!libs/underscore/underscore-min',
 	'order!libs/backbone/backbone-min'
-
 ], function(Portfolio){
-
 	Portfolio.initialize();
-	
 });
-
 
 // Helpers
 String.prototype.capitalize = function(){
@@ -31,7 +27,6 @@ String.prototype.capitalize = function(){
 }
 
 String.prototype.shuffle = function(container){
-
 	var str = this,
 		progress = str.length - 2,
 		timer = setInterval(function() {
