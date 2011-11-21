@@ -1,0 +1,28 @@
+{
+    "stuffs": [
+		{
+			"index" : 0,
+			"slug" : "amd-javascript",
+			"title" : "AMD Javascript",
+			"img" : "backbone.jpg",
+			"class" : "small",
+			"date" : "11.2011",
+			"text" : "This website based on <abbr title=\"Asynchronous Module Definition\">AMD</abbr> Javascript Architecture using Backbone and Require JS.<br/><br/>The base architecture is a fork of <a href=\"http://backbonetutorials.com/organizing-backbone-using-modules/\">an example</a> from Thomas Davis.",
+			"tags" : [
+				"JS"
+			]
+		},
+		{
+			"index" : 1,
+			"slug" : "one-year-at-pirata",
+			"title" : "One year at Pirata",
+			"img" : "pirata.jpg",
+			"class" : "small",
+			"date" : "11.2011",
+			"text" : "This 15th November was my first year at Pirata.",
+			"tags" : [
+				"JS"
+			]
+		}
+	]
+}

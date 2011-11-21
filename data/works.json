@@ -2,39 +2,119 @@
     "projects": [
 		{
 			"slug" : "marie-laurent",
-			"title" : "Marie Laurent"
+			"title" : "Marie Laurent",
+			"featured" : true,
+			"link" : "http://www.marielaurent.fr",
+			"context" : "Personal project",
+			"text" : "Marie has created and designed the website. I helped her a bit on some UX and build it. It was my first real use of CSS3 transform. I also did a massive job on preloading the content and the images in javascript.",
+			"tags" : [
+				"HTML",
+				"CSS3",
+				"JS"
+			]
 		},
 		{
 			"slug" : "mindreader",
-			"title" : "Mindreader"
+			"title" : "Mindreader",
+			"link" : "http://mindreader.mindshareworld.com",
+			"context" : "Built at Pirata",
+			"text" : "Mindreader is a website based on datavisualisation. The client didn't want a flash website so we choose SVG as a good compromise for cross browser animated graphs.",
+			"tags" : [
+				"HTML",
+				"CSS",
+				"JS",
+				"SVG",
+				"RaphaelJS"
+			]
 		},
 		{
 			"slug" : "inq-mobile",
-			"title" : "INQ Mobile"
+			"title" : "INQ Mobile",
+			"link" : "http://inqmobile.com",
+			"context" : "Built at Pirata",
+			"text" : "The setup was one senior developer on the backend and one on the front end and me as a support for both but I mainly worked on the front end.",
+			"tags" : [
+				"HTML",
+				"CSS",
+				"JS"
+			]
 		},
 		{
 			"slug" : "my-toblerone",
-			"title" : "My Toblerone"
+			"title" : "My Toblerone",
+			"link" : "http://www.mytoblerone.co.uk",
+			"context" : "Built at Pirata",
+			"text" : "I worked on the front end, created the templates and the logic to interact with the flash bit via url.",
+			"tags" : [
+				"HTML",
+				"CSS",
+				"JS"
+			]
 		},
 		{
 			"slug" : "nokia-push",
-			"title" : "Nokia Push"
+			"title" : "Nokia Push",
+			"link" : "http://www.pushsnowboarding.com",
+			"context" : "Built at Pirata",
+			"text" : "My first project at Pirata. I help on both front end and back end. Also worked on adapting Wordpress outside of wordpress, which was quite fun. I also worked on the small flash demos. I learned more on AS and timeline animation.",
+			"tags" : [
+				"HTML",
+				"CSS",
+				"JS",
+				"PHP"
+			]
 		},
 		{
 			"slug" : "yummy",
-			"title" : "Yummy"
+			"title" : "Yummy",
+			"featured" : true,
+			"link" : "http://www.projet-yummy.com/en",
+			"context" : "Student project",
+			"text" : "Yummy is a diploma project produced by 5 graduate students from the Digital Design and Production course at Gobelins, l'École de l'Image.",
+			"tags" : [
+				"UX Design",
+				"AIR",
+				"AS3",
+				"Touch interaction"
+			]
 		},
 		{
 			"slug" : "arduin-hockey",
-			"title" : "Arduin'Hockey"
+			"title" : "Arduin'Hockey",
+			"featured" : true,
+			"link" : "http://www.youtube.com/watch?v=_KQVpXPdpks",
+			"context" : "Personal/Student project",
+			"text" : "We conceived and build the game in 48h. It's a mix of pong and air hockey controlled by hand gestures. We also livestreamed the game and score on every screen in the building.",
+			"tags" : [
+				"Arduino",
+				"Hardware",
+				"HCI",
+				"Kind of Game Design"
+			]
 		},
 		{
 			"slug" : "howbama",
-			"title" : "Howbama"
+			"title" : "Howbama",
+			"link" : "http://howbama.nicolaspigelet.com",
+			"context" : "Student project",
+			"text" : "How'Bama is a first year project, it is a documentary application. The subject was \"create an interactive & multimedia application to (re)visit a moment of History\". This was my first proper AS3 project. Built with Marie Laurent.",
+			"tags" : [
+				"AIR",
+				"AS3",
+				"UX Design"
+			]
 		},
 		{
 			"slug" : "renault",
-			"title" : "Renault"
+			"title" : "Renault",
+			"link" : "http://www.renault.com",
+			"context" : "Built at FullSIX",
+			"text" : "At FullSIX during 2 years, this was one of my biggest project. I worked closely with a Senior Developer and an Art Director to build 3 different module/pages.<ul><li>- Main Menu</li><li>- Vehicule selector on the home page</li><li>- Range page</li></ul>",
+			"tags" : [
+				"HTML",
+				"CSS",
+				"JS"
+			]
 		}
 	]
 }

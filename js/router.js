@@ -13,9 +13,11 @@ define([
 	'views/credits/main'
 ], function($, _, Backbone, navView, mainHomeView, worksListView, aboutView, stuffsView, linksView, creditsView ){
 
-	var currentView = mainHomeView;
+	var
+		currentView = mainHomeView,
+		isInit = true;
 
-	worksListView.id = "works";
+	worksListView.id = "work";
 	aboutView.id = "about";
 	stuffsView.id = "stuffs";
 	linksView.id = "links";
@@ -23,8 +25,8 @@ define([
 	var AppRouter = Backbone.Router.extend({
 		routes: {
 			// Define URL routes
-			'/works': 'showWorks',
-			'/works/:slug': 'showWorkDetail',
+			'/work': 'showWorks',
+			'/work/:slug': 'showWorkDetail',
 			'/about': 'showAbout',
 			'/stuffs': 'showStuffs',
 			'/links': 'showLinks',
@@ -34,62 +36,64 @@ define([
 		},
 
 		showWorks: function(){
-			currentView = worksListView;
-			this.hide();
-			this.updateBreadcrumb();
+			this._displayPage(worksListView);
 		},
 		showWorkDetail : function(slug){
 			console.log(slug);
 		},
 		showAbout: function(){
-			currentView = aboutView;
-			this.hide();
-			this.updateBreadcrumb();
+			this._displayPage(aboutView);
 		},
 		showStuffs: function(){
-			currentView = stuffsView;
-			this.hide();
-			this.updateBreadcrumb();
+			this._displayPage(stuffsView);
 		},
 		showLinks: function(){
-			currentView = linksView;
-			this.hide();
-			this.updateBreadcrumb();
+			this._displayPage(linksView);
 		},
 		showCredits: function(){
-			currentView = creditsView;
-			this.hide();
+			// currentView = creditsView;
+			// this.hide();
 		},
 		defaultAction: function(actions){
-			currentView = mainHomeView;
-			this.hide();
+			// currentView = mainHomeView;
+			// this.hide();
+		},
+
+		_displayPage : function(view) {
+			if ( !isInit ) {
+				currentView.hide(view);
+			}
+			else {
+				isInit = false;
+				currentView = view;
+				view.render();
+				this.updateBreadcrumb();
+			}
 		},
 
 		updateBreadcrumb : function(){
 			navView.updateBreadcrumb(currentView.id);
-		},
-		show: function(){
-			if(currentView !== null) currentView.render(this);
-		},
-		hide: function(){
-			if(currentView !== null) currentView.hide(this);
 		}
 	});
 
 	var initialize = function(){
+		
 		var app_router = new AppRouter;
-		app_router
-			.bind("hide", function(){
-				this.show();
-			})
-			.bind("showNav", function(){
+		EH.bind({
+			"hidden" : function(e, view){
+				currentView = view;
+				view.render();
+				app_router.updateBreadcrumb();
+			},
+			"showNav" : function(){
 				navView
 					.order(currentView.id)
 					.render();
-			})
-			.bind("hideNav", function(){
+			},
+			"hideNav" : function(){
 				navView.hide();
-			});
+			}
+		});
 		navView.initBreadcrumb();
 
 		Backbone.history.start();

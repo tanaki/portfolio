@@ -10,36 +10,48 @@ define([
 	
 	var projectListView = Backbone.View.extend({
 		el: $("#page .content"),
-		initialize: function(){
+		hide: function(target){
+			this.el.fadeOut(300, function(){
+				EH.trigger("hidden", target);
+			});
+		},
+		render: function(){
+			EH.trigger("showNav");
 
 			this.collection = projectsCollection;
-			$.ajax({
-				url : "/data/works.json",
-				success : function(response){
-					_.each(response.projects, function(el, i){
-						this.collection = projectsCollection.add({
-							name: el.slug,
-							slug: el.slug,
-							title: el.title
+			if ( this.collection.length == 0 ) {
+				var self = this;
+				$.ajax({
+					url : "/data/works.json",
+					success : function(response){
+						_.each(response.projects, function(el, i){
+							this.collection = projectsCollection.add({
+								name: el.slug,
+								slug: el.slug,
+								title: el.title,
+								featured: el.featured,
+								context: el.context,
+								link: el.link,
+								text: el.text,
+								tags: el.tags
+							});
 						});
-					});
-				}
-			});
-		},
-		hide: function(app_router){
-			this.el.fadeOut(300, function(){
-				app_router.trigger("hide");
-			});
-		},
-		render: function(app_router){
-			app_router.trigger("showNav");
+						self._display();
+					}
+				});
+			} else {
+				this._display();
+			}
 			
+		},
+
+		_display : function(){
 			var data = {
 				projects: this.collection.models,
 				_: _
 			};
 			var compiledTemplate = _.template( projectListTemplate, data );
-			this.el.html( compiledTemplate ).fadeIn();
+			this.el.html( compiledTemplate ).fadeIn(300);
 			this._initLinks();
 		},
 		
@@ -48,7 +60,7 @@ define([
 			var 
 				// aLeft = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95],
 				// aTop = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95];
-				aLeft = [20, 30, 40, 50, 60, 70, 80, 90],
+				aLeft = [30, 40, 50, 60, 70, 80, 90],
 				aTop = [10, 20, 30, 40, 50, 60, 70, 80, 90];
 
 			aLeft = $.shuffle(aLeft);
@@ -58,8 +70,8 @@ define([
 				$(a)
 					.css({
 						"position" : "absolute",
-						"left" : (i * 10) + "%",
-						"top" : "40%"
+						"left" : ((i+1) * 10) + "%",
+						"top" : "45%"
 					})
 					.animate({
 						"left" : aLeft[i] + "%",
@@ -83,7 +95,10 @@ define([
 								.fadeIn(400);
 
 							$(this).text().shuffle( $(".breadcrumb .current:last") );
-							$("nav .selected span").css("background-image", "url(/img/work/projects/"+ $(this).data('slug') +".jpg)");
+
+							$("nav .selected span")
+								.css("background-image", "url(/img/work/projects/"+ $(this).data('slug') +".jpg)");
+
 						},
 						function(){
 

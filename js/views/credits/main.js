@@ -8,13 +8,14 @@ define([
 
 	var creditsView = Backbone.View.extend({
 		el: $("#page .content"),
-		hide: function(app_router){
+		hide: function(target){
 			this.el.fadeOut(300, function(){
-				app_router.trigger("hide");
+				EH.trigger("hidden", target);
 			});
 		},
-		render: function(app_router){
-			app_router.trigger("showNav");
+		render: function(){
+			console.log("credits render");
+			EH.trigger("showNav");
 			this.el.html( creditsTemplate ).fadeIn();
 		}
 	});

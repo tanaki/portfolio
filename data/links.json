@@ -21,6 +21,11 @@
 			"slug" : "kenzomayama"
 		},
 		{
+			"name" : "Cat Mollins",
+			"url" : "www.mcollins.co.uk",
+			"slug" : "catmollins"
+		},
+		{
 			"name" : "Mr Gnou",
 			"url" : "mrgnou.com",
 			"slug" : "mrgnou"
@@ -44,11 +49,6 @@
 			"name" : "S&eacute;rgio Garcez",
 			"url" : "sergiogarcez.com",
 			"slug" : "sergiogarcez"
-		},
-		{
-			"name" : "Thibault Lanssade",
-			"url" : "tibolan.free.fr",
-			"slug" : "thibaultlanssade"
 		}
 	],
 	"gobelins" : [

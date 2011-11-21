@@ -205,6 +205,10 @@ table { border-collapse: collapse; border-spacing: 0; }
 		font-family: Copy0855;
 		src: url('font/copy0855.ttf');
 	}
+	@font-face {
+		font-family: Abadi;
+		src: url('font/AbadiMTStd-Light.otf');
+	}
 
 	body {
 		background:#222;
@@ -238,7 +242,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 	.page-about #wrapper,
 	.page-links #wrapper,
 	.page-stuffs #wrapper,
-	.page-works #wrapper {
+	.page-work #wrapper {
 		display: block;
 	}
 
@@ -307,7 +311,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		width:166px;
 		height:166px;
 		margin: -91px 0 0 -91px;
-		background: none;
+		background: none no-repeat center center;
 		border: 8px solid #333;
 
 		-moz-border-radius:91px;
@@ -319,7 +323,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		background: url(/img/about/portrait.png) no-repeat center center;
 	}
 	nav a#links.selected span,
-	nav a#works.selected span {
+	nav a#work.selected span {
 		background: no-repeat center center;
 	}
 	nav a#links img {
@@ -345,7 +349,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 	.page-links nav a.selected {
 		/*background-image:url(/img/menu/menu-links.png);*/
 	}
-	.page-works nav a.selected span,
+	.page-work nav a.selected span,
 	.page-links nav a.selected span {
 		width:98px;
 		height:98px;
@@ -394,16 +398,16 @@ table { border-collapse: collapse; border-spacing: 0; }
 		color:#888;
 	}
 	.breadcrumb li.transition {
-		font-family:Arial, sans-serif;
+		font-family:Abadi, Arial, sans-serif;
 	}
 	.breadcrumb li.current {
 		font-size:18px;
-		font-family:Arial, sans-serif;
+		font-family:Abadi, Arial, sans-serif;
 		margin-left:5px;
 	}
 
 /* WORKS CONTENT */
-	.page-works .list-works {
+	.page-work .list-works {
 		position:absolute;
 		top:50%;
 		left:400px;
@@ -412,7 +416,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		width:50%;
 		margin-top:-25%;
 	}
-	.page-works .list-works li a {
+	.page-work .list-works li a {
 		display:block;
 
 		width:50px;
@@ -421,10 +425,19 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 		overflow:hidden;
 		text-indent:-5000px;
+		z-index: 1;
 	}
-	.page-works .list-works li a:hover {
-		background-position:center bottom;
+	.page-work .list-works li a:hover {
+		background-position:center -50px;
 	}
+	.page-work .list-works li a.featured {
+		background-position: center -100px;
+		z-index: 2;
+	}
+	.page-work .list-works li a.featured:hover {
+		background-position: center -150px;
+	}
+
 
 
 /* ABOUT CONTENT */
@@ -433,18 +446,25 @@ table { border-collapse: collapse; border-spacing: 0; }
 		top:50%;
 		left:0;
 
-		margin:-170px 0 0 545px;
-		width:230px;
+		margin:-145px 0 0 545px;
+		width:290px;
 		color:#777;
-		font-size:8px;
-		line-height:20px;
+		font-family: Abadi, Arial, sans-serif;
+		font-size:14px;
+		line-height:18px;
+	}
+	.page-about p a {
+		color:#ddd;
+	}
+	.page-about p a:hover {
+		color:#ccc;
 	}
 	.page-about .cv {
 		position:absolute;
 		top:50%;
 		right:50px;
 
-		color:#bbb;
+		color:#ddd;
 		font-size:8px;
 		display:block;
 		padding-top:20px;
@@ -457,13 +477,54 @@ table { border-collapse: collapse; border-spacing: 0; }
 	.page-about .cv span {
 		display:block;
 		background:#333;
-		padding:25px 12px;
+		padding:13px 12px;
 		border-radius:40px;
 	}
 
 /* STUFFS CONTENT */
 	.page-stuffs {
 		
+	}
+	.page-stuffs .content {
+		position:absolute;
+		top:0;
+		left:0;
+
+		margin:0 200px 0 545px;
+		color:#fff;
+		font-family: Abadi, Arial, sans-serif;
+		font-size:14px;
+		line-height:18px;
+	}
+	.page-stuffs .content,
+	.page-stuffs .content ul {
+		height: 100%;
+	}
+	.page-stuffs .content li .stuff-content {
+		position: absolute;
+		width: 290px;
+	}
+	.page-stuffs .content li .title {
+		display: block;
+		font-size: 18px;
+	}
+	.page-stuffs .content li .date {
+		display: block;
+		font-size: 8px;
+		font-family: Copy0855, Arial, sans-serif;
+		margin-bottom: 20px;
+	}
+	.page-stuffs .content li .text {
+		
+	}
+	.page-stuffs .content li a {
+		color: #ddd;
+	}
+	.page-stuffs .content li a:hover {
+		color: #ccc;
+	}
+	.page-stuffs .content li .small {
+		top: 40%;
 	}
 
 /* LINKS CONTENT */
@@ -642,6 +703,141 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 @media only screen and (min-width: 768px) {
   /* Style adjustments for viewports 768px and over go here */
+
+}
+
+@media only screen and (max-width: 1000px) {
+
+	body {
+		overflow:auto;
+	}
+	#wrapper {
+		height:auto;
+	}
+
+	nav {
+		float:none;
+		position:static;
+		margin:0 auto;
+		width:80%;
+		height:auto;
+		top:0;
+		left:0;
+	}
+	nav a {
+		position:static;
+		width:auto;
+		height:auto;
+		color:#fff;
+		float:left;
+	}
+	nav a span {
+		position:static;
+		width:auto;
+		height:auto;
+		text-indent:0;
+		background:none;
+		top:0;
+		left:0;
+		color:#aaa;
+	}
+	nav a.first span,
+	nav a.second span,
+	nav a.third span {
+		background:none;
+	}
+	nav a.first,
+	nav a.second,
+	nav a.third {
+		margin-top:0;
+	}
+	nav a.selected,
+	nav a.selected span {
+		position:static;
+		width:auto;
+		height:auto;
+		float:none;
+		margin:0;
+		background:none;
+		border:0;
+	}
+	nav a#about.selected span,
+	nav a#work.selected span,
+	nav a#stuffs.selected span,
+	nav a#links.selected span {
+		background:none;
+		margin:0;
+		width:auto;
+		height:auto;
+	}
+	nav a#work.selected span {
+		background:none !important;
+	}
+	nav a,
+	nav a.selected {
+		float:left;
+		width:25%;
+	}
+	nav a span,
+	nav a.selected span {
+		border-radius:0;
+		margin:0;
+		text-align:center;
+		padding:10px;
+	}
+	nav a.selected span {
+		color:#fff;
+	}
+
+	/* BREADCRUMB */
+	.breadcrumb {
+		display:none !important;
+	}
+
+	/* WORKS */
+	.page-work .list-works {
+		position:static;
+		top:0;
+		left:0;
+		width:auto;
+		height:auto;
+		margin:0;
+	}
+	.page-work .list-works li a {
+		background:none;
+		position:static !important;
+		top:0 !important;
+		left:0 !important;
+		width:auto;
+		height:auto;
+		text-indent:0;
+		color:#fff;
+		padding:20px;
+		text-align:center;
+
+		font-family:Abadi, Arial, sans-serif;
+		font-size:14px;
+	}
+
+
+	footer {
+		position:static;
+		right:auto;
+		bottom:auto;
+		padding:25px 0;
+
+		width:auto;
+		background:none;
+		overflow:hidden;
+		text-align:center;
+	}
+	footer ul {
+		float:none;
+		text-align:center;
+		overflow:hidden;
+		width:165px;
+		margin:0 auto;
+	}
 
 }
 

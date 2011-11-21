@@ -26,41 +26,6 @@ define([
 				$("nav .selected span").css("background-image", "url(/img/links/external/"+ $(this).data('slug') +".jpg)");
 			});
 
-			this.collection = linksCollection;
-			$.ajax({
-				url: "/data/links.json",
-				success : function(response){
-
-					_.each(response.az, function(el, i){
-						this.collection = linksCollection.add({
-							name: el.name,
-							url: el.url,
-							slug: el.slug,
-							type: "az"
-						});
-					});
-
-					_.each(response.gobelins, function(el, i){
-						
-						this.collection = linksCollection.add({
-							name: el.name,
-							type: "gobelins",
-							isSubtitle: true,
-							"class": i != 0
-						});
-						
-						_.each( el.people, function(link){
-							this.collection = linksCollection.add({
-								name: link.name,
-								url: link.url,
-								slug: link.slug,
-								type: "gobelins"
-							});
-						});
-					});
-				}
-			});
-
 		},
 
 		toggleLists : function (target, isAZ) {
@@ -85,23 +50,67 @@ define([
 			$(".line").toggleClass("line-toggled");
 		},
 
-		hide: function(app_router){
+		hide: function(target){
 			this.el.fadeOut(300, function(){
-				app_router.trigger("hide");
+				EH.trigger("hidden", target);
 			});
 		},
-		render: function(app_router){
-			app_router.trigger("showNav");
+		render: function(){
+			EH.trigger("showNav");
 			
-			if ($(".line").length == 0) this.page.append('<div class="line"></div>');
+			var self = this;
+			this.collection = linksCollection;
+			if ( this.collection.length == 0 ) {
+				$.ajax({
+					url: "/data/links.json",
+					success : function(response){
+
+						_.each(response.az, function(el, i){
+							this.collection = linksCollection.add({
+								name: el.name,
+								url: el.url,
+								slug: el.slug,
+								type: "az"
+							});
+						});
+
+						_.each(response.gobelins, function(el, i){
+
+							this.collection = linksCollection.add({
+								name: el.name,
+								type: "gobelins",
+								isSubtitle: true,
+								"class": i != 0
+							});
+
+							_.each( el.people, function(link){
+								this.collection = linksCollection.add({
+									name: link.name,
+									url: link.url,
+									slug: link.slug,
+									type: "gobelins"
+								});
+							});
+						});
+						self._display();
+					}
+				});
+			} else {
+				self._display();
+			}
+		},
+
+		_display: function(){
+			var self = this;
+			if ($(".line").length == 0) self.page.append('<div class="line"></div>');
 			else $(".line").removeClass("line-toggled");
-			
+
 			var data = {
-				links: this.collection.models,
+				links: self.collection.models,
 				_: _
 			};
 			var compiledTemplate = _.template( linksTemplate, data );
-			this.el.html( compiledTemplate ).fadeIn();
+			self.el.html( compiledTemplate ).fadeIn();
 		}
 	});
 	return new linksView;

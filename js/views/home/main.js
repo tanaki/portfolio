@@ -36,13 +36,14 @@ define([
 		initialize: function(){
 			object = this;
 		},
-		hide: function(app_router){
+		hide: function(target){
 			this.el.fadeOut(300, function(){
-				app_router.trigger("hide");
+				EH.trigger("hidden", target);
 			});
 		},
-		render: function(app_router){
-			app_router.trigger("hideNav");
+		render: function(){
+			console.log("home render");
+			EH.trigger("hideNav");
 			this.el.html(mainHomeTemplate).fadeIn();
 
 			var self = this;

@@ -1,9 +1,11 @@
 <ul>
 	<% _.each(stuffs, function(stuff){ %>
-		<li>
-			<span class="title"><%= stuff.get("name") %></span>
-			<span class="text"><%= stuff.get("text") %></span>
-			<img alt="<%= stuff.get('name') %>" src="<%= stuff.get('img') %>" />
+	<li <% if ( stuff.get('index') > 0 ) { print('class="hidden"'); } %> data-index="<%= stuff.get('index') %>" data-img="<%= stuff.get('img') %>">
+			<span class="stuff-content transition <%= stuff.get('class') %>">
+				<span class="title"><%= stuff.get("title") %></span>
+				<span class="date"><%= stuff.get("date") %></span>
+				<span class="text"><%= stuff.get("text") %></span>
+			</span>
 		</li>
 	<% }); %>
 </ul>

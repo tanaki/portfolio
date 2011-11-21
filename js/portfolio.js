@@ -8,6 +8,10 @@ define([
 
 	var initialize = function(){
 		$("html").removeClass("no-js")
+
+		// Event Helpers
+		window.EH = $({});
+
 		Router.initialize();
 	}
 

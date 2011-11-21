@@ -7,7 +7,12 @@ define([
 	var worksModel = Backbone.Model.extend({
 		defaults: {
 			slug: "project",
-			title: "Project"
+			title: "Project",
+			featured : false,
+			context: "Project",
+			link: "http://nicolaspigelet.com",
+			text: "description of the project",
+			tags: []
 		},
 		initialize: function(){
 
