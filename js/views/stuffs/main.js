@@ -9,12 +9,22 @@ define([
 
 	var stuffsView = Backbone.View.extend({
 		el: $("#page .content"),
-		hide: function(target){
-			this.el.fadeOut(300, function(){
-				EH.trigger("hidden", target);
+		initialize : function(){
+			$(window).resize(function(){
+				$(".page-stuffs .content").css("width", $(window).width() - 565 );
+
+				var 
+					navStuffs = $(".page-stuffs .content .nav-stuffs"),
+					hNavStuffs = $(".page-stuffs .content .nav-stuffs li").length * 30 + 60;
+				navStuffs.css("top", (($(window).height() - hNavStuffs) / 2) );
 			});
 		},
-		render: function(){
+		hide: function(target, slug){
+			this.el.fadeOut(300, function(){
+				EH.trigger("hidden", [target, slug]);
+			});
+		},
+		render: function(selectedSlug){
 			EH.trigger("showNav");
 
 			this.collection = stuffsCollection;
@@ -28,29 +38,31 @@ define([
 								index: el.index,
 								slug: el.slug,
 								title: el.title,
-								class: el.class,
-								data: el.date,
+								top: el.top,
+								date: el.date,
 								img: el.img,
 								text: el.text,
 								tags: el.tags
 							});
 						});
-						self._display();
+						self._display(selectedSlug);
 					}
 				});
 			} else {
-				this._display();
+				this._display(selectedSlug);
 			}
 		},
 
-		_display : function(){
+		_display : function(selectedSlug){
 			var data = {
 				stuffs: this.collection.models,
+				selectedSlug: selectedSlug,
 				_: _
 			};
 			var compiledTemplate = _.template( stuffsTemplate, data );
 			this.el.html( compiledTemplate ).fadeIn();
 			this._updateImage();
+			$(window).resize();
 		},
 
 		_updateImage : function(){

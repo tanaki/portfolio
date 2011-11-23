@@ -209,7 +209,10 @@ table { border-collapse: collapse; border-spacing: 0; }
 		font-family: Abadi;
 		src: url('font/AbadiMTStd-Light.otf');
 	}
-
+	html, body {
+		height:100%;
+		width:100%;
+	}
 	body {
 		background:#222;
 		font-family: Copy0855, Arial, sans-serif;
@@ -490,41 +493,75 @@ table { border-collapse: collapse; border-spacing: 0; }
 		top:0;
 		left:0;
 
-		margin:0 200px 0 545px;
+		width: 100%;
+		margin:0 0 0 545px;
 		color:#fff;
 		font-family: Abadi, Arial, sans-serif;
 		font-size:14px;
 		line-height:18px;
 	}
 	.page-stuffs .content,
-	.page-stuffs .content ul {
+	.page-stuffs .content .articles {
 		height: 100%;
 	}
-	.page-stuffs .content li .stuff-content {
+	.page-stuffs .content .articles li {
+		height: 100%;
+		width:100%;
+		color: #ddd;
+	}
+	.page-stuffs .content .articles li .stuff-content {
 		position: absolute;
 		width: 290px;
 	}
-	.page-stuffs .content li .title {
+	.page-stuffs .content .articles li .title {
 		display: block;
 		font-size: 18px;
-	}
-	.page-stuffs .content li .date {
-		display: block;
-		font-size: 8px;
-		font-family: Copy0855, Arial, sans-serif;
 		margin-bottom: 20px;
 	}
-	.page-stuffs .content li .text {
-		
+	.page-stuffs .content .articles li .text {
 	}
-	.page-stuffs .content li a {
+	.page-stuffs .content .articles li a {
 		color: #ddd;
+		text-decoration: underline;
 	}
-	.page-stuffs .content li a:hover {
-		color: #ccc;
+	.page-stuffs .content .articles li a:hover {
+		text-decoration: none;
 	}
-	.page-stuffs .content li .small {
+	.page-stuffs .content .articles li .small {
 		top: 40%;
+	}
+
+	.page-stuffs .content .nav-stuffs {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.page-stuffs .content .nav-stuffs li {
+		width:20px;
+		height:20px;
+		background:url(/img/menu/circle-3.png) no-repeat center center;
+		margin: 10px 0 0 30px;
+	}
+	.page-stuffs .content .nav-stuffs li a {
+		display: block;
+		text-indent: -5000px;
+		overflow: hidden;
+	}
+	.page-stuffs .content .nav-stuffs li.current {
+		width:80px;
+		height:80px;
+		background:#333;
+		border-radius:40px;
+		margin-left: 0;
+	}
+	.page-stuffs .content .nav-stuffs li.current a {
+		display: block;
+		color: #fff;
+		font-size: 8px;
+		font-family: Copy0855, Arial, sans-serif;
+		text-align: center;
+		padding: 32px 0 28px;
+		text-indent: 0;
 	}
 
 /* LINKS CONTENT */
@@ -570,6 +607,12 @@ table { border-collapse: collapse; border-spacing: 0; }
 			left:555px;
 			top:0;
 			z-index:12;
+
+			-webkit-transform:rotate(0deg);
+			-moz-transform:rotate(0deg);
+			-o-transform:rotate(0deg);
+			-ms-transform:rotate(0deg);
+			transform:rotate(0deg);
 		}
 		.page-links .line-toggled {
 			background-position:136px center;
@@ -660,6 +703,91 @@ table { border-collapse: collapse; border-spacing: 0; }
 	}
 
 
+	/* background */
+	#background {
+		width:100%;
+		height:100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background:#222;
+	}
+	/*
+	#background div {
+		background:#fff;
+		position: absolute;
+		-webkit-transition:1s;
+	}
+	#background .top-left,
+	#background .top-right,
+	#background .bottom-left {
+		width:51%;
+		height:100px;
+	}
+	#background .left-top,
+	#background .left-bottom,
+	#background .right-top {
+		width:100px;
+		height:50%;
+	}
+	#background .top-left {
+		top:-100px;
+		left:0;
+
+		-webkit-transform:rotate(0deg);
+		-webkit-transform-origin:100% 0%;
+	}
+	#background .top-right {
+		top:-100px;
+		right:0;
+
+		-webkit-transform:rotate(0deg);
+		-webkit-transform-origin:0% 0%;
+	}
+	#background .bottom-left {
+		left:0;
+		bottom:-100px;
+		
+		-webkit-transform:rotate(0deg);
+		-webkit-transform-origin:100% 0%;
+	}
+	#background .left-top {
+		left:-100px;
+		top:0;
+
+		-webkit-transform:rotate(0deg);
+		-webkit-transform-origin:100% 100%;
+	}
+	#background .left-bottom {
+		left:-100px;
+		bottom:0;
+
+		-webkit-transform:rotate(0deg);
+		-webkit-transform-origin:100% 0%;
+	}
+	#background .right-top {
+		right:-100px;
+		top:0;
+
+		-webkit-transform:rotate(0deg);
+		-webkit-transform-origin:0% 100%;
+	}
+	#background .top-left.show {
+		-webkit-transform:rotate(-1deg);
+	}
+	#background .bottom-left.show,
+	#background .top-right.show {
+		-webkit-transform:rotate(1deg);
+	}
+	#background .left-top.show {
+		-webkit-transform:rotate(2deg);
+	}
+	#background .right-top.show,
+	#background .left-bottom.show {
+		-webkit-transform:rotate(-2deg);
+	}
+	*/
+
 /* =============================================================================
    Non-semantic helper classes
    Please define your styles before this section.
@@ -706,7 +834,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 768px) {
 
 	body {
 		overflow:auto;

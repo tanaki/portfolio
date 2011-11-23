@@ -13,12 +13,14 @@ require.config({
 });
 
 require([
-	'portfolio',
 	'order!libs/jquery/jquery-min',
 	'order!libs/underscore/underscore-min',
-	'order!libs/backbone/backbone-min'
-], function(Portfolio){
+	'order!libs/backbone/backbone-min',
+	'portfolio',
+	'background'
+], function($, _, b, Portfolio, Background){
 	Portfolio.initialize();
+	Background.initialize();
 });
 
 // String Helpers

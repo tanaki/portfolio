@@ -29,6 +29,7 @@ define([
 			'/work/:slug': 'showWorkDetail',
 			'/about': 'showAbout',
 			'/stuffs': 'showStuffs',
+			'/stuffs/:slug': 'showStuffsData',
 			'/links': 'showLinks',
 			'/credits': 'showCredits',
 			// Default
@@ -47,6 +48,9 @@ define([
 		showStuffs: function(){
 			this._displayPage(stuffsView);
 		},
+		showStuffsData : function(slug){
+			this._displayPage(stuffsView, slug);
+		},
 		showLinks: function(){
 			this._displayPage(linksView);
 		},
@@ -59,14 +63,14 @@ define([
 			// this.hide();
 		},
 
-		_displayPage : function(view) {
+		_displayPage : function(view, slug) {
 			if ( !isInit ) {
-				currentView.hide(view);
+				currentView.hide(view, slug);
 			}
 			else {
 				isInit = false;
 				currentView = view;
-				view.render();
+				view.render(slug);
 				this.updateBreadcrumb();
 			}
 		},
@@ -80,9 +84,9 @@ define([
 		
 		var app_router = new AppRouter;
 		EH.bind({
-			"hidden" : function(e, view){
+			"hidden" : function(e, view, slug){
 				currentView = view;
-				view.render();
+				view.render(slug);
 				app_router.updateBreadcrumb();
 			},
 			"showNav" : function(){

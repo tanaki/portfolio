@@ -1,11 +1,17 @@
-<ul>
+<ul class="articles" data-se="<%= selectedSlug %>">
 	<% _.each(stuffs, function(stuff){ %>
-	<li <% if ( stuff.get('index') > 0 ) { print('class="hidden"'); } %> data-index="<%= stuff.get('index') %>" data-img="<%= stuff.get('img') %>">
-			<span class="stuff-content transition <%= stuff.get('class') %>">
+	<li <% if ( (selectedSlug && stuff.get('slug') !== selectedSlug) || (!selectedSlug && stuff.get('index') != 0) ) { print('class="hidden"'); } %> data-index="<%= stuff.get('index') %>" data-img="<%= stuff.get('img') %>" data-slug="<%= stuff.get('slug') %>">
+			<span class="stuff-content transition" style="top:<%= stuff.get('top') %>;">
 				<span class="title"><%= stuff.get("title") %></span>
-				<span class="date"><%= stuff.get("date") %></span>
 				<span class="text"><%= stuff.get("text") %></span>
 			</span>
+		</li>
+	<% }); %>
+</ul>
+<ul class="nav-stuffs">
+	<% _.each(stuffs, function(stuff){ %>
+		<li <% if ( (selectedSlug && stuff.get('slug') === selectedSlug) || (!selectedSlug && stuff.get('index') == 0) ) { print('class="current"'); } %>>
+			<a href="/#/stuffs/<%= stuff.get('slug') %>"><%= stuff.get('date') %></a>
 		</li>
 	<% }); %>
 </ul>

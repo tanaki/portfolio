@@ -25,7 +25,6 @@ define([
 			$(".container ul li a").live("mouseover", function(){
 				$("nav .selected span").css("background-image", "url(/img/links/external/"+ $(this).data('slug') +".jpg)");
 			});
-
 		},
 
 		toggleLists : function (target, isAZ) {
@@ -102,6 +101,7 @@ define([
 
 		_display: function(){
 			var self = this;
+
 			if ($(".line").length == 0) self.page.append('<div class="line"></div>');
 			else $(".line").removeClass("line-toggled");
 

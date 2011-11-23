@@ -7,7 +7,11 @@ define([
 ], function($, _, Backbone, Router){
 
 	var initialize = function(){
-		$("html").removeClass("no-js")
+		$("html").removeClass("no-js");
+		$('a[rel="external"]').live("click", function(e){
+			e.preventDefault();
+			window.open( $(this).attr('href') , "_blank" );
+		});
 
 		// Event Helpers
 		window.EH = $({});

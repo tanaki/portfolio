@@ -5,8 +5,8 @@
 			"slug" : "amd-javascript",
 			"title" : "AMD Javascript",
 			"img" : "backbone.jpg",
-			"class" : "small",
-			"date" : "11.2011",
+			"top" : "42%",
+			"date" : "06.12.2011",
 			"text" : "This website based on <abbr title=\"Asynchronous Module Definition\">AMD</abbr> Javascript Architecture using Backbone and Require JS.<br/><br/>The base architecture is a fork of <a href=\"http://backbonetutorials.com/organizing-backbone-using-modules/\">an example</a> from Thomas Davis.",
 			"tags" : [
 				"JS"
@@ -17,12 +17,57 @@
 			"slug" : "one-year-at-pirata",
 			"title" : "One year at Pirata",
 			"img" : "pirata.jpg",
-			"class" : "small",
-			"date" : "11.2011",
+			"top" : "47%",
+			"date" : "15.11.2011",
 			"text" : "This 15th November was my first year at Pirata.",
 			"tags" : [
 				"JS"
 			]
+		},
+		{
+			"index" : 2,
+			"slug" : "test",
+			"title" : "Test",
+			"img" : "pirata.jpg",
+			"top" : "47%",
+			"date" : "10.11.2011",
+			"text" : "Test"
+		},
+		{
+			"index" : 3,
+			"slug" : "test-2",
+			"title" : "Test 2",
+			"img" : "pirata.jpg",
+			"top" : "47%",
+			"date" : "10.11.2011",
+			"text" : "Test"
+		},
+		{
+			"index" : 4,
+			"slug" : "test-3",
+			"title" : "Test 3",
+			"img" : "pirata.jpg",
+			"top" : "47%",
+			"date" : "10.11.2011",
+			"text" : "Test"
+		},
+		{
+			"index" : 5,
+			"slug" : "test-4",
+			"title" : "Test 4",
+			"img" : "pirata.jpg",
+			"top" : "47%",
+			"date" : "10.11.2011",
+			"text" : "Test"
+		},
+		{
+			"index" : 6,
+			"slug" : "test-5",
+			"title" : "Test 5",
+			"img" : "pirata.jpg",
+			"top" : "47%",
+			"date" : "10.11.2011",
+			"text" : "Test"
 		}
 	]
 }
