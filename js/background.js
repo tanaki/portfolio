@@ -6,6 +6,8 @@ define([
 
 	var 
 		R = null,
+		line = null,
+		angle = 0,
 		topLeft = null,
 		topRight = null,
 		rightTop = null,
@@ -21,6 +23,7 @@ define([
 		initialize = function(){
 
 			R = Raphael(document.getElementById("background"), "100%", "100%");
+			angle = randomBetween(-20, 20);
 
 			var
 				fWidth = $(window).width(),
@@ -34,7 +37,14 @@ define([
 					"fill" : "#ffffff"
 				};
 
-
+			line = R
+				.path("M0," + fHeight + "L" + fWidth + ",0")
+				.attr({
+					"fill" : "#333333",
+					"stroke" : "#333333",
+					"stroke-width" : 1
+				});
+			
 			topLeft = R.path("M0,0L0,0 " + hWidth + ",0Z").attr(defaultAttr);
 			topRight = R.path("M" + hWidth + ",0L" + fWidth + ",0 " + fWidth + ",0Z").attr(defaultAttr);
 			rightTop = R.path("M" + fWidth + ",0L" + fWidth + ",0 " + fWidth + "," + hHeight + "Z").attr(defaultAttr);
@@ -61,38 +71,49 @@ define([
 				clearTimeout(timeoutResize);
 				paused = true;
 				hideWhiteStuffs();
-				console.log("resize", paused);
 				timeoutResize = setTimeout(function(){
 					paused = false;
 					run();
-					console.log("timeout", paused);
 				}, 1500);
 			});
 		},
 		run = function() {
-			if ( frameNum % 150 == 0 ) {
+			if ( frameNum % 250 == 0 ) {
 				displayWhiteStuffs();
+			}
+			if ( frameNum % 600 == 0 ) {
+				rotateLine();
 			}
 			frameNum++;
 			if (!paused) requestAnimFrame( run );
 		},
+		rotateLine = function() {
+			angle = -1 * (angle + randomBetween(-2, 2) );
+			line.animate({
+				"transform" : "r" + angle + " 0 " + $(window).height()
+			}, 250);
+		},
 		random = function(X) {
 			return Math.floor(X * (Math.random() % 1));
 		},
+		randomBetween= function(MinV, MaxV) {
+			return MinV + random(MaxV - MinV + 1);
+		},
 		displayWhiteStuffs = function(){
-			var rand = random(elements.length - 1);
+			var rand = random(elements.length);
 			var
-				duration = 250,
+				duration = randomBetween(50, 150),
+				randomOffset = random(30),
 				fWidth = $(window).width(),
 				fHeight = $(window).height(),
 				hWidth = Math.round( $(window).width() / 2),
 				hHeight = Math.round( $(window).height() / 2);
-
+				
 			switch (rand) {
 				case 0 :
 					if ( !topLeft.open ) {
 						topLeft.animate({
-							path : "M0,0L0,20 " + hWidth + ",0Z"
+							path : "M0,0L0," + randomOffset + " " + hWidth + ",0Z"
 						}, duration, function(){
 							topLeft.open = true;
 						});
@@ -107,7 +128,7 @@ define([
 				case 1 :
 					if ( !topRight.open ) {
 						topRight.animate({
-							path : "M" + hWidth + ",0L" + fWidth + ",20 " + fWidth + ",0Z"
+							path : "M" + hWidth + ",0L" + fWidth + "," + randomOffset + " " + fWidth + ",0Z"
 						}, duration, function(){
 							topRight.open = true;
 						});
@@ -122,7 +143,7 @@ define([
 				case 2 :
 					if ( !rightTop.open ) {
 						rightTop.animate({
-							path : "M" + fWidth + ",0L" + (fWidth - 20) + ",0 " + fWidth + "," + hHeight + "Z"
+							path : "M" + fWidth + ",0L" + (fWidth - randomOffset) + ",0 " + fWidth + "," + hHeight + "Z"
 						}, duration, function(){
 							rightTop.open = true;
 						});
@@ -137,7 +158,7 @@ define([
 				case 3 :
 					if ( !bottomLeft.open ) {
 						bottomLeft.animate({
-							path : "M0," + fHeight + "L0," + (fHeight - 20) + " " + hWidth + "," + fHeight + "Z"
+							path : "M0," + fHeight + "L0," + (fHeight - randomOffset) + " " + hWidth + "," + fHeight + "Z"
 						}, duration, function(){
 							bottomLeft.open = true;
 						});
@@ -152,7 +173,7 @@ define([
 				case 4 :
 					if ( !leftBottom.open ) {
 						leftBottom.animate({
-							path : "M0," + fHeight + "L0," + hHeight + " 20," + fHeight + "Z"
+							path : "M0," + fHeight + "L0," + hHeight + " " + randomOffset + "," + fHeight + "Z"
 						}, duration, function(){
 							leftBottom.open = true;
 						});
@@ -168,7 +189,7 @@ define([
 
 					if ( !leftTop.open ) {
 						leftTop.animate({
-							path : "M0,0L0," + hHeight + " 20,0"
+							path : "M0,0L0," + hHeight + " " + randomOffset + ",0"
 						}, duration, function(){
 							leftTop.open = true;
 						});
@@ -196,6 +217,7 @@ define([
 					},
 					duration = 100;
 
+				line.attr({ "path" : "M0," + fHeight + "L" + fWidth + ",0" });
 				topLeft.animate({path : "M0,0L0,0 " + hWidth + ",0Z"}, duration);
 				topRight.animate({path : "M" + hWidth + ",0L" + fWidth + ",0 " + fWidth + ",0Z"}, duration);
 				rightTop.animate({path : "M" + fWidth + ",0L" + fWidth + ",0 " + fWidth + "," + hHeight + "Z"}, duration);

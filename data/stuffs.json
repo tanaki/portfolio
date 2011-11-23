@@ -2,72 +2,40 @@
     "stuffs": [
 		{
 			"index" : 0,
-			"slug" : "amd-javascript",
-			"title" : "AMD Javascript",
-			"img" : "backbone.jpg",
-			"top" : "42%",
+			"slug" : "this-website",
+			"title" : "This Website",
+			"img" : "",
+			"top" : "39%",
 			"date" : "06.12.2011",
-			"text" : "This website based on <abbr title=\"Asynchronous Module Definition\">AMD</abbr> Javascript Architecture using Backbone and Require JS.<br/><br/>The base architecture is a fork of <a href=\"http://backbonetutorials.com/organizing-backbone-using-modules/\">an example</a> from Thomas Davis.",
+			"text" : "This website is based on an implementation of the <abbr title=\"Asynchronous Module Definition\">AMD</abbr> Javascript Architecture. I've started from a fork of <a rel=\"external\" href=\"http://backbonetutorials.com/organizing-backbone-using-modules/\">an example</a> from Thomas Davis.<br/><br/>It also uses the sweet vectorial drawing library <a href=\"http://raphaeljs.com\" rel=\"external\">Raphael JS</a>. Take a look at <a href=\"/#/work/mindreader\">Mindreader</a>, which is a commercial project I've built with Raphael JS too.<br/><br/><a rel=\"external\" href=\"http://github.com/tanaki/portfolio\">http://github.com/tanaki/portfolio</a>",
 			"tags" : [
 				"JS"
 			]
 		},
 		{
 			"index" : 1,
+			"slug" : "dopplr-api",
+			"title" : "Dopplr API",
+			"img" : "dopplr.jpg",
+			"top" : "40%",
+			"date" : "23.11.2011",
+			"text" : "Even if <a href=\"http://dopplr.com\" rel=\"external\">Dopplr</a> has been bought by Nokia and they stop the development of the website and API, I'm still using it (when I remember using it).<br/><a href=\"http://www.dopplr.com/traveller/Tanaki/public\" rel=\"external\">Traveller Tanaki</a><br/><br/>I've built a small Flash App, but I'm planning to create a proper Android App someday...",
+			"tags" : [
+				"Dopplr API"
+			]
+		},
+		{
+			"index" : 2,
 			"slug" : "one-year-at-pirata",
 			"title" : "One year at Pirata",
 			"img" : "pirata.jpg",
 			"top" : "47%",
 			"date" : "15.11.2011",
-			"text" : "This 15th November was my first year at Pirata.",
+			"text" : "This 15th November was my first year at <a href=\"http://piratalondon.com\" rel=\"external\">Pirata</a>.",
 			"tags" : [
-				"JS"
+				"Pirata"
 			]
-		},
-		{
-			"index" : 2,
-			"slug" : "test",
-			"title" : "Test",
-			"img" : "pirata.jpg",
-			"top" : "47%",
-			"date" : "10.11.2011",
-			"text" : "Test"
-		},
-		{
-			"index" : 3,
-			"slug" : "test-2",
-			"title" : "Test 2",
-			"img" : "pirata.jpg",
-			"top" : "47%",
-			"date" : "10.11.2011",
-			"text" : "Test"
-		},
-		{
-			"index" : 4,
-			"slug" : "test-3",
-			"title" : "Test 3",
-			"img" : "pirata.jpg",
-			"top" : "47%",
-			"date" : "10.11.2011",
-			"text" : "Test"
-		},
-		{
-			"index" : 5,
-			"slug" : "test-4",
-			"title" : "Test 4",
-			"img" : "pirata.jpg",
-			"top" : "47%",
-			"date" : "10.11.2011",
-			"text" : "Test"
-		},
-		{
-			"index" : 6,
-			"slug" : "test-5",
-			"title" : "Test 5",
-			"img" : "pirata.jpg",
-			"top" : "47%",
-			"date" : "10.11.2011",
-			"text" : "Test"
 		}
+
 	]
 }
