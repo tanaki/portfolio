@@ -49,7 +49,7 @@ define([
 			this._displayPage(stuffsView);
 		},
 		showStuffsData : function(slug){
-			this._displayPage(stuffsView, slug);
+			this._displayPartial(stuffsView, slug);
 		},
 		showLinks: function(){
 			this._displayPage(linksView);
@@ -61,6 +61,15 @@ define([
 		defaultAction: function(actions){
 			// currentView = mainHomeView;
 			// this.hide();
+		},
+
+		_displayPartial : function(view, slug) {
+			if ( !isInit ) {
+				view.changePartial(slug);
+			}
+			else {
+				this._displayPage(view, slug);
+			}
 		},
 
 		_displayPage : function(view, slug) {

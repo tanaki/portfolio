@@ -24,9 +24,51 @@ define([
 				EH.trigger("hidden", [target, slug]);
 			});
 		},
+
+		changePartial: function(selectedSlug){
+
+			var
+				currentArticle = $("ul.articles li:not(.hidden)"),
+				targetArticle = $("ul.articles li[data-slug="+ selectedSlug +"]"),
+				currentSlug = currentArticle.data("slug"),
+				currentIndex = currentArticle.data("index"),
+				targetIndex = targetArticle.data("index"),
+				currentLink = $("ul.nav-stuffs li.current"),
+				targetLink = $("ul.nav-stuffs li[data-index=" + targetIndex + "]"),
+				currentToAnimate = $("span.stuff-content", currentArticle),
+				targetToAnimate = $("span.stuff-content", targetArticle);
+
+			if (selectedSlug == currentSlug) return;
+
+			currentLink.removeClass("current");
+			targetLink.addClass("current");
+
+			currentToAnimate.animate({
+				"opacity" : 0,
+				"top" : currentIndex > targetIndex ? "95%" : "5%"
+			}, 400, function(){
+				currentArticle.addClass("hidden");
+				currentToAnimate.css({
+					"top": currentToAnimate.data("top"),
+					"opacity": 1
+				});
+			});
+
+			targetArticle.removeClass("hidden");
+			targetToAnimate
+				.css({
+					"top": currentIndex > targetIndex ? "5%" : "95%",
+					"opacity" : 0
+				})
+				.animate({
+					"opacity" : 1,
+					"top": targetToAnimate.data("top")
+				}, 400);
+		},
+
 		render: function(selectedSlug){
 			EH.trigger("showNav");
-
+			
 			this.collection = stuffsCollection;
 			if ( this.collection.length == 0 ) {
 				var self = this;
@@ -54,6 +96,7 @@ define([
 		},
 
 		_display : function(selectedSlug){
+			
 			var data = {
 				stuffs: this.collection.models,
 				selectedSlug: selectedSlug,

@@ -214,7 +214,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 		width:100%;
 	}
 	body {
-		background:#222;
 		font-family: Copy0855, Arial, sans-serif;
 		overflow: hidden;
 	}
@@ -538,24 +537,41 @@ table { border-collapse: collapse; border-spacing: 0; }
 		right: 0;
 	}
 	.page-stuffs .content .nav-stuffs li {
+		display: block;
 		width:20px;
 		height:20px;
-		background:url(/img/menu/circle-3.png) no-repeat center center;
-		margin: 10px 0 0 30px;
+		margin: 10px 30px 0;
 	}
 	.page-stuffs .content .nav-stuffs li a {
 		display: block;
+		height: 10px;
+		width: 100%;
+		position:relative;
+		padding-top: 10px;
+	}
+	.page-stuffs .content .nav-stuffs li a span {
+		display: block;
+		width:6px;
+		height:6px;
+
 		text-indent: -5000px;
 		overflow: hidden;
+		background:#333;
+		border-radius:3px;
+		margin:0 auto;
 	}
 	.page-stuffs .content .nav-stuffs li.current {
 		width:80px;
 		height:80px;
 		background:#333;
 		border-radius:40px;
-		margin-left: 0;
+		margin: 10px 0 0;
 	}
 	.page-stuffs .content .nav-stuffs li.current a {
+		display: block;
+		padding-top: 0;
+	}
+	.page-stuffs .content .nav-stuffs li.current a span {
 		display: block;
 		color: #fff;
 		font-size: 8px;
@@ -563,6 +579,11 @@ table { border-collapse: collapse; border-spacing: 0; }
 		text-align: center;
 		padding: 32px 0 28px;
 		text-indent: 0;
+		background:none;
+
+		border-radius:0;
+		width:auto;
+		height:auto;
 	}
 
 /* LINKS CONTENT */
@@ -680,7 +701,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		z-index:11;
 
 		width:686px;
-		background:url(/img/site/bg_footer_24.png) no-repeat right bottom;
+		/*background:url(/img/site/bg_footer_24.png) no-repeat right bottom;*/
 	}
 	footer ul {
 		float:right;
@@ -711,7 +732,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 		position: absolute;
 		top: 0;
 		left: 0;
-		background:#222;
 	}
 
 /* =============================================================================

@@ -1,6 +1,7 @@
 
 	.page-links .content a,
 	nav a.selected span,
+
 	.transition
 	{
 		-webkit-transition: .2s linear;
@@ -8,6 +9,16 @@
 		-o-transition: .2s linear;
 		transition: .2s linear;
 	}
+
+	.page-stuffs .content .nav-stuffs li.current,
+	.page-stuffs .content .nav-stuffs li.current a,
+	.page-stuffs .content .nav-stuffs li.current a span {
+		-webkit-transition: .3s linear;
+		-moz-transition: .3s linear;
+		-o-transition: .3s linear;
+		transition: .3s linear;
+	}
+
 	.page-about .cv,
 	.page-links .content li a,
 	footer a {
