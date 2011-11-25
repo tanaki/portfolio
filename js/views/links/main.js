@@ -61,6 +61,7 @@ define([
 			this.collection = linksCollection;
 			if ( this.collection.length == 0 ) {
 				$.ajax({
+					dataType : 'json',
 					url: "/data/links.json",
 					success : function(response){
 

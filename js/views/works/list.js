@@ -22,6 +22,7 @@ define([
 			if ( this.collection.length == 0 ) {
 				var self = this;
 				$.ajax({
+					dataType : 'json',
 					url : "/data/works.json",
 					success : function(response){
 						_.each(response.projects, function(el, i){

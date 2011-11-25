@@ -73,6 +73,7 @@ define([
 			if ( this.collection.length == 0 ) {
 				var self = this;
 				$.ajax({
+					dataType : 'json',					
 					url : "/data/stuffs.json",
 					success : function(response){
 						_.each(response.stuffs, function(el, i){
