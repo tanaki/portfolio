@@ -47,7 +47,6 @@ define([
 			*/
 			rectangle = R.path("M0,0L" + fWidth + ",0 " + fWidth + "," + fHeight + " 0," + fHeight + "Z").attr(rectAttr);
 
-
 			// shim layer with setTimeout fallback
 			// Credit to Paul Irish http://bit.ly/fxq7EY
 			window.requestAnimFrame = (function() {
@@ -62,6 +61,7 @@ define([
 			})();
 
 			requestAnimFrame( run );
+			displayWhiteStuffs();
 			
 			$(window).resize(function(){
 				clearTimeout(timeoutResize);
@@ -74,9 +74,11 @@ define([
 			});
 		},
 		run = function() {
-			if ( frameNum % 1000 == 0 ) {
+			/*
+			if ( frameNum % 400 == 0 ) {
 				displayWhiteStuffs();
 			}
+			*/
 			if ( frameNum % 600 == 0 ) {
 				rotateLine();
 			}
@@ -98,22 +100,18 @@ define([
 			return MinV + random(MaxV - MinV + 1);
 		},
 		displayWhiteStuffs = function(){
-			var rand = random(elements.length);
-			var
-				duration = randomBetween(50, 150),
-				randomOffset = random(30),
-				fWidth = $(window).width(),
-				fHeight = $(window).height(),
-				hWidth = Math.round( $(window).width() / 2),
-				hHeight = Math.round( $(window).height() / 2);
-
+			
+			var duration = 3500;
+			
 			rectangle.animate({
 				"transform" : "r0"
-			}, 500, function(){
+			}, duration, function(){
 				angle = angle > 0 ? randomBetween(40, 100) * -.01 : randomBetween(40, 100) * .01;
 				rectangle.animate({
 					"transform" : "r" + angle
-				}, 500);
+				}, duration, function(){
+					displayWhiteStuffs();
+				});
 			});
 		},
 		hideWhiteStuffs = function(){

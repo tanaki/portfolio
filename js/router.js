@@ -40,7 +40,7 @@ define([
 			this._displayPage(worksListView);
 		},
 		showWorkDetail : function(slug){
-			console.log(slug);
+			this._displayPartial(worksListView, slug);
 		},
 		showAbout: function(){
 			this._displayPage(aboutView);
