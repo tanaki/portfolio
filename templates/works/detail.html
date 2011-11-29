@@ -1,15 +1,22 @@
 <div class="work-detail">
 	<ul class="nav-work-details">
 		<% _.each(projects, function(project){ %>
-			<li <% if ( (selectedSlug && project.get('slug') !== selectedSlug) || (!selectedSlug && project.get('index') != 0) ) { print('class="hidden"'); } %> data-index="<%= project.get('index') %>" data-slug="<%= project.get('slug') %>">
-				NAV PROJECT
+			<li <% if ( (selectedSlug && project.get('slug') === selectedSlug) || (!selectedSlug && project.get('index') == 0) ) { print('class="current"'); } %> data-index="<%= project.get('index') %>" data-slug="<%= project.get('slug') %>">
+				<a href="/#/work/<%= project.get('slug') %>"><%= project.get('index') %></a>
 			</li>
 		<% }); %>
 	</ul>
 	<ul class="project-detail">
 		<% _.each(projects, function(project){ %>
 			<li <% if ( (selectedSlug && project.get('slug') !== selectedSlug) || (!selectedSlug && project.get('index') != 0) ) { print('class="hidden"'); } %> data-index="<%= project.get('index') %>" data-slug="<%= project.get('slug') %>">
-				PROJECT
+				
+				<% if ( project.get('videoType') === "youtube" ) print( '<span class="video"><iframe width="500" height="280" src="http://www.youtube.com/embed/' + project.get('videoId') + '?rel=0" frameborder="0" allowfullscreen></iframe></span>' ); %>
+				<% if ( project.get('videoType') === "vimeo" ) print( '<span class="video"><iframe src="http://player.vimeo.com/video/' + project.get('videoId') + '" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></span>' ); %>
+				<% if ( project.get('videoType') !== "vimeo" && project.get('videoType') !== "youtube" ) print( '<img src="/img/work/illus/<%= project.get('slug') %>.jpg" alt="<%= project.get('title') %>" />' ); %>
+
+				<span class="title"><%= project.get('title') %></span>
+				<span class="text"><%= project.get('text') %></span>
+				
 			</li>
 		<% }); %>
 	</ul>

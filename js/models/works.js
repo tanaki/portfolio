@@ -6,11 +6,15 @@ define([
 	
 	var worksModel = Backbone.Model.extend({
 		defaults: {
+			index: 0,
+			color: "ffffff",
 			slug: "project",
 			title: "Project",
 			featured : false,
-			context: "Project",
-			link: "http://nicolaspigelet.com",
+			context: null,
+			link: null,
+			videoType: null,
+			videoId: null,
 			text: "description of the project",
 			tags: []
 		},

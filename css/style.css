@@ -485,6 +485,40 @@ table { border-collapse: collapse; border-spacing: 0; }
 			overflow: hidden;
 			text-indent: -5000px;
 		}
+		
+		/* NAV WORK DETAILS */
+			.page-work-detail .nav-work-details {
+				display: block;
+				float: left;
+				width: 30%;
+				height: 100%;
+			}
+		
+		/* CONTENT WORK DETAILS */
+			.page-work-detail .project-detail {
+				display: block;
+				float: left;
+				width: 70%;
+				height: 100%;
+				overflow: hidden;
+				
+				font-family: Abadi, Arial, sans-serif;
+				font-size: 16px;
+			}
+			.page-work-detail .project-detail img,
+			.page-work-detail .project-detail .video,
+			.page-work-detail .project-detail .title,
+			.page-work-detail .project-detail .text {
+				display: block;
+			}
+			
+			.page-work-detail .project-detail .title {
+				font-size: 18px;
+				margin: 10px 0;
+			}
+			.page-work-detail .project-detail .text {
+				max-width: 60%;
+			}
 
 
 /* ABOUT CONTENT */

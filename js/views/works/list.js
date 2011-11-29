@@ -11,7 +11,9 @@ define([
 ], function($, shuffle, _, Backbone, Raphael, projectsCollection, projectListTemplate, projectDetailTemplate){
 	
 	var 
-		R = null;
+		R = null,
+		whiteBG = null,
+		colorSquare = null;
 	
 	var projectListView = Backbone.View.extend({
 		el: $("#page .content"),
@@ -20,11 +22,40 @@ define([
 		elDetail : $("#page #detail"),
 		elDetailBackground : $("#page #detail-background"),
 		
+		initialize : function(){
+			$(window).resize(function(){
+				if ( whiteBG ) {
+					var
+						fWidth = $(window).width(),
+						fHeight = $(window).height(),
+						a = "M" + (fWidth - 40) + ",40",
+						b = "L" + (fWidth - 20) + ",100",
+						c = " " + (fWidth - 20) + "," + (fHeight - 40),
+						d = " " + (fWidth - 350) + "," + (fHeight - 20),
+						e = " 20," + (fHeight - 20),
+						f = " 20," + (fHeight - 20),
+						g = " 20,20",
+						h = " 20,20",
+						i = " " + (fWidth - 100) + ",20",
+						finalPath = a + b + c + d + e + f + g + h + i + "Z";
+					whiteBG.attr("path", finalPath);
+					
+					var 
+						j = " " + (fWidth - 20) + ",200",
+						k = " " + (fWidth - 300) + ",200",
+						l = " " + (fWidth - 300) + ",20";
+					colorSquare.attr("path", a + b + j + k + l + i + "Z");
+				}
+				
+			});
+		},
+		
 		hide: function(target){
 			this.el.fadeOut(300, function(){
 				EH.trigger("hidden", target);
 			});
 		},
+		
 		changePartial : function(slug) {
 
 			$(".page-work").addClass("page-work-detail");
@@ -32,8 +63,9 @@ define([
 			
 			var 
 				ul = $(".list-works"),
-				target = $("ul li a[data-slug=" + slug + "]");
-
+				target = $("ul li a[data-slug=" + slug + "]"),
+				color = target.data("color");
+				
 			var
 				fWidth = $(window).width(),
 				fHeight = $(window).height(),
@@ -113,9 +145,8 @@ define([
 			i = " " + (fWidth - 100) + ",20";
 			var finalPath = a + b + c + d + e + f + g + h + i + "Z";
 
-			var 
-				self = this,
-				whiteBG = R.path(initialPath).attr(WBGAttr);
+			var self = this;
+			whiteBG = R.path(initialPath).attr(WBGAttr);
 			whiteBG.animate({
 				"path" : step1Path
 			}, 150, function(){
@@ -132,6 +163,17 @@ define([
 							"path" : finalPath
 						}, 400, function(){
 							self._displayPartial(slug);
+							
+							var 
+								j = " " + (fWidth - 20) + ",200",
+								k = " " + (fWidth - 300) + ",200",
+								l = " " + (fWidth - 300) + ",20";
+							colorSquare = R.path(a + b + j + k + l + i + "Z").attr({
+								"stroke-opacity" : 0,
+								"stroke-width" : 0,
+								"stroke" : "#" + color,
+								"fill" : "#" + color
+							});
 						});
 
 					});
@@ -167,12 +209,16 @@ define([
 					success : function(response){
 						_.each(response.projects, function(el, i){
 							this.collection = projectsCollection.add({
+								index: el.index,
+								color: el.color,
 								name: el.slug,
 								slug: el.slug,
 								title: el.title,
 								featured: el.featured,
 								context: el.context,
 								link: el.link,
+								videoType: el.videoType,
+								videoId: el.videoId,
 								text: el.text,
 								tags: el.tags
 							});

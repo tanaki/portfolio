@@ -1,7 +1,7 @@
 <ul class="list-works">
 	<% _.each(projects, function(project){ %>
 		<li>
-			<a <% if ( project.get('featured') ) { %> class="featured" <% } %> href="/#/work/<%= project.get('slug') %>" data-slug="<%= project.get('slug') %>">
+			<a <% if ( project.get('featured') ) { %> class="featured" <% } %> href="/#/work/<%= project.get('slug') %>" data-slug="<%= project.get('slug') %>" data-color="<%= project.get('color') %>">
 				<%= project.get("title") %>
 			</a>
 		</li>

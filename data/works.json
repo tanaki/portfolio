@@ -1,6 +1,8 @@
 {
     "projects": [
 		{
+			"index" : 0,
+			"color" : "f70064",
 			"slug" : "marie-laurent",
 			"title" : "Marie Laurent",
 			"featured" : true,
@@ -14,6 +16,8 @@
 			]
 		},
 		{
+			"index" : 1,
+			"color" : "dfdfdf",
 			"slug" : "mindreader",
 			"title" : "Mindreader",
 			"link" : "http://mindreader.mindshareworld.com",
@@ -28,10 +32,14 @@
 			]
 		},
 		{
+			"index" : 2,
+			"color" : "F2F2F2",
 			"slug" : "inq-mobile",
 			"title" : "INQ Mobile",
 			"link" : "http://inqmobile.com",
 			"context" : "Built at Pirata",
+			"videoType" : "vimeo",
+			"videoId" : "30427703",
 			"text" : "The setup was one senior developer on the backend and one on the front end and me as a support for both but I mainly worked on the front end.",
 			"tags" : [
 				"HTML",
@@ -40,10 +48,14 @@
 			]
 		},
 		{
+			"index" : 3,
+			"color" : "704128",
 			"slug" : "my-toblerone",
 			"title" : "My Toblerone",
 			"link" : "http://www.mytoblerone.co.uk",
 			"context" : "Built at Pirata",
+			"videoType" : "vimeo",
+			"videoId" : "31485312",
 			"text" : "I worked on the front end, created the templates and the logic to interact with the flash bit via url.",
 			"tags" : [
 				"HTML",
@@ -52,11 +64,15 @@
 			]
 		},
 		{
+			"index" : 4,
+			"color" : "0057a4",
 			"slug" : "nokia-push",
 			"title" : "Nokia Push",
 			"link" : "http://www.pushsnowboarding.com",
 			"context" : "Built at Pirata",
-			"text" : "My first project at Pirata. I help on both front end and back end. Also worked on adapting Wordpress outside of wordpress, which was quite fun. I also worked on the small flash demos. I learned more on AS and timeline animation.",
+			"videoType" : "vimeo",
+			"videoId" : "30428082",
+			"text" : "My first project at Pirata. I help on both front end and back end. My second task was adapting Wordpress outside of Wordpress, which was quite fun.<br/><br/>I also worked on the small flash demos. I learned more on AS and timeline animation.<br/><br/>And finally I helped on data-parsing for <a href=\"http://piratalondon.com/2011/03/nokia-push-data-visualisation/\" rel=\"external\">this other piece of work</a>.",
 			"tags" : [
 				"HTML",
 				"CSS",
@@ -65,11 +81,15 @@
 			]
 		},
 		{
+			"index" : 5,
+			"color" : "EC6439",
 			"slug" : "yummy",
 			"title" : "Yummy",
 			"featured" : true,
 			"link" : "http://www.projet-yummy.com/en",
 			"context" : "Student project",
+			"videoType" : "youtube",
+			"videoId" : "mCgDMyp4bug",
 			"text" : "Yummy is a diploma project produced by 5 graduate students from the Digital Design and Production course at Gobelins, l'École de l'Image.",
 			"tags" : [
 				"UX Design",
@@ -79,11 +99,14 @@
 			]
 		},
 		{
+			"index" : 6,
+			"color" : "ffff00",
 			"slug" : "arduin-hockey",
 			"title" : "Arduin'Hockey",
 			"featured" : true,
-			"link" : "http://www.youtube.com/watch?v=_KQVpXPdpks",
 			"context" : "Personal/Student project",
+			"videoType" : "youtube",
+			"videoId" : "_KQVpXPdpks",
 			"text" : "We conceived and build the game in 48h. It's a mix of pong and air hockey controlled by hand gestures. We also livestreamed the game and score on every screen in the building.",
 			"tags" : [
 				"Arduino",
@@ -93,6 +116,8 @@
 			]
 		},
 		{
+			"index" : 7,
+			"color" : "202020",
 			"slug" : "howbama",
 			"title" : "Howbama",
 			"link" : "http://howbama.nicolaspigelet.com",
@@ -105,6 +130,8 @@
 			]
 		},
 		{
+			"index" : 8,
+			"color" : "ffffff",
 			"slug" : "renault",
 			"title" : "Renault",
 			"link" : "http://www.renault.com",
