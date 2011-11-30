@@ -23,6 +23,7 @@ define([
 		elDetailBackground : $("#page #detail-background"),
 		
 		initialize : function(){
+			/*
 			$(window).resize(function(){
 				if ( whiteBG ) {
 					var
@@ -48,6 +49,7 @@ define([
 				}
 				
 			});
+			*/
 		},
 		
 		hide: function(target){
@@ -82,57 +84,36 @@ define([
 			var 
 				a = "M" + initialX + "," + initialY,
 				b = "L" + initialX + "," + initialY,
-				//b = "R" + (initialX - 3) + "," + (initialY + 5),
-				c = " " + (initialX - 2) + "," + (initialY + 1),
-				d = " " + (initialX - 5) + "," + (initialY + 1),
-				e = " " + (initialX - 3) + "," + (initialY + 1),
-				f = " " + (initialX - 5) + "," + (initialY + 1),
-				g = " " + (initialX - 4) + "," + (initialY - 5),
-				h = " " + (initialX - 1) + "," + (initialY - 1),
+				c = " " + (fWidth - 350) + "," + (fHeight - 20),
+				d = " " + (fWidth - 350) + "," + (fHeight - 20),
+				e = " " + initialX + "," + initialY,
+				f = " " + initialX + "," + initialY,
+				g = " " + initialX + "," + initialY,
+				h = " " + initialX + "," + initialY,
 				i = " " + initialX + "," + initialY,
-				initialPath = a + b + c + d + e + f + g + h + i + "Z";
-
-
-			// STEP PATH
-			a = "M" + initialX + "," + initialY;
-			b = "L" + initialX + "," + initialY;;
-			//b = "R" + (initialX - 10) + "," + (initialY + 10);
-			c = " " + (initialX - 10) + "," + (initialY + 20);
-			d = " " + (initialX - 30) + "," + (initialY + 50);
-			e = " " + (initialX - 50) + "," + (initialY + 60);
-			f = " " + (initialX - 80) + "," + (initialY + 50);
-			g = " " + (initialX - 100) + "," + (initialY - 50);
-			h = " " + (initialX - 50) + "," + (initialY - 50);
-			i = " " + initialX + "," + initialY;
-			var step1Path = a + b + c + d + e + f + g + h + i + "Z";
+				initialPath = a + b + c + d + e + f + g + h + "Z";
 			
-			// STEP 2 PATH
-			a = "M" + initialX + "," + initialY;
-			b = "L" + initialX + "," + initialY;
-			//b = "L" + (initialX - 30) + "," + (initialY + 50);
-			c = " " + (initialX - 20) + "," + (initialY + 100);
-			d = " " + (initialX - 50) + "," + (initialY + 150);
-			e = " " + (initialX - 350) + "," + (initialY + 100);
-			f = " " + (initialX - 500) + "," + (initialY + 100);
-			g = " " + (initialX - 450) + "," + (initialY - 50);
-			h = " " + (initialX - 150) + "," + (initialY - 150);
-			i = " " + initialX + "," + initialY;
-			var step2Path = a + b + c + d + e + f + g + h + i + "Z";
-
-			// STEP 3 PATH
-			a = "M" + (initialX + 40) + "," + (initialY - 40);
-			b = "L" + (initialX + 40) + "," + (initialY - 40);
-			//b = "L" + (initialX + 80) + "," + (initialY - 20);
-			c = " " + (initialX + 50) + "," + (initialY + 140);
-			d = " " + (initialX - 50) + "," + (initialY + 180);
-			e = " " + (initialX - 350) + "," + (initialY + 200);
-			f = " " + (initialX - 600) + "," + (initialY + 100);
-			g = " " + (initialX - 550) + "," + (initialY - 150);
-			h = " " + (initialX - 350) + "," + (initialY - 200);
-			//i = " " + (initialX + 20) + "," + (initialY - 80);
-			i = " " + (initialX + 40) + "," + (initialY - 40);
-			var step3Path = a + b + c + d + e + f + g + h + i + "Z";
-
+			
+			d = " 20," + (fHeight - 20);
+			var step1Path = a + b + c + d + e + f + g + h + "Z";
+			
+			e = " 20,20";
+			var step2Path = a + b + c + d + e + f + g + h + "Z";
+			
+			f = " " + (fWidth - 100) + ",20";
+			var step3Path = a + b + c + d + e + f + g + h + "Z";
+			
+			g = " " + (fWidth - 40) + ",40";
+			var step4Path = a + b + c + d + e + f + g + h + "Z";
+			
+			h = " " + (fWidth - 20) + ",100";
+			var step5Path = a + b + c + d + e + f + g + h + "Z";
+			
+			a = "M" + (fWidth - 20) + "," + (fHeight - 40);
+			b = "L" + (fWidth - 20) + "," + (fHeight - 40);
+			var finalPath = a + b + c + d + e + f + g + h + "Z";
+			
+			/*
 			// FINAL PATH
 			a = "M" + (fWidth - 40) + ",40";
 			b = "L" + (fWidth - 20) + ",100";
@@ -144,42 +125,54 @@ define([
 			h = " 20,20";
 			i = " " + (fWidth - 100) + ",20";
 			var finalPath = a + b + c + d + e + f + g + h + i + "Z";
+			*/
 
 			var self = this;
 			whiteBG = R.path(initialPath).attr(WBGAttr);
 			whiteBG.animate({
 				"path" : step1Path
-			}, 150, function(){
-
+			}, 250, "<>", function(){
 				whiteBG.animate({
 					"path" : step2Path
-				}, 200, function(){
+				}, 250, "<>", function(){
 
 					whiteBG.animate({
 						"path" : step3Path
-					}, 200, function(){
-
+					}, 300, "<>", function(){
+						
 						whiteBG.animate({
-							"path" : finalPath
-						}, 400, function(){
-							self._displayPartial(slug);
-							
-							var 
-								j = " " + (fWidth - 20) + ",200",
-								k = " " + (fWidth - 300) + ",200",
-								l = " " + (fWidth - 300) + ",20";
-							colorSquare = R.path(a + b + j + k + l + i + "Z").attr({
-								"stroke-opacity" : 0,
-								"stroke-width" : 0,
-								"stroke" : "#" + color,
-								"fill" : "#" + color
-							});
-						});
+							"path" : step4Path
+						}, 50, function(){
+							whiteBG.animate({
+								"path" : step5Path
+							}, 50, function(){
+								//whiteBG.animate({
+									//"path" : step6Path
+								//}, 50, function(){
 
+									whiteBG.animate({
+										"path" : finalPath
+									}, 200, "<>", function(){
+										self._displayPartial(slug);
+
+										var 
+											j = " " + (fWidth - 20) + ",200",
+											k = " " + (fWidth - 300) + ",200",
+											l = " " + (fWidth - 300) + ",20";
+										colorSquare = R.path(a + b + j + k + l + i + "Z").attr({
+											"stroke-opacity" : 0,
+											"stroke-width" : 0,
+											"stroke" : "#" + color,
+											"fill" : "#" + color
+										});
+									});
+								//});
+							});
+
+						});
 					});
 
 				});
-
 			});
 		},
 
