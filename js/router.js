@@ -7,17 +7,19 @@ define([
 	'views/nav/main',
 	'views/home/main',
 	'views/works/list',
+	'views/works/detail',
 	'views/about/main',
 	'views/stuffs/main',
 	'views/links/main',
 	'views/credits/main'
-], function($, _, Backbone, navView, mainHomeView, worksListView, aboutView, stuffsView, linksView, creditsView ){
+], function($, _, Backbone, navView, mainHomeView, worksListView, worksDetailView, aboutView, stuffsView, linksView, creditsView ){
 
 	var
 		currentView = mainHomeView,
 		isInit = true;
 
 	worksListView.id = "work";
+	worksDetailView.id = "workDetail";
 	aboutView.id = "about";
 	stuffsView.id = "stuffs";
 	linksView.id = "links";
@@ -40,7 +42,15 @@ define([
 			this._displayPage(worksListView);
 		},
 		showWorkDetail : function(slug){
-			this._displayPartial(worksListView, slug);
+			
+			if ( isInit || (currentView != worksListView && currentView != worksDetailView) ) {
+				currentView = worksListView;
+				worksListView.render(slug);
+				this.updateBreadcrumb();
+				isInit = false;
+			}
+			currentView = worksDetailView;
+			currentView.render(slug);
 		},
 		showAbout: function(){
 			this._displayPage(aboutView);

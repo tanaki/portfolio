@@ -413,10 +413,21 @@ table { border-collapse: collapse; border-spacing: 0; }
 	}
 
 /* WORKS CONTENT */
+	.page-work #works-lines {
+		position:absolute;
+		top:50%;
+		left:400px;
+		z-index: 9;
+		
+		height:50%;
+		width:50%;
+		margin-top:-25%;
+	}
 	.page-work .list-works {
 		position:absolute;
 		top:50%;
 		left:400px;
+		z-index: 10;
 
 		height:50%;
 		width:50%;
@@ -470,14 +481,19 @@ table { border-collapse: collapse; border-spacing: 0; }
 		.page-work-detail #detail .work-detail {
 			display: block;
 			position: relative;
-			margin:30px;
+			margin:20px 20px 0;
+			overflow: hidden;
+			height: 100%;
+		}
+		.page-work-detail #detail .work-detail span.work-detail-content {
+			
 		}
 
 		.page-work-detail .close-detail {
 			display: block;
 			position:absolute;
-			right: 3px;
-			top: 3px;
+			right: 10px;
+			top: 10px;
 
 			width:15px;
 			height:15px;
@@ -486,14 +502,79 @@ table { border-collapse: collapse; border-spacing: 0; }
 			text-indent: -5000px;
 		}
 		
-		/* NAV WORK DETAILS */
-			.page-work-detail .nav-work-details {
-				display: block;
-				float: left;
-				width: 30%;
-				height: 100%;
-			}
-		
+		/* LEFT COL WORK DETAILS */
+		.page-work-detail .navigation-work {
+			display: block;
+			float: left;
+			width: 30%;
+			height: 100%;
+		}
+			/* NAV WORK DETAILS */
+				.page-work-detail .nav-work-details {
+					display: block;
+					float: left;
+					width: 80px;
+					position: absolute;
+				}
+				.page-work-detail .nav-work-details li {
+					display: block;
+					width: 80px;
+					height: 24px;
+				}
+				.page-work-detail .nav-work-details li a {
+					display: block;
+					padding: 7px 10px;
+				}
+				.page-work-detail .nav-work-details li a span {
+					display: block;
+					width: 5px;
+					height: 5px;
+					border-radius:5px;
+					background:#ccc;
+					margin: 0 auto;
+				}
+				.page-work-detail .nav-work-details li a img {
+					display: block;
+					width: 0;
+					height: 0;
+					border-radius:25px;
+					margin: 5px;
+				}
+				.page-work-detail .nav-work-details li.current {
+					width: 80px;
+					height: 74px;
+				}
+				.page-work-detail .nav-work-details li.current a {
+					width: 60px;
+					height: 60px;
+					overflow: hidden;
+				}
+				.page-work-detail .nav-work-details li.current a span {
+					width: 60px;
+					height: 60px;
+					border-radius:30px;
+					overflow: hidden;
+				}
+				.page-work-detail .nav-work-details li.current a img {
+					width: 50px;
+					height: 50px;
+				}
+			/* BREADCRUMB WORK DETAILS */
+				.page-work-detail .breadcrumb-work-details {
+					display: block;
+					width: auto;
+					height: auto;
+					margin-top: -5px;
+					
+					position: absolute;
+					top: 50%;
+					left: 80px;
+				}
+				.page-work-detail .breadcrumb-work-details li {
+					display: block;
+					float: left;
+				}
+
 		/* CONTENT WORK DETAILS */
 			.page-work-detail .project-detail {
 				display: block;
@@ -776,7 +857,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		position:absolute;
 		right:0;
 		bottom:0;
-		padding:25px 20px 15px 0;
+		padding:0 20px 15px 0;
 		z-index:200;
 
 		width:686px;
@@ -860,137 +941,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 }
 
 @media only screen and (max-width: 768px) {
-
-	body {
-		overflow:auto;
-	}
-	#wrapper {
-		height:auto;
-	}
-
-	nav {
-		float:none;
-		position:static;
-		margin:0 auto;
-		width:80%;
-		height:auto;
-		top:0;
-		left:0;
-	}
-	nav a {
-		position:static;
-		width:auto;
-		height:auto;
-		color:#fff;
-		float:left;
-	}
-	nav a span {
-		position:static;
-		width:auto;
-		height:auto;
-		text-indent:0;
-		background:none;
-		top:0;
-		left:0;
-		color:#aaa;
-	}
-	nav a.first span,
-	nav a.second span,
-	nav a.third span {
-		background:none;
-	}
-	nav a.first,
-	nav a.second,
-	nav a.third {
-		margin-top:0;
-	}
-	nav a.selected,
-	nav a.selected span {
-		position:static;
-		width:auto;
-		height:auto;
-		float:none;
-		margin:0;
-		background:none;
-		border:0;
-	}
-	nav a#about.selected span,
-	nav a#work.selected span,
-	nav a#stuffs.selected span,
-	nav a#links.selected span {
-		background:none;
-		margin:0;
-		width:auto;
-		height:auto;
-	}
-	nav a#work.selected span {
-		background:none !important;
-	}
-	nav a,
-	nav a.selected {
-		float:left;
-		width:25%;
-	}
-	nav a span,
-	nav a.selected span {
-		border-radius:0;
-		margin:0;
-		text-align:center;
-		padding:10px;
-	}
-	nav a.selected span {
-		color:#fff;
-	}
-
-	/* BREADCRUMB */
-	.breadcrumb {
-		display:none !important;
-	}
-
-	/* WORKS */
-	.page-work .list-works {
-		position:static;
-		top:0;
-		left:0;
-		width:auto;
-		height:auto;
-		margin:0;
-	}
-	.page-work .list-works li a {
-		background:none;
-		position:static !important;
-		top:0 !important;
-		left:0 !important;
-		width:auto;
-		height:auto;
-		text-indent:0;
-		color:#fff;
-		padding:20px;
-		text-align:center;
-
-		font-family:Abadi, Arial, sans-serif;
-		font-size:14px;
-	}
-
-
-	footer {
-		position:static;
-		right:auto;
-		bottom:auto;
-		padding:25px 0;
-
-		width:auto;
-		background:none;
-		overflow:hidden;
-		text-align:center;
-	}
-	footer ul {
-		float:none;
-		text-align:center;
-		overflow:hidden;
-		width:165px;
-		margin:0 auto;
-	}
 
 }
 

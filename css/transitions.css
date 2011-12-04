@@ -12,7 +12,10 @@
 
 	.page-stuffs .content .nav-stuffs li.current,
 	.page-stuffs .content .nav-stuffs li.current a,
-	.page-stuffs .content .nav-stuffs li.current a span {
+	.page-stuffs .content .nav-stuffs li.current a span,
+	
+	.page-work-detail .nav-work-details li a span,
+	.page-work-detail .nav-work-details li a span img {
 		-webkit-transition: .3s linear;
 		-moz-transition: .3s linear;
 		-o-transition: .3s linear;
