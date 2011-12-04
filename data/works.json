@@ -3,10 +3,12 @@
 		{
 			"index" : 0,
 			"color" : "f70064",
+			"white" : true,
 			"slug" : "marie-laurent",
-			"title" : "Marie Laurent",
+			"title" : "MarieLaurent.fr",
 			"featured" : true,
 			"link" : "http://www.marielaurent.fr",
+			"linkText" : "Visit site",
 			"context" : "Personal project",
 			"text" : "Marie has created and designed the website. I helped her a bit on some UX and build it. It was my first real use of CSS3 transform. I also did a massive job on preloading the content and the images in javascript.",
 			"tags" : [
@@ -21,6 +23,7 @@
 			"slug" : "mindreader",
 			"title" : "Mindreader",
 			"link" : "http://mindreader.mindshareworld.com",
+			"linkText" : "Visit site",
 			"context" : "Built at Pirata",
 			"text" : "Mindreader is a website based on datavisualisation. The client didn't want a flash website so we choose SVG as a good compromise for cross browser animated graphs.",
 			"tags" : [
@@ -37,6 +40,7 @@
 			"slug" : "inq-mobile",
 			"title" : "INQ Mobile",
 			"link" : "http://inqmobile.com",
+			"linkText" : "Visit site",
 			"context" : "Built at Pirata",
 			"videoType" : "vimeo",
 			"videoId" : "30427703",
@@ -50,9 +54,11 @@
 		{
 			"index" : 3,
 			"color" : "704128",
+			"white" : true,
 			"slug" : "my-toblerone",
 			"title" : "My Toblerone",
 			"link" : "http://www.mytoblerone.co.uk",
+			"linkText" : "Visit site",
 			"context" : "Built at Pirata",
 			"videoType" : "vimeo",
 			"videoId" : "31485312",
@@ -66,9 +72,11 @@
 		{
 			"index" : 4,
 			"color" : "0057a4",
+			"white" : true,
 			"slug" : "nokia-push",
 			"title" : "Nokia Push",
 			"link" : "http://www.pushsnowboarding.com",
+			"linkText" : "Visit site",
 			"context" : "Built at Pirata",
 			"videoType" : "vimeo",
 			"videoId" : "30428082",
@@ -83,10 +91,12 @@
 		{
 			"index" : 5,
 			"color" : "EC6439",
+			"white" : true,
 			"slug" : "yummy",
 			"title" : "Yummy",
 			"featured" : true,
 			"link" : "http://www.projet-yummy.com/en",
+			"linkText" : "Visit site",
 			"context" : "Student project",
 			"videoType" : "youtube",
 			"videoId" : "mCgDMyp4bug",
@@ -94,8 +104,7 @@
 			"tags" : [
 				"UX Design",
 				"AIR",
-				"AS3",
-				"Touch interaction"
+				"AS3"
 			]
 		},
 		{
@@ -110,17 +119,17 @@
 			"text" : "We conceived and build the game in 48h. It's a mix of pong and air hockey controlled by hand gestures. We also livestreamed the game and score on every screen in the building.",
 			"tags" : [
 				"Arduino",
-				"Hardware",
-				"HCI",
-				"Kind of Game Design"
+				"HCI"
 			]
 		},
 		{
 			"index" : 7,
 			"color" : "202020",
+			"white" : true,
 			"slug" : "howbama",
 			"title" : "Howbama",
-			"link" : "http://howbama.nicolaspigelet.com",
+			"link" : "http://howbama.nicolaspigelet.com/air/HowBama.air",
+			"linkText" : "Download Air Application",
 			"context" : "Student project",
 			"text" : "How'Bama is a first year project, it is a documentary application. The subject was \"create an interactive & multimedia application to (re)visit a moment of History\". This was my first proper AS3 project. Built with Marie Laurent.",
 			"tags" : [
@@ -135,6 +144,7 @@
 			"slug" : "renault",
 			"title" : "Renault",
 			"link" : "http://www.renault.com",
+			"linkText" : "Visit site",
 			"context" : "Built at FullSIX",
 			"text" : "At FullSIX during 2 years, this was one of my biggest project. I worked closely with a Senior Developer and an Art Director to build 3 different module/pages.<ul><li>- Main Menu</li><li>- Vehicule selector on the home page</li><li>- Range page</li></ul>",
 			"tags" : [

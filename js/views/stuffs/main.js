@@ -10,13 +10,10 @@ define([
 	var stuffsView = Backbone.View.extend({
 		el: $("#page .content"),
 		initialize : function(){
+			var self = this;
 			$(window).resize(function(){
 				$(".page-stuffs .content").css("width", $(window).width() - 565 );
-
-				var 
-					navStuffs = $(".page-stuffs .content .nav-stuffs"),
-					hNavStuffs = $(".page-stuffs .content .nav-stuffs li").length * 30 + 60;
-				navStuffs.css("top", (($(window).height() - hNavStuffs) / 2) );
+				self._updateNavPos(true);
 			});
 		},
 		hide: function(target, slug){
@@ -42,6 +39,7 @@ define([
 
 			currentLink.removeClass("current");
 			targetLink.addClass("current");
+			this._updateNavPos();
 
 			currentToAnimate.animate({
 				"opacity" : 0,
@@ -104,17 +102,33 @@ define([
 				_: _
 			};
 			var compiledTemplate = _.template( stuffsTemplate, data );
-			this.el.html( compiledTemplate ).fadeIn();
-			this._updateImage();
-			$(window).resize();
+			var self = this;
+			this.el.html( compiledTemplate ).fadeIn(300, function(){
+				self._updateImage();
+				self._updateNavPos();
+				$(window).resize();
+			});
 		},
 
 		_updateImage : function(){
 			var img = $(".content ul li:not(.hidden)").data("img");
-			if (img) {
-				$("nav .selected span")
-					.css("background-image", "url(/img/stuffs/"+ img +")");
-			}
+			if (img) $("nav .selected span").css("background-image", "url(/img/stuffs/"+ img +")");
+		},
+		
+		_updateNavPos : function(resize){
+			
+			var 
+				navHeight = stuffsCollection.length * 35 + 45,
+				middle = Math.floor(stuffsCollection.length / 2),
+				index = $(".nav-stuffs li.current").data("index"),
+				top = Math.round(($(window).height() - navHeight) / 2),
+				offset = 35 * (middle - index);
+			
+			if ( resize ) $(".nav-stuffs").css("top", Math.round(top + offset));
+			else 
+				$(".nav-stuffs").animate({ 
+					"top" : Math.round(top + offset)
+				}, 200 );
 		}
 	});
 	return new stuffsView;

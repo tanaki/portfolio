@@ -481,12 +481,14 @@ table { border-collapse: collapse; border-spacing: 0; }
 		.page-work-detail #detail .work-detail {
 			display: block;
 			position: relative;
-			margin:20px 20px 0;
+			margin:20px 18px 0 20px;
 			overflow: hidden;
 			height: 100%;
 		}
 		.page-work-detail #detail .work-detail span.work-detail-content {
-			
+			display: block;
+			width:100%;
+			height:100%;
 		}
 
 		.page-work-detail .close-detail {
@@ -501,12 +503,15 @@ table { border-collapse: collapse; border-spacing: 0; }
 			overflow: hidden;
 			text-indent: -5000px;
 		}
+		.page-work-detail .close-detail.white {
+			background-image:url(/img/work/btn_close-white_8.png);
+		}
 		
 		/* LEFT COL WORK DETAILS */
 		.page-work-detail .navigation-work {
 			display: block;
 			float: left;
-			width: 30%;
+			width: 35%;
 			height: 100%;
 		}
 			/* NAV WORK DETAILS */
@@ -514,7 +519,9 @@ table { border-collapse: collapse; border-spacing: 0; }
 					display: block;
 					float: left;
 					width: 80px;
+					
 					position: absolute;
+					top:200px;
 				}
 				.page-work-detail .nav-work-details li {
 					display: block;
@@ -573,18 +580,36 @@ table { border-collapse: collapse; border-spacing: 0; }
 				.page-work-detail .breadcrumb-work-details li {
 					display: block;
 					float: left;
+					color:#bbb;
+				}
+				.page-work-detail .breadcrumb-work-details li a {
+					color:#bbb;
+				}
+				.page-work-detail .breadcrumb-work-details li a.slug {
+					display: block;
+					color:#333;
+					font-family: Abadi, Arial, sans-serif;
+					font-size: 18px;
+					margin-top: -8px;
 				}
 
 		/* CONTENT WORK DETAILS */
 			.page-work-detail .project-detail {
 				display: block;
 				float: left;
-				width: 70%;
+				width: 65%;
 				height: 100%;
 				overflow: hidden;
 				
 				font-family: Abadi, Arial, sans-serif;
 				font-size: 16px;
+			}
+			.page-work-detail .project-detail > li {
+				height: 100%;
+				overflow: hidden;
+			}
+			.page-work-detail .project-detail a {
+				color: #333;
 			}
 			.page-work-detail .project-detail img,
 			.page-work-detail .project-detail .video,
@@ -598,7 +623,69 @@ table { border-collapse: collapse; border-spacing: 0; }
 				margin: 10px 0;
 			}
 			.page-work-detail .project-detail .text {
-				max-width: 60%;
+				text-align: justify;
+				max-width: 95%;
+			}
+			/* LEFT COLUMN */
+			.page-work-detail .project-detail .left-column {
+				float: left;
+				width: 60%;
+				overflow: hidden;
+			}
+			.page-work-detail .project-detail .left-column img {
+				max-width: 100%;
+			}
+			
+			/* RESPONSIVE VIDEO EMBED */
+			.video iframe,
+			.video object,
+			.video embed {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			.video {
+				position: relative;
+				padding-bottom: 56.25%;
+				padding-top: 30px;
+				height: 0;
+				overflow: hidden;
+			}
+			
+			/* RIGHT COLUMN */
+			.page-work-detail .project-detail .right-column {
+				float: left;
+				width: 40%;
+				height:100%;
+				overflow: hidden;
+				
+			}
+			.page-work-detail .project-detail .right-column .color {
+				display: block;
+				width: 100%;
+				height: 30%;
+			}
+			
+			.page-work-detail .project-detail .right-column img {
+				max-width: 100%;
+			}
+			.page-work-detail .project-detail .right-column ul.tags li {
+				display:block;
+				float:left;
+				background:#999;
+				color:#fff;
+				text-align: center;
+				
+				width:60px;
+				height:35px;
+				padding-top: 25px;
+				margin: 10px 5px 0;
+				border-radius:30px;
+				
+				font-family: Copy0855, Arial, sans-serif;
+				font-size: 8px;
 			}
 
 
@@ -700,7 +787,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		display: block;
 		width:20px;
 		height:20px;
-		margin: 10px 30px 0;
+		margin: 10px 30px;
 	}
 	.page-stuffs .content .nav-stuffs li a {
 		display: block;
@@ -725,7 +812,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		height:80px;
 		background:#333;
 		border-radius:40px;
-		margin: 10px 0 0;
+		margin: 0;
 	}
 	.page-stuffs .content .nav-stuffs li.current a {
 		display: block;

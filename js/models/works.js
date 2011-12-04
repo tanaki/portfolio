@@ -13,6 +13,8 @@ define([
 			featured : false,
 			context: null,
 			link: null,
+			linkText: "",
+			white: false,
 			videoType: null,
 			videoId: null,
 			text: "description of the project",

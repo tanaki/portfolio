@@ -50,6 +50,8 @@ define([
 								featured: el.featured,
 								context: el.context,
 								link: el.link,
+								linkText: el.linkText,
+								white: el.white,
 								videoType: el.videoType,
 								videoId: el.videoId,
 								text: el.text,

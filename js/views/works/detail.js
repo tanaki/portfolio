@@ -22,7 +22,7 @@ define([
 		initialize : function(){
 			var self = this;
 			$(window).resize(function(){
-				self._updateNavPos();
+				self._updateNavPos(true);
 				if ( whiteBG ) {
 					var 
 						fWidth = $(window).width(),
@@ -39,14 +39,12 @@ define([
 		},
 		
 		hide: function(target, slug){
-			console.log("detailView::hide");
-			//this.el.fadeOut(300, function(){
-			//	EH.trigger("hidden", target);
-			//});
+			this.el.fadeOut(300, function(){
+				EH.trigger("hidden", target);
+			});
 		},
 		
 		render: function(slug){
-			
 			if ( $(".page-work").hasClass("page-work-detail") ) {
 				this._nextItem(slug);
 			} else {
@@ -55,23 +53,30 @@ define([
 			}
 		},
 		
-		_updateNavPos : function() {
+		_updateNavPos : function(resize) {
 			var 
 				middle = Math.floor($(".nav-work-details li").length / 2),
 				index = $(".nav-work-details li.current").data("index"),
 				top = Math.round(($(window).height() - $(".nav-work-details").height()) / 2),
 				offset = 24 * (middle - index);
 			
-			$(".nav-work-details").animate({
-				"top" : (top + offset)
-			}, 200);
+			if ( resize ) $(".nav-work-details").css("top", Math.round(top + offset));
+			else $(".nav-work-details").animate({"top" : Math.round(top + offset)}, 200);
+		},
+		
+		_updateBreadcrumb : function(i) {
+			var 
+				index = $(".nav-work-details li.current").data("index"),
+				title = projectsCollection.models[(i >= 0 ? i : index)].attributes.title;
+				
+			$(".breadcrumb-work-details a.slug").html(title);
 		},
 		
 		_nextItem : function (slug) {
 			
 			var
-				currentArticle = $(".project-detail li:not(.hidden)"),
-				targetArticle = $(".project-detail [data-slug=" + slug + "]"),
+				currentArticle = $(".project-detail > li:not(.hidden)"),
+				targetArticle = $(".project-detail > li[data-slug=" + slug + "]"),
 				currentSlug = currentArticle.data("slug"),
 				currentLink = $(".nav-work-details .current"),
 				targetLink = $(".nav-work-details li[data-slug=" + slug + "]");
@@ -84,7 +89,9 @@ define([
 			currentArticle.addClass("hidden");
 			targetArticle.removeClass("hidden");
 			
+			this._updateCloseBtn();
 			this._updateNavPos();
+			this._updateBreadcrumb();
 		},
 		
 		_animDisplay : function(slug){
@@ -203,8 +210,35 @@ define([
 			this.elDetail
 				.html( compiledTemplate )
 				.fadeIn(300, function(){
-					self._updateNavPos();
+					self._initHTML();
 				});
+		},
+		
+		_initHTML : function(){
+			
+			this._updateCloseBtn();
+			this._updateNavPos();
+			this._updateBreadcrumb();
+			
+			var self = this;
+			$(".nav-work-details li").live({
+				"mouseover" : function(){
+					if ( $(this).hasClass("current") ) return;
+					self._updateBreadcrumb($(this).data("index"));
+				},
+				"mouseleave" : function(){
+					if ( $(this).hasClass("current") ) return;
+					self._updateBreadcrumb( $(".nav-work-details li.current").data("index") );
+				}
+			});
+		},
+		
+		_updateCloseBtn : function() {
+			var 
+				closeBtn = $(".close-detail"),
+				white = $(".nav-work-details .current").data('white');
+			if ( white ) closeBtn.addClass("white");
+			else closeBtn.removeClass("white");
 		}
 
 	});
