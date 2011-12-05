@@ -5,78 +5,123 @@ define([
 	'Backbone',
 	'Raphael',
 	'text!templates/home/main.html'
-], function($, _, Backbone, mainHomeTemplate){
-
-	var
+], function($, _, Backbone, Raphael, mainHomeTemplate){
+	
+	
+	var 
 		object = null,
 		R = null,
 		square = null,
 		pull = null,
+		pullLabel = null,
+		pullCircle = null,
 		blob = null,
 		isMenu = false,
+		
+		circles = null,
+		labels = null,
+		areas = null,
+		sets = null,
 
 		offsetX = -90,
 		offsetY = -20,
 		
 		winWidth = $(window).width(),
 		winHeight = $(window).height(),
-
-		halfHeight = Math.round(winHeight / 2),
-		halfWidth = Math.round(winWidth / 2),
+		
+		halfWidth = Math.round(winHeight / 2),
 
 		nameX = Math.round(winWidth * .89),
 		nameY = Math.round(winHeight * .49),
 
 		initialOffset = 102,
 		offsetLeftX = Math.round(winWidth * .15);
-		
+	
 	var mainHomeView = Backbone.View.extend({
+		
 		container: "main-canvas",
 		el: $("#page .content"),
 		initialize: function(){
+			
 			object = this;
-		},
-		hide: function(target){
-			this.el.fadeOut(300, function(){
-				EH.trigger("hidden", target);
+			
+			var self = this;
+			$(window).resize(function(){
+				
+				winWidth = $(window).width();
+				winHeight = $(window).height();
+
+				halfWidth = Math.round(winHeight / 2);
+
+				nameX = Math.round(winWidth * .89);
+				nameY = Math.round(winHeight * .49);
+
+				offsetLeftX = Math.round(winWidth * .15);
+				
+				if (isMenu) {
+					console.log("move the menu");
+				} else {
+					
+					if (R) R.clear();
+					$("#" + self.container).empty();
+					self._initRaphael();
+					
+				}
 			});
 		},
+		hide: function(target){
+			
+			var self = this;
+			if ( circles ) {
+				$.each(circles, function(i, el){
+					el.animate({
+						"cx" : i * 30 + 15,
+						"cy" : halfWidth
+					}, i * 100 + 300, function(){
+						if ( i == circles.length - 1) {
+							self.el.fadeOut(300, function(){
+								EH.trigger("hidden", target);
+								R.clear();
+								$("#" + self.container).empty();
+							});
+						}
+					});
+					
+					areas[i].remove();
+					labels[i].remove();
+					if (i == 0) {
+						square.animate({
+							"opacity" : 0
+						}, 200);
+						blob.animate({
+							"cx" : 180,
+							"cy" : halfWidth,
+							"opacity" : 0
+						}, 800);
+					}
+				})
+			} else {
+				this.el.fadeOut(300, function(){
+					EH.trigger("hidden", target);
+					R.clear();
+					this.el.empty();
+				});
+			}
+		},
 		render: function(){
-			console.log("home render");
 			EH.trigger("hideNav");
-			this.el.html(mainHomeTemplate).fadeIn();
-
-			var self = this;
-			$(window).ready(self._initRaphael());
-		},
-
-		_initRaphael: function() {
-			var self = this;
-
-			R = new Raphael(document.getElementById(self.container), 1024, 768);
-			$(window).resize( self._resizeRaphael );
-			setTimeout(function(){
-				self._resizeRaphael();
-				self._initGraphics();
-			}, 100);
-		},
-
-		_resizeRaphael: function() {
-			winWidth = $(window).width(),
-			winHeight = $(window).height(),
 			
-			halfHeight = Math.round(winHeight / 2),
-			halfWidth = Math.round(winWidth / 2),
-
-			nameX = Math.round(winWidth * .89),
-			nameY = Math.round(winHeight * .49),
-
-			offsetLeftX = Math.round(winWidth * .15);
-			
-			if (R) R.setSize( winWidth, winHeight );
-			if (object && R && pull && square) object._move(false, 0, 0);
+			var self = this;
+			this.el.html(mainHomeTemplate).fadeIn(300, function(){
+				self._initRaphael();
+			});
 		},
-
+		
+		_initRaphael : function(){
+			R = Raphael(document.getElementById(this.container), "100%", "100%");
+			this._initGraphics();
+		},
+		
 		_initGraphics: function() {
 			var
 				pullX = nameX + offsetX,
@@ -115,14 +160,28 @@ define([
 				});
 				
 			pull = R
-				.rect(pullX, pullY, 100, 40)
+				.rect(pullX, pullY - 20, 100, 40)
 				.attr({
-					"fill" : "#fff",
+					"fill" : "#222",
+					"opacity" : 0,
 					"stroke-width" : 0,
 					"stroke-opacity" : 0,
 					"cursor": "pointer"
 				});
 			pull.drag(this._handleMove, this._handleStart, this._handleStop);
+			
+			pullLabel = R.text(pullX + 50, pullY, "Nicolas Pigelet").attr({
+				"font" : "8px Copy0855",
+				"fill" : "#ffffff",
+				"cursor" : "pointer"
+			});
+			pullLabel.drag(this._handleMove, this._handleStart, this._handleStop);
+			
+			pullCircle = R.circle(pullX + 102, pullY, 5).attr({
+				"fill" : "#ddd",
+				"stroke-width" : 0,
+				"stroke-opacity" : 0,
+			});
 		},
 
 		_handleMove: function ( dx, dy, mouseX, mouseY, e ){
@@ -130,20 +189,20 @@ define([
 		},
 		
 		_handleStart: function(){
-			console.log("handle start");
+			// TODO something... ?
 		},
 		
 		_handleStop: function( e ){
 			if ( e.pageX < Math.round(winWidth * .66) ) {
 				isMenu = true;
 				pull.undrag();
+				pullLabel.undrag();
 			}
 			if (object) object._move(true, 0, 0);
-			
 		},
-
+		
 		_move : function(animate, dx, dy){
-			
+				
 			var
 				pullX = isMenu ? Math.round(winWidth * .33) : nameX + dx + offsetX,
 				pullY = nameY + dy + offsetY,
@@ -182,7 +241,17 @@ define([
 
 				pull.animate({
 					"x": pullX,
+					"y": pullY - 20
+				}, duration, easing);
+				
+				pullLabel.animate({
+					"x": pullX + 50,
 					"y": pullY
+				}, duration, easing);
+				
+				pullCircle.animate({
+					"cx": pullX + 102,
+					"cy": pullY
 				}, duration, easing);
 
 				square.animate({
@@ -193,15 +262,7 @@ define([
 					"path": blobPath
 				}, duration, easing, function(){
 					if (isMenu) {
-						blob.remove();
-						blob = R
-							.circle(center.x, center.y, 79);
-						blob.attr({
-							"scale" :[0.1,0.1],
-							"fill" : "#161616",
-							"stroke-width" : "0",
-							"stroke-opacity" : "0"
-						});
+						object._initMenu(left, top, right, bottom, center);
 					}
 				});
 
@@ -209,13 +270,23 @@ define([
 				
 				pull.attr({
 					"x": pullX,
+					"y": pullY - 20
+				});
+				
+				pullLabel.attr({
+					"x": pullX + 50,
 					"y": pullY
+				});
+				
+				pullCircle.attr({
+					"cx": pullX + 102,
+					"cy": pullY
 				});
 
 				square.attr( "path", path );
 				blob.attr("path", blobPath);
 			}
-
+			
 		},
 
 		_getBlobPath : function(right, bottom, left, top, dx) {
@@ -249,6 +320,174 @@ define([
 			blobPath += "," + (right.x - offsetBlob) + "," + right.y;
 			
 			return blobPath;
+		},
+		
+		
+		/* FUNCTIONNAL MENU */
+		_initMenu : function(left, top, right, bottom, center){
+			
+			pull.remove();
+			pullCircle.remove();
+			pullLabel.animate({
+				"opacity" : 0
+			}, 300, function(){
+				pullLabel.remove();
+			});
+			
+			blob.remove();
+			blob = R.circle(center.x, center.y, 79).attr({
+				"scale" :[0.1,0.1],
+				"fill" : "#161616",
+				"stroke-width" : "0",
+				"stroke-opacity" : "0"
+			});
+			
+			var 
+				circleAttr = {
+					"fill" : "#ddd",
+					"stroke-width" : 0,
+					"stroke-opacity" : 0,
+					"opacity" : 0.5
+				},
+				rectAttr = {
+					"fill" : "#222",
+					"opacity" : 0,
+					"stroke-width" : 0,
+					"stroke-opacity" : 0,
+					"cursor" : "pointer"
+				},
+				textAttr = {
+					"font" : "8px Copy0855",
+					"fill" : "#ffffff",
+					"cursor" : "pointer",
+					"opacity" : 0
+				},
+				positions = [left, bottom, right, top],
+				href = ["about", "work", "stuffs", "links"];
+			
+			var 
+				aboutCircle = R.circle(left.x, left.y, 3).attr(circleAttr),
+				workCircle = R.circle(bottom.x, bottom.y, 3).attr(circleAttr),
+				stuffsCircle = R.circle(right.x, right.y, 3).attr(circleAttr),
+				linksCircle = R.circle(top.x, top.y, 3).attr(circleAttr);
+				
+			var 
+				aboutLabel = R.text(left.x - 30, left.y, "About").attr(textAttr),
+				workLabel = R.text(bottom.x, bottom.y + 20, "Work").attr(textAttr),
+				stuffsLabel = R.text(right.x + 30, right.y, "Stuffs").attr(textAttr),
+				linksLabel = R.text(top.x, top.y - 20, "Links").attr(textAttr);
+				
+			var 
+				aboutArea = R.rect(left.x - 100, left.y - 50, 100, 100).attr(rectAttr).toFront(),
+				workArea = R.rect(bottom.x - 50, bottom.y, 100, 100).attr(rectAttr).toFront(),
+				stuffsArea = R.rect(right.x, right.y - 50, 100, 100).attr(rectAttr).toFront(),
+				linksArea = R.rect(top.x - 50, top.y - 100, 100, 100).attr(rectAttr).toFront();
+				
+			var 
+				aboutSet = R.set(),
+				workSet = R.set(),
+				stuffsSet = R.set(),
+				linksSet = R.set();
+			
+			circles = [aboutCircle, workCircle, stuffsCircle, linksCircle];
+			labels = [aboutLabel, workLabel, stuffsLabel, linksLabel];
+			areas = [aboutArea, workArea, stuffsArea, linksArea];
+			sets = [aboutSet, workSet, stuffsSet, linksSet];
+				
+			aboutSet.push(aboutArea, aboutCircle, aboutLabel);
+			workSet.push(workArea, workCircle, workLabel);
+			stuffsSet.push(stuffsArea, stuffsCircle, stuffsLabel);
+			linksSet.push(linksArea, linksCircle, linksLabel);
+			
+			var self = this;
+			$.each(areas, function(i, area){
+				self._addEvents(i, area, circles, labels, positions, href, left, top, right, bottom);
+			});
+				
+		},
+		
+		_addEvents : function(i, target, circles, labels, positions, href, left, top, right, bottom ) {
+			
+			target.mousemove(function(e, mouseX, mouseY){
+					
+					var 
+						circleX = mouseX + 30,
+						circleY = mouseY,
+						labelX = mouseX,
+						labelY = mouseY,
+						path = "M" + circleX + "," + circleY + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z";
+						
+					if ( i == 1 ) {
+						circleX = mouseX;
+						circleY = mouseY - 20;
+						
+						path = "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + circleX + "," + circleY + "Z";
+					} else if ( i == 2 ) {
+						circleX = mouseX - 30;
+						
+						path = "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + circleX + "," + circleY + "L" + bottom.x + "," + bottom.y + "Z";
+					} else if ( i == 3 ) {
+						circleX = mouseX;
+						circleY = mouseY + 20;
+						
+						path = "M" + left.x + "," + left.y + "L" + circleX + "," + circleY + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z";
+					}
+					
+					circles[i].attr({
+						"cx" : circleX,
+						"cy" : circleY,
+						"opacity" : 1
+					});
+					
+					labels[i].attr({
+						"x" : labelX,
+						"y" : labelY,
+						"opacity" : 1
+					});
+					
+					square.attr({
+						"path": path
+					});
+					
+				}).mouseout(function(){
+					
+					var duration = 200;
+					circles[i].animate({
+						"cx" : positions[i].x,
+						"cy" : positions[i].y,
+						"opacity" : 0.5
+					}, duration);
+					
+					var 
+						labelX = left.x - 30,
+						labelY = left.y;
+						
+					if ( i == 1 ) {
+						labelX = bottom.x;
+						labelY = bottom.y + 20;
+					} else if ( i == 2 ) {
+						labelX = right.x + 30;
+						labelY = right.y;
+					} else if ( i == 3 ) {
+						labelX = top.x;
+						labelY = top.y - 20;
+					}
+					
+					labels[i].animate({
+						"x" : labelX,
+						"y" : labelY,
+						"opacity" : 0
+					}, duration);
+					
+					var path = "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z";
+					square.animate({
+						"path": path
+					}, duration);
+					
+				}).click(function(){
+					window.location.hash = "/" + href[i];
+				});
+			
 		}
 	});
 	

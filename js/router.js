@@ -69,8 +69,7 @@ define([
 			// this.hide();
 		},
 		defaultAction: function(actions){
-			// currentView = mainHomeView;
-			// this.hide();
+			this._displayPage(mainHomeView);
 		},
 
 		_displayPartial : function(view, slug) {
@@ -90,7 +89,7 @@ define([
 				isInit = false;
 				currentView = view;
 				view.render(slug);
-				this.updateBreadcrumb();
+				if ( currentView !== mainHomeView ) this.updateBreadcrumb();
 			}
 		},
 

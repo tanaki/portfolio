@@ -39,7 +39,11 @@ define([
 		},
 		
 		hide: function(target, slug){
+			
+			var self = this;
 			this.el.fadeOut(300, function(){
+				self.elDetail.empty();
+				self.elDetailBackground.empty();
 				EH.trigger("hidden", target);
 			});
 		},
