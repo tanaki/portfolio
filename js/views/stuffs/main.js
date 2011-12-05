@@ -41,11 +41,13 @@ define([
 			targetLink.addClass("current");
 			this._updateNavPos();
 
+			var self = this;
 			currentToAnimate.animate({
 				"opacity" : 0,
 				"top" : currentIndex > targetIndex ? "95%" : "5%"
 			}, 400, function(){
 				currentArticle.addClass("hidden");
+				self._updateImage();
 				currentToAnimate.css({
 					"top": currentToAnimate.data("top"),
 					"opacity": 1
@@ -62,6 +64,7 @@ define([
 					"opacity" : 1,
 					"top": targetToAnimate.data("top")
 				}, 400);
+				
 		},
 
 		render: function(selectedSlug){
