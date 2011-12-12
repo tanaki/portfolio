@@ -44,7 +44,7 @@ define([
 			var self = this;
 			currentToAnimate.animate({
 				"opacity" : 0,
-				"top" : currentIndex > targetIndex ? "95%" : "5%"
+				"top" : currentIndex > targetIndex ? "70%" : "30%"
 			}, 400, function(){
 				currentArticle.addClass("hidden");
 				self._updateImage();
@@ -57,7 +57,7 @@ define([
 			targetArticle.removeClass("hidden");
 			targetToAnimate
 				.css({
-					"top": currentIndex > targetIndex ? "5%" : "95%",
+					"top": currentIndex > targetIndex ? "30%" : "70%",
 					"opacity" : 0
 				})
 				.animate({
@@ -100,6 +100,7 @@ define([
 		_display : function(selectedSlug){
 			
 			var data = {
+				baseTop : Math.round($(window).height() / 2),
 				stuffs: this.collection.models,
 				selectedSlug: selectedSlug,
 				_: _
@@ -115,7 +116,7 @@ define([
 
 		_updateImage : function(){
 			var img = $(".content ul li:not(.hidden)").data("img");
-			if (img) $("nav .selected span").css("background-image", "url(/img/stuffs/"+ img +")");
+			$("nav .selected span").css("background-image", "url(/img/stuffs/"+ img +")");
 		},
 		
 		_updateNavPos : function(resize){

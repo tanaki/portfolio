@@ -65,6 +65,7 @@ define([
 			this._displayPage(linksView);
 		},
 		showCredits: function(){
+			alert("© 2011-2012 Nicolas Pigelet - Thanks at Frederik Delmotte <frederikdelmotte.be>");
 			// currentView = creditsView;
 			// this.hide();
 		},

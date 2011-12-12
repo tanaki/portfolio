@@ -12,8 +12,11 @@ define([
 		object = null,
 		R = null,
 		square = null,
+		squareHelp = null,
+		circleHelp = null,
 		pull = null,
 		pullLabel = null,
+		pullHelp = null,
 		pullCircle = null,
 		blob = null,
 		isMenu = false,
@@ -59,13 +62,11 @@ define([
 				offsetLeftX = Math.round(winWidth * .15);
 				
 				if (isMenu) {
-					console.log("move the menu");
+					self._moveMenu();
 				} else {
-					
 					if (R) R.clear();
 					$("#" + self.container).empty();
-					self._initRaphael();
-					
+					self._initRaphael();			
 				}
 			});
 		},
@@ -78,7 +79,7 @@ define([
 						"cx" : i * 30 + 15,
 						"cy" : halfWidth
 					}, i * 100 + 300, function(){
-						if ( i == circles.length - 1) {
+						if ( i == circles.length - 1 ) {
 							self.el.fadeOut(300, function(){
 								EH.trigger("hidden", target);
 								R.clear();
@@ -87,8 +88,8 @@ define([
 						}
 					});
 					
-					areas[i].remove();
-					labels[i].remove();
+					if ( areas[i] ) areas[i].remove();
+					if ( labels[i] ) labels[i].remove();
 					if (i == 0) {
 						square.animate({
 							"opacity" : 0
@@ -96,8 +97,9 @@ define([
 						blob.animate({
 							"cx" : 180,
 							"cy" : halfWidth,
-							"opacity" : 0
-						}, 800);
+							"opacity" : 0,
+							"transform" : "s0.2,0.2"
+						}, 600);
 					}
 				})
 			} else {
@@ -123,6 +125,7 @@ define([
 		},
 		
 		_initGraphics: function() {
+			
 			var
 				pullX = nameX + offsetX,
 				pullY = nameY + offsetY;
@@ -159,8 +162,42 @@ define([
 					"stroke-width" : "1"
 				});
 				
+			squareHelp = R
+				.path("M" + top.x + "," + top.y + "L" + left.x + "," + left.y + "L" + bottom.x + "," + bottom.y)
+				.attr({
+					"stroke" : "#444",
+					"stroke-width" : "1",
+					"opacity" : 0
+				});
+				
+			pullHelp = R.text(pullX + 80, pullY, "Pull").attr({
+				"font" : "8px Copy0855",
+				"fill" : "#ffffff",
+				"cursor" : "pointer",
+				"opacity" : 0
+			});
+			
+			pullLabel = R.text(pullX + 50, pullY, "Nicolas Pigelet").attr({
+				"font" : "8px Copy0855",
+				"fill" : "#ffffff",
+				"cursor" : "pointer"
+			});
+			
+			pullCircle = R.circle(pullX + 102, pullY, 5).attr({
+				"fill" : "#ddd",
+				"stroke-width" : 0,
+				"stroke-opacity" : 0
+			});
+			
+			circleHelp = R.circle(pullX + 102, pullY, 5).attr({
+				"fill" : "#777",
+				"stroke-width" : 0,
+				"stroke-opacity" : 0,
+				"opacity" : 0
+			});
+			
 			pull = R
-				.rect(pullX, pullY - 20, 100, 40)
+				.rect(pullX, pullY - 40, 120, 80)
 				.attr({
 					"fill" : "#222",
 					"opacity" : 0,
@@ -170,18 +207,56 @@ define([
 				});
 			pull.drag(this._handleMove, this._handleStart, this._handleStop);
 			
-			pullLabel = R.text(pullX + 50, pullY, "Nicolas Pigelet").attr({
-				"font" : "8px Copy0855",
-				"fill" : "#ffffff",
-				"cursor" : "pointer"
-			});
-			pullLabel.drag(this._handleMove, this._handleStart, this._handleStop);
+			pull
+				.mouseover(this._mouseOver)
+				.mouseout(this._mouseOut);
+		},
+		
+		_mouseOver : function(){
+			var pullX = nameX + offsetX;
 			
-			pullCircle = R.circle(pullX + 102, pullY, 5).attr({
-				"fill" : "#ddd",
-				"stroke-width" : 0,
-				"stroke-opacity" : 0,
-			});
+			pullLabel.animate({
+				"x" : pullX + 30,
+				"opacity" : 0
+			}, 100);
+			
+			pullHelp.animate({
+				"x" : pullX + 50,
+				"opacity" : 1
+			}, 100);
+			
+			squareHelp.animate({
+				"opacity": 1,
+				"transform" : "t-100,0"
+			}, 100);
+			circleHelp.animate({
+				"opacity": 1,
+				"transform" : "t-100,0"
+			}, 100);
+		},
+		
+		_mouseOut : function(){
+			var pullX = nameX + offsetX;
+			
+			pullLabel.animate({
+				"x" : pullX + 50,
+				"opacity" : 1
+			}, 100);
+			
+			pullHelp.animate({
+				"x" : pullX + 80,
+				"opacity" : 0
+			}, 100);
+			
+			squareHelp.animate({
+				"opacity": 0,
+				"transform" : "t0,0"
+			}, 100);
+			
+			circleHelp.animate({
+				"opacity": 0,
+				"transform" : "t0,0"
+			}, 100);
 		},
 
 		_handleMove: function ( dx, dy, mouseX, mouseY, e ){
@@ -189,49 +264,26 @@ define([
 		},
 		
 		_handleStart: function(){
-			// TODO something... ?
+			object._mouseOut();
+			pull.unmouseover(object._mouseOver);
+			pull.unmouseout(object._mouseOut);
 		},
 		
 		_handleStop: function( e ){
 			if ( e.pageX < Math.round(winWidth * .66) ) {
 				isMenu = true;
 				pull.undrag();
-				pullLabel.undrag();
+			} else {
+				pull
+					.mouseover(object._mouseOver)
+					.mouseout(object._mouseOut);
 			}
 			if (object) object._move(true, 0, 0);
 		},
 		
 		_move : function(animate, dx, dy){
-				
-			var
-				pullX = isMenu ? Math.round(winWidth * .33) : nameX + dx + offsetX,
-				pullY = nameY + dy + offsetY,
-				halfY = nameY + offsetY,
-				middleX = nameX + Math.round(dx / 3) + offsetX;
-
-			var
-				left = {
-					x : (pullX + initialOffset),
-					y : pullY
-				},
-				top = {
-					x : isMenu ? left.x + 70 : (middleX + offsetLeftX),
-					y : isMenu ? pullY - 140 : -100
-				},
-				right = {
-					x : isMenu ? left.x + 216 : (winWidth + 200),
-					y : isMenu ? left.y - 57 : halfY
-				},
-				bottom = {
-					x : isMenu ? left.x + 135 : (middleX + offsetLeftX),
-					y : isMenu ? left.y + 85 : (winHeight + 100)
-				},
-				center = {
-					x : Math.round((left.x + right.x) / 2) - 1,
-					y : Math.round((top.y + bottom.y) / 2)
-				},
-				path = "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z",
-				blobPath = object._getBlobPath(right, bottom, left, top, dx);
+			
+			var coords = object._getLatestCoords(dx, dy);
 				
 			if ( animate ) {
 
@@ -240,51 +292,51 @@ define([
 					easing = "easeOut";
 
 				pull.animate({
-					"x": pullX,
-					"y": pullY - 20
+					"x": coords.pullX,
+					"y": coords.pullY - 40
 				}, duration, easing);
 				
 				pullLabel.animate({
-					"x": pullX + 50,
-					"y": pullY
+					"x": coords.pullX + 50,
+					"y": coords.pullY
 				}, duration, easing);
 				
 				pullCircle.animate({
-					"cx": pullX + 102,
-					"cy": pullY
+					"cx": coords.pullX + 102,
+					"cy": coords.pullY
 				}, duration, easing);
 
 				square.animate({
-					"path": path
+					"path": coords.path
 				}, duration, easing);
 
 				blob.animate({
-					"path": blobPath
+					"path": coords.blobPath
 				}, duration, easing, function(){
 					if (isMenu) {
-						object._initMenu(left, top, right, bottom, center);
+						object._initMenu(coords.left, coords.top, coords.right, coords.bottom, coords.center);
 					}
 				});
 
 			} else {
 				
 				pull.attr({
-					"x": pullX,
-					"y": pullY - 20
+					"x": coords.pullX,
+					"y": coords.pullY - 40
 				});
 				
 				pullLabel.attr({
-					"x": pullX + 50,
-					"y": pullY
+					"x": coords.pullX + 50,
+					"y": coords.pullY
 				});
 				
 				pullCircle.attr({
-					"cx": pullX + 102,
-					"cy": pullY
+					"cx": coords.pullX + 102,
+					"cy": coords.pullY
 				});
 
-				square.attr( "path", path );
-				blob.attr("path", blobPath);
+				square.attr( "path", coords.path );
+				blob.attr("path", coords.blobPath);
 			}
 			
 		},
@@ -326,21 +378,40 @@ define([
 		/* FUNCTIONNAL MENU */
 		_initMenu : function(left, top, right, bottom, center){
 			
-			pull.remove();
-			pullCircle.remove();
-			pullLabel.animate({
-				"opacity" : 0
-			}, 300, function(){
-				pullLabel.remove();
-			});
+			if ( pull ) {
+				pull.remove();
+				pull = null;
+			}
+			if ( pullCircle ) {
+				pullCircle.remove();
+				pullCircle = null;
+			}
 			
-			blob.remove();
-			blob = R.circle(center.x, center.y, 79).attr({
-				"scale" :[0.1,0.1],
-				"fill" : "#161616",
-				"stroke-width" : "0",
-				"stroke-opacity" : "0"
-			});
+			if (pullLabel) {
+				pullLabel.animate({
+					"opacity" : 0
+				}, 300, function(){
+					pullLabel.remove();
+					pullLabel = null;
+				});
+			}
+			
+			
+			if ( blob.type != "circle" ) {
+				blob.remove();
+				blob = R.circle(center.x, center.y, 79).attr({
+					"scale" :[0.1,0.1],
+					"fill" : "#161616",
+					"stroke-width" : "0",
+					"stroke-opacity" : "0"
+				});
+			} else {
+				blob.attr({
+					"cx" : center.x,
+					"cy" : center.y
+				});
+			}
+			
 			
 			var 
 				circleAttr = {
@@ -350,7 +421,7 @@ define([
 					"opacity" : 0.5
 				},
 				rectAttr = {
-					"fill" : "#222",
+					"fill" : "#333",
 					"opacity" : 0,
 					"stroke-width" : 0,
 					"stroke-opacity" : 0,
@@ -378,10 +449,10 @@ define([
 				linksLabel = R.text(top.x, top.y - 20, "Links").attr(textAttr);
 				
 			var 
-				aboutArea = R.rect(left.x - 100, left.y - 50, 100, 100).attr(rectAttr).toFront(),
-				workArea = R.rect(bottom.x - 50, bottom.y, 100, 100).attr(rectAttr).toFront(),
-				stuffsArea = R.rect(right.x, right.y - 50, 100, 100).attr(rectAttr).toFront(),
-				linksArea = R.rect(top.x - 50, top.y - 100, 100, 100).attr(rectAttr).toFront();
+				aboutArea = R.rect(left.x - 100, left.y - 50, 120, 100).attr(rectAttr).toFront(),
+				workArea = R.rect(bottom.x - 50, bottom.y - 20, 100, 120).attr(rectAttr).toFront(),
+				stuffsArea = R.rect(right.x - 20, right.y - 50, 120, 100).attr(rectAttr).toFront(),
+				linksArea = R.rect(top.x - 50, top.y - 100, 100, 120).attr(rectAttr).toFront();
 				
 			var 
 				aboutSet = R.set(),
@@ -410,84 +481,148 @@ define([
 			
 			target.mousemove(function(e, mouseX, mouseY){
 					
-					var 
-						circleX = mouseX + 30,
-						circleY = mouseY,
-						labelX = mouseX,
-						labelY = mouseY,
-						path = "M" + circleX + "," + circleY + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z";
-						
-					if ( i == 1 ) {
-						circleX = mouseX;
-						circleY = mouseY - 20;
-						
-						path = "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + circleX + "," + circleY + "Z";
-					} else if ( i == 2 ) {
-						circleX = mouseX - 30;
-						
-						path = "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + circleX + "," + circleY + "L" + bottom.x + "," + bottom.y + "Z";
-					} else if ( i == 3 ) {
-						circleX = mouseX;
-						circleY = mouseY + 20;
-						
-						path = "M" + left.x + "," + left.y + "L" + circleX + "," + circleY + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z";
-					}
-					
-					circles[i].attr({
-						"cx" : circleX,
-						"cy" : circleY,
-						"opacity" : 1
-					});
-					
-					labels[i].attr({
-						"x" : labelX,
-						"y" : labelY,
-						"opacity" : 1
-					});
-					
-					square.attr({
-						"path": path
-					});
-					
-				}).mouseout(function(){
-					
-					var duration = 200;
-					circles[i].animate({
-						"cx" : positions[i].x,
-						"cy" : positions[i].y,
-						"opacity" : 0.5
-					}, duration);
-					
-					var 
-						labelX = left.x - 30,
-						labelY = left.y;
-						
-					if ( i == 1 ) {
-						labelX = bottom.x;
-						labelY = bottom.y + 20;
-					} else if ( i == 2 ) {
-						labelX = right.x + 30;
-						labelY = right.y;
-					} else if ( i == 3 ) {
-						labelX = top.x;
-						labelY = top.y - 20;
-					}
-					
-					labels[i].animate({
-						"x" : labelX,
-						"y" : labelY,
-						"opacity" : 0
-					}, duration);
-					
-					var path = "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z";
-					square.animate({
-						"path": path
-					}, duration);
-					
-				}).click(function(){
-					window.location.hash = "/" + href[i];
+				var 
+					circleX = mouseX + 30,
+					circleY = mouseY,
+					labelX = mouseX,
+					labelY = mouseY,
+					path = "M" + circleX + "," + circleY + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z";
+
+				if ( i == 1 ) {
+					circleX = mouseX;
+					circleY = mouseY - 20;
+
+					path = "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + circleX + "," + circleY + "Z";
+				} else if ( i == 2 ) {
+					circleX = mouseX - 30;
+
+					path = "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + circleX + "," + circleY + "L" + bottom.x + "," + bottom.y + "Z";
+				} else if ( i == 3 ) {
+					circleX = mouseX;
+					circleY = mouseY + 20;
+
+					path = "M" + left.x + "," + left.y + "L" + circleX + "," + circleY + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z";
+				}
+
+				circles[i].attr({
+					"cx" : circleX,
+					"cy" : circleY,
+					"opacity" : 1
 				});
+
+				labels[i].attr({
+					"x" : labelX,
+					"y" : labelY,
+					"opacity" : 1
+				});
+
+				square.attr({
+					"path": path
+				});
+					
+			}).mouseout(function(){
+
+				var duration = 200;
+				circles[i].animate({
+					"cx" : positions[i].x,
+					"cy" : positions[i].y,
+					"opacity" : 0.5
+				}, duration);
+
+				var 
+					labelX = left.x - 30,
+					labelY = left.y;
+
+				if ( i == 1 ) {
+					labelX = bottom.x;
+					labelY = bottom.y + 20;
+				} else if ( i == 2 ) {
+					labelX = right.x + 30;
+					labelY = right.y;
+				} else if ( i == 3 ) {
+					labelX = top.x;
+					labelY = top.y - 20;
+				}
+
+				labels[i].animate({
+					"x" : labelX,
+					"y" : labelY,
+					"opacity" : 0
+				}, duration);
+
+				var path = "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z";
+				square.animate({
+					"path": path
+				}, duration);
+
+			}).click(function(){
+				window.location.hash = "/" + href[i];
+			});
 			
+		},
+		
+		_moveMenu : function(){
+			
+			var coords = this._getLatestCoords();
+			
+			square.attr({
+				"path" : coords.path
+			});
+			
+			$.each(circles, function(i, el){
+				el.remove();
+			});
+			$.each(areas, function(i, el){
+				el.remove();
+			});
+			$.each(labels, function(i, el){
+				el.remove();
+			});
+			
+			this._initMenu(coords.left, coords.top, coords.right, coords.bottom, coords.center);
+		},
+		
+		_getLatestCoords : function(dx, dy){
+			
+			var 
+				coords = {},
+				deltaX = dx || 0,
+				deltaY = dy || 0;
+			
+			coords.pullX = isMenu ? Math.round(winWidth * .33) : nameX + deltaX + offsetX;
+			coords.pullY = nameY + deltaY + offsetY;
+			coords.halfY = nameY + offsetY;
+			coords.middleX = nameX + Math.round(deltaX / 3) + offsetX;
+
+			coords.left = {
+				x : (coords.pullX + initialOffset),
+				y : coords.pullY
+			};
+			coords.top = {
+				x : isMenu ? coords.left.x + 70 : (coords.middleX + offsetLeftX),
+				y : isMenu ? coords.pullY - 140 : -100
+			};
+			coords.right = {
+				x : isMenu ? coords.left.x + 216 : (winWidth + 200),
+				y : isMenu ? coords.left.y - 57 : coords.halfY
+			};
+			coords.bottom = {
+				x : isMenu ? coords.left.x + 135 : (coords.middleX + offsetLeftX),
+				y : isMenu ? coords.left.y + 85 : (winHeight + 100)
+			};
+			coords.center = {
+				x : Math.round((coords.left.x + coords.right.x) / 2) - 1,
+				y : Math.round((coords.top.y + coords.bottom.y) / 2)
+			};
+			
+			coords.path = "M" + coords.left.x + "," + coords.left.y;
+			coords.path += "L" + coords.top.x + "," + coords.top.y;
+			coords.path += "L" + coords.right.x + "," + coords.right.y;
+			coords.path += "L" + coords.bottom.x + "," + coords.bottom.y + "Z";
+			
+			coords.blobPath = object._getBlobPath(coords.right, coords.bottom, coords.left, coords.top, deltaX);
+			
+			return coords;
 		}
 	});
 	

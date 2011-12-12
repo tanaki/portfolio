@@ -127,8 +127,11 @@ define([
 
 							$(this).text().shuffle( $(".breadcrumb .current:last") );
 
-							$("nav .selected span")
-								.css("background-image", "url(/img/work/projects/"+ $(this).data('slug') +".jpg)");
+							var url = "/img/work/projects/"+ $(this).data('slug') +".jpg";
+							$("nav .selected span").css({
+								"background-image" : "url(" + url + ")",
+								"background-position" : "50% -5px"
+							});
 
 						},
 						function(){
@@ -143,6 +146,10 @@ define([
 
 							$(".breadcrumb .current:first span")
 								.remove();
+						
+							$("nav .selected span").css({
+								"background-position" : "50% 100px"
+							});
 						}
 					);
 			});

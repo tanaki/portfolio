@@ -2,6 +2,18 @@
     "stuffs": [
 		{
 			"index" : 0,
+			"slug" : "current-and-next-projects",
+			"title" : "Current and Next Projects",
+			"img" : "",
+			"top" : "42%",
+			"date" : "11.12.2011",
+			"text" : "These days I'm working on CSS3 Animations, AS3 (PureMVC), AMD Architecture on Javascript.<br/><br/>My next projects involve : Java for Android, WebGL, Kinect, Arduino + Twitter API, Tangible objects&hellip;",
+			"tags" : [
+				"CSS3", "AS3", "AMD", "JS", "Java", "WebGL", "Kinect", "Arduino", "API", "Twitter"
+			]
+		},
+		{
+			"index" : 1,
 			"slug" : "this-website",
 			"title" : "This Website",
 			"img" : "backbone.jpg",
@@ -13,7 +25,7 @@
 			]
 		},
 		{
-			"index" : 1,
+			"index" : 2,
 			"slug" : "dopplr-api",
 			"title" : "Dopplr API",
 			"img" : "dopplr.jpg",
@@ -25,7 +37,7 @@
 			]
 		},
 		{
-			"index" : 2,
+			"index" : 3,
 			"slug" : "one-year-at-pirata",
 			"title" : "One year at Pirata",
 			"img" : "pirata.jpg",

@@ -336,17 +336,8 @@ table { border-collapse: collapse; border-spacing: 0; }
 	}
 	nav a#links.selected span,
 	nav a#work.selected span {
-		background: no-repeat center center;
-	}
-	nav a#links img {
-		display: none;
-	}
-	nav a#links.selected img {
-		display: block;
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		margin: -10px 0 0 -10px;
+		background-repeat: no-repeat;
+		background-position: 50% 100px;
 	}
 
 /* ABOUT & STUFFS */
@@ -680,18 +671,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 				max-width: 100%;
 			}
 			.page-work-detail .project-detail .right-column ul.tags li {
-				display:block;
-				float:left;
-				background:#999;
-				color:#fff;
-				text-align: center;
-				
-				width:60px;
-				height:35px;
-				padding-top: 25px;
-				margin: 10px 5px 0;
-				border-radius:30px;
-				
+				color:#000;
 				font-family: Copy0855, Arial, sans-serif;
 				font-size: 8px;
 			}
@@ -703,9 +683,9 @@ table { border-collapse: collapse; border-spacing: 0; }
 		top:50%;
 		left:0;
 
-		margin:-145px 0 0 545px;
+		margin:-90px 0 0 545px;
 		width:290px;
-		color:#ddd;
+		color:#bbb;
 		font-family: Abadi, Arial, sans-serif;
 		font-size:14px;
 		line-height:18px;
@@ -727,7 +707,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		display:block;
 		padding-top:20px;
 		margin-top:-50px;
-		background:url(/img/about/bg_cv_24.png) no-repeat center -20px;
+		background:url(/img/about/bg_cv_24.png) no-repeat center -11px;
 	}
 	.page-about .cv:hover {
 		background-position:center top;
@@ -762,7 +742,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 	.page-stuffs .content .articles li {
 		height: 100%;
 		width:100%;
-		color: #ddd;
+		color: #bbb;
 	}
 	.page-stuffs .content .articles li .stuff-content {
 		position: absolute;
@@ -788,7 +768,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 	.page-stuffs .content .nav-stuffs {
 		position: absolute;
-		top: 0;
+		top: 40%;
 		right: 0;
 	}
 	.page-stuffs .content .nav-stuffs li {

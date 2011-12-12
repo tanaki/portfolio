@@ -1,7 +1,6 @@
 
 	.page-links .content a,
 	nav a.selected span,
-
 	.transition
 	{
 		-webkit-transition: .2s linear;
@@ -24,7 +23,13 @@
 		transition: .3s linear;
 	}
 
-	.page-about .cv,
+	.page-about .cv {
+		-webkit-transition: .2s ease-out;
+		-moz-transition: .2s ease-out;
+		-ms-transition: .2s ease-out;
+		-o-transition: .2s ease-out;
+		transition: .2s ease-out;
+	}
 	.page-links .content li a,
 	footer a {
 		-webkit-transition: .1s linear;
