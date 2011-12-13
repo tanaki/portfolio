@@ -11,20 +11,21 @@ define([
 	var 
 		object = null,
 		R = null,
+		isMenu = false,
+		
 		square = null,
-		squareHelp = null,
-		circleHelp = null,
+		blob = null,
 		pull = null,
 		pullLabel = null,
-		pullHelp = null,
 		pullCircle = null,
-		blob = null,
-		isMenu = false,
+		
+		pullHelp = null,
+		squareHelp = null,
+		circleHelp = null,
 		
 		circles = null,
 		labels = null,
 		areas = null,
-		sets = null,
 
 		offsetX = -90,
 		offsetY = -20,
@@ -44,6 +45,7 @@ define([
 		
 		container: "main-canvas",
 		el: $("#page .content"),
+		
 		initialize: function(){
 			
 			object = this;
@@ -70,7 +72,7 @@ define([
 				}
 			});
 		},
-		hide: function(target){
+		hide: function( callbackEvent ){
 			
 			var self = this;
 			if ( circles ) {
@@ -81,9 +83,9 @@ define([
 					}, i * 100 + 300, function(){
 						if ( i == circles.length - 1 ) {
 							self.el.fadeOut(300, function(){
-								EH.trigger("hidden", target);
 								R.clear();
 								$("#" + self.container).empty();
+								if (callbackEvent) PF.EventManager.trigger(callbackEvent);
 							});
 						}
 					});
@@ -104,14 +106,14 @@ define([
 				})
 			} else {
 				this.el.fadeOut(300, function(){
-					EH.trigger("hidden", target);
 					R.clear();
 					this.el.empty();
+					if (callbackEvent) PF.EventManager.trigger(callbackEvent);
 				});
 			}
 		},
 		render: function(){
-			EH.trigger("hideNav");
+			PF.EventManager.trigger( PF.Events.HIDE_NAV );
 			
 			var self = this;
 			this.el.html(mainHomeTemplate).fadeIn(300, function(){
@@ -453,22 +455,10 @@ define([
 				workArea = R.rect(bottom.x - 50, bottom.y - 20, 100, 120).attr(rectAttr).toFront(),
 				stuffsArea = R.rect(right.x - 20, right.y - 50, 120, 100).attr(rectAttr).toFront(),
 				linksArea = R.rect(top.x - 50, top.y - 100, 100, 120).attr(rectAttr).toFront();
-				
-			var 
-				aboutSet = R.set(),
-				workSet = R.set(),
-				stuffsSet = R.set(),
-				linksSet = R.set();
 			
 			circles = [aboutCircle, workCircle, stuffsCircle, linksCircle];
 			labels = [aboutLabel, workLabel, stuffsLabel, linksLabel];
 			areas = [aboutArea, workArea, stuffsArea, linksArea];
-			sets = [aboutSet, workSet, stuffsSet, linksSet];
-				
-			aboutSet.push(aboutArea, aboutCircle, aboutLabel);
-			workSet.push(workArea, workCircle, workLabel);
-			stuffsSet.push(stuffsArea, stuffsCircle, stuffsLabel);
-			linksSet.push(linksArea, linksCircle, linksLabel);
 			
 			var self = this;
 			$.each(areas, function(i, area){
@@ -556,7 +546,7 @@ define([
 				}, duration);
 
 			}).click(function(){
-				window.location.hash = "/" + href[i];
+				PF.AppRouter.navigate( href[i], true);
 			});
 			
 		},

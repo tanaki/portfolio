@@ -1,25 +1,44 @@
-// Filename: portfolio.js
-define([
-	'jQuery',
-	'Underscore',
-	'Backbone',
-	'router'
-], function($, _, Backbone, Router){
+// Create Namespace
+var PF = window.PF || {};
 
-	var initialize = function(){
-		$("html").removeClass("no-js");
-		$('a[rel="external"]').live("click", function(e){
-			e.preventDefault();
-			window.open( $(this).attr('href') , "_blank" );
-		});
+/* EVENT MANAGER */
+PF.EventManager = PF.EventManager || $({});
 
-		// Event Helpers
-		window.EH = $({});
+/* COLLECTIONS */
+PF.Collection = PF.Collection || {};
 
-		Router.initialize();
-	}
+/* MODELS */
+PF.Model = PF.Model || {};
 
-	return {
-		initialize: initialize
-	};
+/* VIEWS */
+PF.View = PF.View || {};
+
+/*
+ * EVENTS
+ */
+
+PF.Events = {
+    APP_READY : "APP_READY",
+	
+	SHOW_NAV : "SHOW_NAV",
+	HIDE_NAV : "HIDE_NAV",
+	
+	INIT_ABOUT : "INIT_ABOUT",
+	INIT_WORK : "INIT_WORK",
+	INIT_WORK_DETAIL : "INIT_WORK_DETAIL",
+	INIT_STUFFS : "INIT_STUFFS",
+	INIT_LINKS : "INIT_LINKS",
+	INIT_CREDITS : "INIT_CREDITS"
+	
+};
+
+$(window).ready(function(){
+	
+	// start background graphic
+	PF.AppBackground = new PF.Background();
+	
+	// start app
+	PF.AppRouter = new PF.Router();
+	Backbone.history.start({ pushState : true });
+	
 });

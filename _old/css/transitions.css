@@ -1,0 +1,49 @@
+
+	.page-links .content a,
+	nav a.selected span,
+	.transition
+	{
+		-webkit-transition: .2s linear;
+		-moz-transition: .2s linear;
+		-ms-transition: .2s linear;
+		-o-transition: .2s linear;
+		transition: .2s linear;
+	}
+
+	.page-stuffs .content .nav-stuffs li.current,
+	.page-stuffs .content .nav-stuffs li.current a,
+	.page-stuffs .content .nav-stuffs li.current a span,
+	
+	.page-work-detail .nav-work-details li a span,
+	.page-work-detail .nav-work-details li a span img {
+		-webkit-transition: .3s linear;
+		-moz-transition: .3s linear;
+		-ms-transition: .3s linear;
+		-o-transition: .3s linear;
+		transition: .3s linear;
+	}
+
+	.page-about .cv {
+		-webkit-transition: .2s ease-out;
+		-moz-transition: .2s ease-out;
+		-ms-transition: .2s ease-out;
+		-o-transition: .2s ease-out;
+		transition: .2s ease-out;
+	}
+	.page-links .content li a,
+	footer a {
+		-webkit-transition: .1s linear;
+		-moz-transition: .1s linear;
+		-ms-transition: .1s linear;
+		-o-transition: .1s linear;
+		transition: .1s linear;
+	}
+	
+	.page-links .line {
+		-webkit-transition: .27s linear;
+		-moz-transition: .27s linear;
+		-ms-transition: .27s linear;
+		-o-transition: .27s linear;
+		transition: .27s linear;
+	}
+	

@@ -1,1 +1,2 @@
-#### RequireJS + Backbone Architecture. Forked from Thomas Davis example.
+#### Nicolas Pigelet - Portfolio
+#### http://nipigelet.com - nico@nicolaspigelet.com
