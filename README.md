@@ -1,2 +1,1 @@
-RequireJS + Backbone Architecture.
-Forked from Thomas Davis example.
+#### RequireJS + Backbone Architecture. Forked from Thomas Davis example.
