@@ -1,5 +1,4 @@
-# this is ok for a full JS/Front End Application with JS enable
-# for SEO you have to use a proper backend
+# Options All -Indexes
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 	RewriteBase /

@@ -394,6 +394,10 @@ table { border-collapse: collapse; border-spacing: 0; }
 	.breadcrumb li {
 		display:inline;
 	}
+	.breadcrumb li.link-first {
+		display: inline-block;
+		margin-top: 8px;
+	}
 	.breadcrumb li.link,
 	.breadcrumb li.link a {
 		color:#666;

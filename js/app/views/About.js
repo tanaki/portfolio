@@ -1,7 +1,7 @@
 
 PF.View.About = Backbone.View.extend({
 	
-	el : ".main-content",
+	el : "#page .content",
 	tpl_about : null,
 	
 	hide : function (callbackEvent) {
@@ -30,6 +30,6 @@ PF.View.About = Backbone.View.extend({
 	
 	_display : function() {
 		var tpl = _.template( this.tpl_about );
-		$(this.el).html( tpl() );
+		$(this.el).html( tpl() ).fadeIn(300);
 	}
 });

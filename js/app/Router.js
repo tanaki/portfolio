@@ -3,13 +3,20 @@ PF.Router = Backbone.Router.extend({
 	
 	currentView : null,
 	isInit : false,
+	nav : null,
 	eventHandlers : {},
+	
+	homeView : null,
+	aboutView : null,
+	workView : null,
+	stuffsView : null,
 	
 	routes : {
 		"about" : "_aboutAction",
 		"work" : "_workAction",
 		"work/:slug" : "_workDetailAction",
-		"stuffs/:slug" : "_stuffsAction",
+		"stuffs" : "_stuffsAction",
+		"stuffs/:slug" : "_stuffsDetailAction",
 		"links" : "_linksAction",
 		"credits" : "_creditsAction",
 		"*actions" : "_defaultAction"
@@ -36,7 +43,8 @@ PF.Router = Backbone.Router.extend({
 	 * @private
 	 */
 	_workDetailAction : function() {
-		this._displayPage( PF.Events.INIT_WORK_DETAIL );
+		console.log("work detail action");
+		//this._displayPage( PF.Events.INIT_WORK_DETAIL );
 	},
 	
 	/*
@@ -97,6 +105,9 @@ PF.Router = Backbone.Router.extend({
 		this._initEventHandlers();
 		this._initNav();
 		this._initExternals();
+		
+		this.nav = new PF.View.Nav();
+		this.nav.initBreadcrumb();
 	},
 	
 	/*
@@ -142,23 +153,62 @@ PF.Router = Backbone.Router.extend({
 		});
 	},
 	
+	
+	/*
+	 * init external links
+	 * @private
+	 */
+	_updateBodyClass : function( id ){
+		$("body")
+			.attr("class", "")
+			.addClass("page-" + id);
+	},
+	
 	/********
 	 * EVENT HANDLERS
 	 */
 		
 	_appReady : function() {
 		
-		var homeView = new PF.View.Home();
-		homeView.render();
-		PF.AppRouter.currentView = homeView;
+		var self = PF.AppRouter;
+		
+		if ( self.homeView == null ) self.homeView = new PF.View.Home();
+		self.homeView.render();
+		self.currentView = self.homeView;
 		
 	},
 	
 	_initAbout : function() {
 		
-		var aboutView = new PF.View.About();
-		aboutView.render();
-		PF.AppRouter.currentView = aboutView;
+		var self = PF.AppRouter;
+		
+		if ( self.aboutView == null ) self.aboutView = new PF.View.About();
+		self.aboutView.render();
+		self.currentView = self.aboutView;
+		self.nav.render("about");
+		
+	},
+	
+	_initWork : function() {
+		
+		var self = PF.AppRouter;
+		
+		if ( self.workView == null ) self.workView = new PF.View.Work();
+		self.workView.render();
+		self.currentView = self.workView;
+		self.nav.render("work");
+		
+	},
+	
+	_initStuffs : function( slug ) {
+		
+		console.log(slug);
+		var self = PF.AppRouter;
+		
+		if ( self.stuffsView == null ) self.stuffsView = new PF.View.Stuffs();
+		self.stuffsView.render();
+		self.currentView = self.stuffsView;
+		self.nav.render("stuffs");
 		
 	}
 	

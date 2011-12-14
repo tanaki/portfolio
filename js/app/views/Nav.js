@@ -1,12 +1,13 @@
 
 PF.View.Nav = Backbone.View.extend({
 	
-	el: $("nav, footer"),
-	nav: $("nav"),
-	breadcrumb: $(".breadcrumb"),
+	nav: "nav",
+	footer: "footer",
+	breadcrumb: ".breadcrumb",
+	currentViewID : null,
 
 	order : function(idView){
-
+		
 		$("body")
 			.attr("class", "")
 			.addClass("page-" + idView);
@@ -45,9 +46,15 @@ PF.View.Nav = Backbone.View.extend({
 				if ( $(".breadcrumb .link").length > 1 )
 					$(".breadcrumb .link:last").show(200);
 
-				this.breadcrumbText = window.location.hash.slice(2).split("/")[0].capitalize();
-				this.breadcrumbText.shuffle( $(".breadcrumb .current") );
+				self.breadcrumbText = self.currentViewID.capitalize();
+				self.breadcrumbText.shuffle( $(".breadcrumb .current") );
 			}
+		});
+		
+		$("nav a").click( function(e) {
+			e.preventDefault();
+			if ( $(this).hasClass("selected") ) return;
+			PF.AppRouter.navigate( $(this).attr("href"), true );
 		});
 	},
 	
@@ -57,13 +64,42 @@ PF.View.Nav = Backbone.View.extend({
 	},
 
 	hide: function(){
-		this.el.fadeOut(200);
-		this.breadcrumb.fadeOut(200);
+		$(this.nav).fadeOut(200);
+		$(this.footer).fadeOut(200);
+		$(this.breadcrumb).fadeOut(200);
 	},
 	
-	render: function(){
-		this.el.css("visibility", "visible").fadeIn(200);
-		this.breadcrumb.css("visibility", "visible").fadeIn(200);
+	render: function( idView ){
+		
+		if ( $(this.nav).hasClass("hidden") ) {
+			$(this.nav)
+				.css("visibility", "visible")
+				.fadeIn(200, function(){
+					$(this).removeClass("hidden");
+				});
+		}
+		
+		if ( $(this.footer).hasClass("hidden") ) {
+			$(this.footer)
+				.css("visibility", "visible")
+				.fadeIn(200, function(){
+					$(this).removeClass("hidden");
+				});
+		}
+		
+		if ( $(this.breadcrumb).hasClass("hidden") ) {
+			$(this.breadcrumb)
+				.css("visibility", "visible")
+				.fadeIn(200, function(){
+					$(this).removeClass("hidden");
+				});
+		}
+		
+		if ( idView ) {
+			this.order(idView);
+			this.updateBreadcrumb(idView);
+			this.currentViewID = idView;
+		}
 	}
 	
 });
