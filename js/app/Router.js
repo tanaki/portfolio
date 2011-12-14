@@ -20,6 +20,7 @@ PF.Router = Backbone.Router.extend({
 	 * @private
 	 */
 	_aboutAction : function() {
+		console.log("about action")
 		this._displayPage( PF.Events.INIT_ABOUT );
 	},
 	

@@ -35,7 +35,7 @@ var
 PF.View.Home = Backbone.View.extend({
 	
 	container: "main-canvas",
-	el: $("#page .content"),
+	el: "#page .content",
 
 	initialize: function(){
 		
@@ -65,16 +65,20 @@ PF.View.Home = Backbone.View.extend({
 	},
 	hide: function( callbackEvent ){
 		
+		var self = this;
+		console.log("hide", self);
 		if ( circles ) {
-			$.each(circles, function(i, el){
-				el.animate({
+			$.each(circles, function(i, circle){
+				circle.animate({
 					"cx" : i * 30 + 15,
 					"cy" : halfWidth
 				}, i * 100 + 300, function(){
 					if ( i == circles.length - 1 ) {
-						object.el.fadeOut(300, function(){
+						console.log("hide 2", self);
+						$(self.el).fadeOut(300, function(){
 							R.clear();
-							$("#" + object.container).empty();
+							console.log("hide 3", self);
+							$("#" + self.container).empty();
 							if (callbackEvent) PF.EventManager.trigger(callbackEvent);
 						});
 					}
@@ -95,9 +99,9 @@ PF.View.Home = Backbone.View.extend({
 				}
 			})
 		} else {
-			this.el.fadeOut(300, function(){
+			$(self.el).fadeOut(300, function(){
 				R.clear();
-				this.el.empty();
+				$(this).empty();
 				if (callbackEvent) PF.EventManager.trigger(callbackEvent);
 			});
 		}
@@ -105,7 +109,7 @@ PF.View.Home = Backbone.View.extend({
 	render: function(){
 		PF.EventManager.trigger( PF.Events.HIDE_NAV );
 
-		this.el.empty();
+		$(this.el).empty();
 		this._initRaphael();
 	},
 
@@ -534,7 +538,8 @@ PF.View.Home = Backbone.View.extend({
 			}, duration);
 
 		}).click(function(){
-			PF.AppRouter.navigate( href[i], true);
+			console.log( href[i] )
+			//PF.AppRouter.navigate( href[i], true);
 		});
 
 	},
@@ -547,14 +552,14 @@ PF.View.Home = Backbone.View.extend({
 			"path" : coords.path
 		});
 
-		$.each(circles, function(i, el){
-			el.remove();
+		$.each(circles, function(i, circle){
+			circle.remove();
 		});
-		$.each(areas, function(i, el){
-			el.remove();
+		$.each(areas, function(i, area){
+			area.remove();
 		});
-		$.each(labels, function(i, el){
-			el.remove();
+		$.each(labels, function(i, label){
+			label.remove();
 		});
 
 		this._initMenu(coords.left, coords.top, coords.right, coords.bottom, coords.center);
