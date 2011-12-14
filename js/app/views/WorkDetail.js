@@ -21,7 +21,7 @@ PF.View.WorkDetail = Backbone.View.extend({
 		var self = this;
 		$.loadTemplate({
 			"template" : "template_work",
-			"file" : "templates/work.html",
+			"file" : "/templates/work.html",
 			"callback" : function(data){
 				self.tpl_work_detail = data;
 				self._loadData();

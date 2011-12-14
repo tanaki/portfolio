@@ -18,7 +18,7 @@ PF.View.Credits = Backbone.View.extend({
 		var self = this;
 		$.loadTemplate({
 			"template" : "template_credits",
-			"file" : "templates/credits.html",
+			"file" : "/templates/credits.html",
 			"callback" : function(data){
 				self.tpl_credits = data;
 				self._display();

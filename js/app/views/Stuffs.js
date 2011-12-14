@@ -9,13 +9,13 @@ PF.View.Stuffs = Backbone.View.extend({
 	initialize : function(){
 		var self = this;
 		$(window).resize(function(){
-			$(".page-stuffs .content").css("width", $(window).width() - 565 );
-			// self._updateNavPos(true);
+			$(self.el).css("width", $(window).width() - 545 );
+			self._updateNavPos(true);
 		});
 	},
 	
 	hide : function (callbackEvent) {
-		$(this.el).hide();
+		$(this.el).hide().css("width", "");
 		if (callbackEvent) PF.EventManager.trigger( callbackEvent );
 	},
 	
@@ -33,7 +33,7 @@ PF.View.Stuffs = Backbone.View.extend({
 		} else {
 			$.loadTemplate({
 				"template" : "template_stuffs",
-				"file" : "templates/stuffs.html",
+				"file" : "/templates/stuffs.html",
 				"callback" : function(data){
 					self.tpl_stuffs = data;
 					self._loadData();
@@ -78,21 +78,55 @@ PF.View.Stuffs = Backbone.View.extend({
 		
 	},
 	
+	_updateImage : function(){
+		var img = $(".content ul li:not(.hidden)").data("img");
+		$("nav .selected span").css("background-image", "url(/img/stuffs/"+ img +")");
+	},
+	
+	_updateNavPos : function(resize){
+			
+		var 
+			navHeight = this.collection.length * 35 + 85,
+			middle = Math.floor(this.collection.length / 2),
+			index = $(".nav-stuffs li.current").data("index"),
+			top = Math.round(($(window).height() - navHeight) / 2),
+			offset = 35 * (middle - index);
+
+		if ( resize ) $(".nav-stuffs").css("top", Math.round(top + offset));
+		else 
+			$(".nav-stuffs").animate({ 
+				"top" : Math.round(top + offset)
+			}, 200 );
+	},
+	
+	_initNavLinks : function(){
+		var self = this;
+		$(".nav-stuffs a").click(function(e){
+			e.preventDefault();
+			PF.AppRouter.navigate( $(this).attr("href") );
+			//self.render( self.collection.models[] )
+			// TODO faire que au click leffet demarre et change la page
+			console.log( self.collection.models[0] );
+		});
+	},
+	
 	_display : function( ) {
+		
 		var 
 			self = this,
 			params = {
 				stuffs : this.collection.models,
 				selectedSlug : this.currentSlug,
-				baseTop : Math.round($(window).height() / 2),
+				baseTop : Math.round($(window).height() / 2)
 			},
 			tpl = _.template(this.tpl_stuffs);
 		
 		$(this.el)
 			.html( tpl(params) )
 			.fadeIn(300, function(){
-				//self._updateImage();
-				//self._updateNavPos();
+				self._initNavLinks();
+				self._updateImage();
+				self._updateNavPos(true);
 				$(window).resize();
 			});
 	}

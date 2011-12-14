@@ -17,16 +17,20 @@ PF.View.Links = Backbone.View.extend({
 	_loadTemplate : function() {
 		
 		var self = this;
-		$.loadTemplate({
-			"template" : "template_links",
-			"file" : "templates/links.html",
-			"callback" : function(data){
-				self.tpl_links = data;
-				self._loadData();
-			},
-			"noStorage" : true // util for debug
-		});
 		
+		if ( self.tpl_links ) {
+			self._loadData();
+		} else {
+			$.loadTemplate({
+				"template" : "template_links",
+				"file" : "/templates/links.html",
+				"callback" : function(data){
+					self.tpl_links = data;
+					self._loadData();
+				},
+				"noStorage" : true // util for debug
+			});
+		}
 	},
 	
 	_loadData : function() {

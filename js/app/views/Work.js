@@ -33,7 +33,7 @@ PF.View.Work = Backbone.View.extend({
 		} else {
 			$.loadTemplate({
 				"template" : "template_work",
-				"file" : "templates/work.html",
+				"file" : "/templates/work.html",
 				"callback" : function(data){
 					self.tpl_work = data;
 					self._loadData();

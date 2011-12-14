@@ -16,16 +16,20 @@ PF.View.About = Backbone.View.extend({
 	_loadTemplate : function() {
 		
 		var self = this;
-		$.loadTemplate({
-			"template" : "template_about",
-			"file" : "templates/about.html",
-			"callback" : function(data){
-				self.tpl_about = data;
-				self._display();
-			},
-			"noStorage" : true // util for debug
-		});
 		
+		if ( self.tpl_about ) {
+			self._display();
+		} else {
+			$.loadTemplate({
+				"template" : "template_about",
+				"file" : "/templates/about.html",
+				"callback" : function(data){
+					self.tpl_about = data;
+					self._display();
+				},
+				"noStorage" : true // util for debug
+			});
+		}
 	},
 	
 	_display : function() {

@@ -687,7 +687,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		top:50%;
 		left:0;
 
-		margin:-90px 0 0 545px;
+		margin:-80px 0 0 545px;
 		width:290px;
 		color:#bbb;
 		font-family: Abadi, Arial, sans-serif;
@@ -710,7 +710,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		font-size:8px;
 		display:block;
 		padding-top:20px;
-		margin-top:-50px;
+		margin-top:-40px;
 		background:url(/img/about/bg_cv_24.png) no-repeat center -11px;
 	}
 	.page-about .cv:hover {
@@ -773,7 +773,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 	.page-stuffs .content .nav-stuffs {
 		position: absolute;
 		top: 40%;
-		right: 0;
+		right: 30px;
 	}
 	.page-stuffs .content .nav-stuffs li {
 		display: block;

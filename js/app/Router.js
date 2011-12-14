@@ -16,7 +16,7 @@ PF.Router = Backbone.Router.extend({
 		"work" : "_workAction",
 		"work/:slug" : "_workDetailAction",
 		"stuffs" : "_stuffsAction",
-		"stuffs/:slug" : "_stuffsDetailAction",
+		"stuffs/:slug" : "_stuffsAction",
 		"links" : "_linksAction",
 		"credits" : "_creditsAction",
 		"*actions" : "_defaultAction"
@@ -42,8 +42,8 @@ PF.Router = Backbone.Router.extend({
 	 * work Action
 	 * @private
 	 */
-	_workDetailAction : function() {
-		console.log("work detail action");
+	_workDetailAction : function( slug ) {
+		console.log("work detail action", slug);
 		//this._displayPage( PF.Events.INIT_WORK_DETAIL );
 	},
 	
@@ -200,13 +200,12 @@ PF.Router = Backbone.Router.extend({
 		
 	},
 	
-	_initStuffs : function( slug ) {
+	_initStuffs : function( e, slug ) {
 		
-		console.log(slug);
 		var self = PF.AppRouter;
 		
 		if ( self.stuffsView == null ) self.stuffsView = new PF.View.Stuffs();
-		self.stuffsView.render();
+		self.stuffsView.render(slug);
 		self.currentView = self.stuffsView;
 		self.nav.render("stuffs");
 		
