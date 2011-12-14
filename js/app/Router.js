@@ -20,7 +20,6 @@ PF.Router = Backbone.Router.extend({
 	 * @private
 	 */
 	_aboutAction : function() {
-		console.log("about action")
 		this._displayPage( PF.Events.INIT_ABOUT );
 	},
 	
@@ -151,16 +150,15 @@ PF.Router = Backbone.Router.extend({
 		
 		var homeView = new PF.View.Home();
 		homeView.render();
-		this.currentView = homeView;
+		PF.AppRouter.currentView = homeView;
 		
 	},
 	
 	_initAbout : function() {
 		
-		console.log("about");
 		var aboutView = new PF.View.About();
 		aboutView.render();
-		this.currentView = aboutView;
+		PF.AppRouter.currentView = aboutView;
 		
 	}
 	

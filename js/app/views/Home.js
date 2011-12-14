@@ -66,7 +66,6 @@ PF.View.Home = Backbone.View.extend({
 	hide: function( callbackEvent ){
 		
 		var self = this;
-		console.log("hide", self);
 		if ( circles ) {
 			$.each(circles, function(i, circle){
 				circle.animate({
@@ -74,10 +73,8 @@ PF.View.Home = Backbone.View.extend({
 					"cy" : halfWidth
 				}, i * 100 + 300, function(){
 					if ( i == circles.length - 1 ) {
-						console.log("hide 2", self);
 						$(self.el).fadeOut(300, function(){
 							R.clear();
-							console.log("hide 3", self);
 							$("#" + self.container).empty();
 							if (callbackEvent) PF.EventManager.trigger(callbackEvent);
 						});
@@ -538,8 +535,7 @@ PF.View.Home = Backbone.View.extend({
 			}, duration);
 
 		}).click(function(){
-			console.log( href[i] )
-			//PF.AppRouter.navigate( href[i], true);
+			PF.AppRouter.navigate( href[i], true);
 		});
 
 	},
