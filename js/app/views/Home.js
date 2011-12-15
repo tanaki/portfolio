@@ -111,7 +111,7 @@ PF.View.Home = Backbone.View.extend({
 	},
 	render: function(){
 		$("body").attr("class", "");
-			
+		
 		$(this.el).empty();
 		this._initRaphael();
 	},

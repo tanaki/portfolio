@@ -7,11 +7,19 @@ PF.View.Work = Backbone.View.extend({
 	
 	lines : null,
 	ordered : null,
+	connection : null,
+	
+	offsetX : 0,
+	offsetY : 0,
 	
 	initialize : function(){
 		var self = this;
 		$(window).resize(function(){
-			if ( self.lines ) self._drawLines(true);
+			// if ( self.lines ) self._drawLines(true);
+			
+			var target = $("#works-lines").position();
+			self.offsetX = target.left;
+			self.offsetY = target.top;
 		});
 	},
 		
@@ -204,8 +212,143 @@ PF.View.Work = Backbone.View.extend({
 			tpl = _.template(this.tpl_work);
 		
 		$(this.el).html( tpl(params) ).fadeIn(300, function(){
-			self._initLinks();
+			var target = $("#works-lines").position();
+			self.offsetX = target.left;
+			self.offsetY = target.top;
+			self._drawLinks();
+		});
+	},
+	
+	_drawLinks : function(){
+		
+		this.lines = Raphael( document.getElementById("works-lines"), "100%", "100%" );
+		
+		this.ordered = [];
+		var 
+			self = this,
+			
+			aLeft = [20, 30, 40, 50, 60, 70, 80, 90, 95],
+			aTop = [10, 20, 30, 40, 50, 60, 70, 80, 85],
+			
+			width = Math.round($(window).width() / 2),
+			height = Math.round($(window).height() / 2),
+			
+			path = "";
+			
+		this.connection = this.lines.path(path).attr({
+			"stroke" : "#333"
+		});
+
+		aLeft = $.shuffle(aLeft);
+		aTop = $.shuffle(aTop);
+
+		$.each(this.collection.models, function(i, link){
+			
+			var 
+				x = Math.round(aLeft[i] * width / 100) + 25,
+				y = Math.round(aTop[i] * height / 100) + 25;
+
+			self.ordered.push([x, y]);
+			
+			setTimeout(function(){
+				
+				if ( i == 0) path = "M" + x + "," + y;
+				else if ( i == 1 ) path += "L" + x + "," + y;
+				else path += " " + x + "," + y;
+
+				self.connection.animate({
+					"path" : path
+				}, 150);
+				
+				setTimeout(function(){
+					self._drawLink(link, i);
+				}, 200);
+
+			}, i * 200 );
+			
 		});
 		
+	},
+	
+	_drawLink : function(link, index){
+		var 
+			self = this,
+			attrCircle = {
+				"stroke" : "#666",
+				"stroke-opacity" : 0,
+				"stroke-width" : 0,
+				"opacity" : 0.5,
+				"fill" : "#666"
+			},
+			attrLineCircle = {
+				"opacity" : 0.5,
+				"stroke" : "#444",
+				"stroke-width" : 1
+			},
+			attrAreaCircle = {
+				"stroke" : "#666",
+				"stroke-opacity" : 0,
+				"stroke-width" : 0,
+				"fill" : "#666",
+				"opacity" : 0,
+				"cursor" : "pointer"
+			},
+			radius = link.attributes.featured ? 5 : 3,
+			radiusPlus = link.attributes.featured ? 8 : 5,
+			//x = 
+			circle = this.lines.circle(x, y, radius).scale(0,0).attr(attrCircle),
+			lineCircle = this.lines.circle(x, y, radius + radiusPlus).scale(0,0).attr(attrLineCircle),
+			areaCircle = this.lines.circle(x, y, radius + radiusPlus * 4).attr(attrAreaCircle);
+			
+		circle.animate({
+			"transform" : "s1,1"
+		}, 200);
+		
+		lineCircle.animate({
+			"transform" : "s1,1"
+		}, 200);
+		
+		areaCircle
+			.mouseover(function(){
+				circle.attr("opacity", 1);
+			})
+			.mouseout(function(){
+				circle.attr("opacity", .5);
+				
+				circle.animate({
+					"cx" : x,
+					"cy" : y
+				}, 200);
+				
+				lineCircle.animate({
+					"cx" : x,
+					"cy" : y
+				}, 200);
+			})
+			.mousemove(function(e, mouseX, mouseY){
+				var 
+					newX = mouseX - self.offsetX,
+					newY = mouseY - self.offsetY + 20;
+				
+				circle.attr({
+					"cx" : newX,
+					"cy" : newY
+				});
+				
+				lineCircle.attr({
+					"cx" : newX,
+					"cy" : newY
+				});
+				
+				var path = "";
+				$.each(self.ordered, function(i, coords){
+					path += (( i == 0 ) ? "M" : "L") + (( i == index ) ? (newX + "," + newY) : (coords[0] + "," + coords[1]));
+				});
+				self.connection.attr("path", path);
+			})
+			.click(function(){
+				console.log( link.attributes.slug );
+			});
 	}
+	
 });
