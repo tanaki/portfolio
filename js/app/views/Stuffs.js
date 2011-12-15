@@ -104,9 +104,7 @@ PF.View.Stuffs = Backbone.View.extend({
 		$(".nav-stuffs a").click(function(e){
 			e.preventDefault();
 			PF.AppRouter.navigate( $(this).attr("href") );
-			//self.render( self.collection.models[] )
-			// TODO faire que au click leffet demarre et change la page
-			console.log( self.collection.models[0] );
+			self._changePartial( $(this).data("slug") );
 		});
 	},
 	
@@ -129,6 +127,51 @@ PF.View.Stuffs = Backbone.View.extend({
 				self._updateNavPos(true);
 				$(window).resize();
 			});
+	},
+	
+	_changePartial: function(selectedSlug){
+
+		var
+			currentArticle = $("ul.articles li:not(.hidden)"),
+			targetArticle = $("ul.articles li[data-slug="+ selectedSlug +"]"),
+			currentSlug = currentArticle.data("slug"),
+			currentIndex = currentArticle.data("index"),
+			targetIndex = targetArticle.data("index"),
+			currentLink = $("ul.nav-stuffs li.current"),
+			targetLink = $("ul.nav-stuffs li[data-index=" + targetIndex + "]"),
+			currentToAnimate = $("span.stuff-content", currentArticle),
+			targetToAnimate = $("span.stuff-content", targetArticle);
+
+		if (selectedSlug == currentSlug) return;
+
+		currentLink.removeClass("current");
+		targetLink.addClass("current");
+		this._updateNavPos();
+
+		var self = this;
+		currentToAnimate.animate({
+			"opacity" : 0,
+			"top" : currentIndex > targetIndex ? "70%" : "30%"
+		}, 400, function(){
+			currentArticle.addClass("hidden");
+			self._updateImage();
+			currentToAnimate.css({
+				"top": currentToAnimate.data("top"),
+				"opacity": 1
+			});
+		});
+
+		targetArticle.removeClass("hidden");
+		targetToAnimate
+			.css({
+				"top": currentIndex > targetIndex ? "30%" : "70%",
+				"opacity" : 0
+			})
+			.animate({
+				"opacity" : 1,
+				"top": targetToAnimate.data("top")
+			}, 400);
+			
 	}
 });
 

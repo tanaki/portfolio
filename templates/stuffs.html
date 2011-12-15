@@ -11,7 +11,7 @@
 <ul class="nav-stuffs" style="top:<%= baseTop %>px;">
 	<% _.each(stuffs, function(stuff){ %>
 		<li <% if ( (selectedSlug && stuff.get('slug') === selectedSlug) || (!selectedSlug && stuff.get('index') == 0) ) { print('class="current"'); } %> data-index="<%= stuff.get('index') %>">
-			<a href="/stuffs/<%= stuff.get('slug') %>"><span><%= stuff.get('date') %></span></a>
+			<a href="/stuffs/<%= stuff.get('slug') %>" data-slug="<%= stuff.get('slug') %>"><span><%= stuff.get('date') %></span></a>
 		</li>
 	<% }); %>
 </ul>

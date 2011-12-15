@@ -209,6 +209,17 @@ PF.Router = Backbone.Router.extend({
 		self.currentView = self.stuffsView;
 		self.nav.render("stuffs");
 		
+	},
+
+	_initLinks : function() {
+
+		var self = PF.AppRouter;
+
+		if ( self.linksView == null ) self.linksView = new PF.View.Links();
+		self.linksView.render();
+		self.currentView = self.linksView;
+		self.nav.render("links");
+
 	}
 	
 });
