@@ -74,6 +74,7 @@ PF.View.Home = Backbone.View.extend({
 				}, i * 100 + 300, function(){
 					if ( i == circles.length - 1 ) {
 						$(self.el).fadeOut(300, function(){
+							isMenu = false;
 							R.clear();
 							$("#" + self.container).empty();
 							if (callbackEvent) PF.EventManager.trigger(callbackEvent);
@@ -86,17 +87,22 @@ PF.View.Home = Backbone.View.extend({
 				if (i == 0) {
 					square.animate({
 						"opacity" : 0
-					}, 200);
+					}, 200, function(){
+						square.remove();
+					});
 					blob.animate({
 						"cx" : 180,
 						"cy" : halfWidth,
 						"opacity" : 0,
 						"transform" : "s0.2,0.2"
-					}, 600);
+					}, 600, function(){
+						blob.remove();
+					});
 				}
 			})
 		} else {
 			$(self.el).fadeOut(300, function(){
+				isMenu = false;
 				R.clear();
 				$(this).empty();
 				if (callbackEvent) PF.EventManager.trigger(callbackEvent);
@@ -104,8 +110,8 @@ PF.View.Home = Backbone.View.extend({
 		}
 	},
 	render: function(){
-		PF.EventManager.trigger( PF.Events.HIDE_NAV );
-
+		$("body").attr("class", "");
+			
 		$(this.el).empty();
 		this._initRaphael();
 	},
@@ -388,7 +394,7 @@ PF.View.Home = Backbone.View.extend({
 		}
 
 
-		if ( blob.type != "circle" ) {
+		if ( blob && blob.type != "circle" ) {
 			blob.remove();
 			blob = R.circle(center.x, center.y, 79).attr({
 				"scale" :[0.1,0.1],
@@ -549,13 +555,13 @@ PF.View.Home = Backbone.View.extend({
 		});
 
 		$.each(circles, function(i, circle){
-			circle.remove();
+			if (circle) circle.remove();
 		});
 		$.each(areas, function(i, area){
-			area.remove();
+			if (area) area.remove();
 		});
 		$.each(labels, function(i, label){
-			label.remove();
+			if (label) label.remove();
 		});
 
 		this._initMenu(coords.left, coords.top, coords.right, coords.bottom, coords.center);

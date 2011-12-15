@@ -24,11 +24,8 @@ PF.View = PF.View || {};
  */
 
 PF.Events = {
-    APP_READY : "APP_READY",
 	
-	SHOW_NAV : "SHOW_NAV",
-	HIDE_NAV : "HIDE_NAV",
-	
+    INIT_HOME : "INIT_HOME",
 	INIT_ABOUT : "INIT_ABOUT",
 	INIT_WORK : "INIT_WORK",
 	INIT_WORK_DETAIL : "INIT_WORK_DETAIL",

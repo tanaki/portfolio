@@ -5,33 +5,8 @@ PF.View.Nav = Backbone.View.extend({
 	footer: "footer",
 	breadcrumb: ".breadcrumb",
 	currentViewID : null,
-
-	order : function(idView){
-		
-		$("body")
-			.attr("class", "")
-			.addClass("page-" + idView);
-
-		$(".selected", this.nav).removeClass("selected");
-		$("#" + idView)
-			.removeClass("first")
-			.removeClass("second")
-			.removeClass("third")
-			.addClass("selected");
-
-		$("a:not(.selected)", this.nav).each(function(i, a){
-			$(a)
-				.removeClass("first")
-				.removeClass("second")
-				.removeClass("third")
-				.addClass(i == 0 ? "first" : (i == 1 ? "second" : "third"))
-			$("span", a).css("background-image", "");
-		});
-
-		return this;
-	},
-
-	initBreadcrumb : function(){
+	
+	initialize : function(){
 
 		var self = this;
 		$("nav a:not(.selected)").live({
@@ -56,6 +31,36 @@ PF.View.Nav = Backbone.View.extend({
 			if ( $(this).hasClass("selected") ) return;
 			PF.AppRouter.navigate( $(this).attr("href"), true );
 		});
+		
+		$(".link-first").live("click", function(e){
+			e.preventDefault();
+			PF.AppRouter.navigate( "/", true );
+		});
+	},
+	
+	order : function(idView){
+		
+		$("body")
+			.attr("class", "")
+			.addClass("page-" + idView);
+
+		$(".selected", this.nav).removeClass("selected");
+		$("#" + idView)
+			.removeClass("first")
+			.removeClass("second")
+			.removeClass("third")
+			.addClass("selected");
+
+		$("a:not(.selected)", this.nav).each(function(i, a){
+			$(a)
+				.removeClass("first")
+				.removeClass("second")
+				.removeClass("third")
+				.addClass(i == 0 ? "first" : (i == 1 ? "second" : "third"))
+			$("span", a).css("background-image", "");
+		});
+
+		return this;
 	},
 	
 	updateBreadcrumb: function(idView){

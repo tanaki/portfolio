@@ -8,7 +8,6 @@ PF.View.Links = Backbone.View.extend({
 	
 	initialize : function(){
 		
-		console.log("init");
 		var self = this;
 			
 		$(".link-az").live("click", function(e){
@@ -66,12 +65,10 @@ PF.View.Links = Backbone.View.extend({
 	},
 	
 	render : function() {
-		console.log("render");
 		this._loadTemplate();
 	},
 	
 	_loadTemplate : function() {
-		console.log("loadTemplate");
 		var self = this;
 		
 		if ( self.tpl_links ) {
@@ -90,7 +87,6 @@ PF.View.Links = Backbone.View.extend({
 	},
 	
 	_loadData : function() {
-		console.log("loadData");
 		var self = this;
 		
 		if ( self.collection ) {
@@ -141,7 +137,6 @@ PF.View.Links = Backbone.View.extend({
 	},
 	
 	_display : function() {
-		console.log("display");
 		var 
 			self = this,
 			params = {

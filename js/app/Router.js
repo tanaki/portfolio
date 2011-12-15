@@ -76,7 +76,7 @@ PF.Router = Backbone.Router.extend({
 	 * @private
 	 */
 	_defaultAction : function() {
-		this._displayPage( PF.Events.APP_READY );
+		this._displayPage( PF.Events.INIT_HOME );
 	},
 	
 	/*
@@ -103,11 +103,9 @@ PF.Router = Backbone.Router.extend({
 		
 		$("html").removeClass("no-js");
 		this._initEventHandlers();
-		this._initNav();
 		this._initExternals();
 		
 		this.nav = new PF.View.Nav();
-		this.nav.initBreadcrumb();
 	},
 	
 	/*
@@ -116,8 +114,7 @@ PF.Router = Backbone.Router.extend({
 	 */
 	_initEventHandlers : function() {
 		
-		this.eventHandlers[PF.Events.APP_READY] = this._appReady;
-		
+		this.eventHandlers[PF.Events.INIT_HOME] = this._initHome;
 		this.eventHandlers[PF.Events.INIT_ABOUT] = this._initAbout;
 		this.eventHandlers[PF.Events.INIT_WORK] = this._initWork;
 		this.eventHandlers[PF.Events.INIT_WORK_DETAIL] = this._initWorkDetail;
@@ -125,21 +122,7 @@ PF.Router = Backbone.Router.extend({
 		this.eventHandlers[PF.Events.INIT_LINKS] = this._initLinks;
 		this.eventHandlers[PF.Events.INIT_CREDITS] = this._initCredits;
 		
-		this.eventHandlers[PF.Events.SHOW_NAV] = this._showNav;
-		this.eventHandlers[PF.Events.HIDE_NAV] = this._hideNav;
-		
 		PF.EventManager.bind(this.eventHandlers);
-	},
-	
-	/*
-	 * init navigation links
-	 * @private
-	 */
-	_initNav : function() {
-		$(".nav a").click(function(e){
-			e.preventDefault();
-			PF.AppRouter.navigate($(this).attr("href"), true);
-		});	
 	},
 	
 	/*
@@ -153,28 +136,18 @@ PF.Router = Backbone.Router.extend({
 		});
 	},
 	
-	
-	/*
-	 * init external links
-	 * @private
-	 */
-	_updateBodyClass : function( id ){
-		$("body")
-			.attr("class", "")
-			.addClass("page-" + id);
-	},
-	
 	/********
 	 * EVENT HANDLERS
 	 */
 		
-	_appReady : function() {
+	_initHome : function() {
 		
 		var self = PF.AppRouter;
 		
 		if ( self.homeView == null ) self.homeView = new PF.View.Home();
 		self.homeView.render();
 		self.currentView = self.homeView;
+		self.nav.hide();
 		
 	},
 	
