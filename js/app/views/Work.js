@@ -277,11 +277,11 @@ PF.View.Work = Backbone.View.extend({
 				"stroke" : "#666",
 				"stroke-opacity" : 0,
 				"stroke-width" : 0,
-				"opacity" : 0.5,
+				"opacity" : 0.3,
 				"fill" : "#666"
 			},
 			attrLineCircle = {
-				"opacity" : 0.5,
+				"opacity" : 0.3,
 				"stroke" : "#444",
 				"stroke-width" : 1
 			},
@@ -295,7 +295,8 @@ PF.View.Work = Backbone.View.extend({
 			},
 			radius = link.attributes.featured ? 5 : 3,
 			radiusPlus = link.attributes.featured ? 8 : 5,
-			//x = 
+			x = self.ordered[index][0],
+			y = self.ordered[index][1],
 			circle = this.lines.circle(x, y, radius).scale(0,0).attr(attrCircle),
 			lineCircle = this.lines.circle(x, y, radius + radiusPlus).scale(0,0).attr(attrLineCircle),
 			areaCircle = this.lines.circle(x, y, radius + radiusPlus * 4).attr(attrAreaCircle);
@@ -311,18 +312,30 @@ PF.View.Work = Backbone.View.extend({
 		areaCircle
 			.mouseover(function(){
 				circle.attr("opacity", 1);
+				lineCircle.attr("opacity", 1);
+				
+				// TODO add updateBreadcrumb + image
 			})
 			.mouseout(function(){
-				circle.attr("opacity", .5);
 				
 				circle.animate({
 					"cx" : x,
-					"cy" : y
+					"cy" : y,
+					"opacity": .3
 				}, 200);
 				
 				lineCircle.animate({
 					"cx" : x,
-					"cy" : y
+					"cy" : y,
+					"opacity": .3
+				}, 200);
+				
+				var path = "";
+				$.each(self.ordered, function(i, coords){
+					path += (( i == 0 ) ? "M" : "L") + coords[0] + "," + coords[1];
+				});
+				self.connection.animate({
+					"path" : path
 				}, 200);
 			})
 			.mousemove(function(e, mouseX, mouseY){
@@ -347,6 +360,7 @@ PF.View.Work = Backbone.View.extend({
 				self.connection.attr("path", path);
 			})
 			.click(function(){
+				// TODO open the work detail
 				console.log( link.attributes.slug );
 			});
 	}
