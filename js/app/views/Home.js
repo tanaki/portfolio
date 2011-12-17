@@ -22,23 +22,33 @@ PF.View.Home = Backbone.View.extend({
 	labels : null,
 	areas : null,
 	
-	winWidth : $(window).width(),
-	winHeight : $(window).height(),
+	winWidth : 0,
+	winHeight : 0,
 	
 	offsetX : -90,
 	offsetY : -20,
 	
-	nameX : Math.round(this.winWidth * .89),
-	nameY : Math.round(this.winHeight * .49),
+	nameX : 0,
+	nameY : 0,
 	
-	halfWidth : Math.round(this.winHeight / 2),
+	halfWidth : 0,
 
 	initialOffset : 102,
-	offsetLeftX : Math.round(this.winWidth * .15),
+	offsetLeftX : 0,
 
 	initialize: function(){
 		
 		var self = this;
+		
+		self.winWidth = $(window).width();
+		self.winHeight = $(window).height();
+		
+		self.nameX = Math.round(self.winWidth * .89);
+		self.nameY = Math.round(self.winHeight * .49);
+		
+		self.halfWidth = Math.round(self.winHeight / 2);
+		self.offsetLeftX = Math.round(self.winWidth * .15);
+		
 		$(window).resize(function(){
 
 			self.winWidth = $(window).width();
@@ -142,7 +152,7 @@ PF.View.Home = Backbone.View.extend({
 				x : (pullX + self.offsetLeftX),
 				y : (self.winHeight + 100)
 			};
-
+		
 		self.blob = self.R.path( self._getBlobPath(right, bottom, left, top, 0) );
 		self.blob.attr({
 			"fill" : "#161616",
@@ -190,7 +200,7 @@ PF.View.Home = Backbone.View.extend({
 			"stroke-opacity" : 0,
 			"opacity" : 0
 		});
-
+	
 		self.pull = self.R
 			.rect(pullX, pullY - 40, 120, 80)
 			.attr({
@@ -200,7 +210,7 @@ PF.View.Home = Backbone.View.extend({
 				"stroke-opacity" : 0,
 				"cursor": "pointer"
 			});
-			
+		
 		self.pull.drag( self._handleMove, self._handleStart, self._handleStop, self);
 
 		self.pull

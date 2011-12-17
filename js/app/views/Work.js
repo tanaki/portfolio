@@ -13,8 +13,8 @@ PF.View.Work = Backbone.View.extend({
 	offsetX : 0,
 	offsetY : 0,
 	
-	width : 0,
-	height : 0,
+	width : Math.round($(window).width() / 2),
+	height : Math.round($(window).height() / 2),
 	
 	initialize : function(){
 		var self = this;
