@@ -7,19 +7,23 @@ PF.View.Work = Backbone.View.extend({
 	
 	lines : null,
 	ordered : null,
+	percent : null,
 	connection : null,
 	
 	offsetX : 0,
 	offsetY : 0,
 	
+	width : 0,
+	height : 0,
+	
 	initialize : function(){
 		var self = this;
 		$(window).resize(function(){
-			// if ( self.lines ) self._drawLines(true);
-			
 			var target = $("#works-lines").position();
 			self.offsetX = target.left;
 			self.offsetY = target.top;
+			
+			self._drawLinks(true);
 		});
 	},
 		
@@ -94,115 +98,6 @@ PF.View.Work = Backbone.View.extend({
 		
 	},
 	
-	_initLinks : function () {
-		
-		this.ordered = [];
-		var 
-			self = this,
-			aLeft = [20, 30, 40, 50, 60, 70, 80, 90, 95],
-			aTop = [10, 20, 30, 40, 50, 60, 70, 80, 90],
-			els = $(".list-works a");
-
-		aLeft = $.shuffle(aLeft);
-		aTop = $.shuffle(aTop);
-
-		els.each(function(i, a){
-			$(a)
-				.css({
-					"position" : "absolute",
-					"left" : ((i+1) * 10) + "%",
-					"top" : "45%"
-				})
-				.animate({
-					"left" : aLeft[i] + "%",
-					"top" : aTop[i] + "%",
-					"opacity" : 1
-				}, 600, function(){
-					self.ordered.push([aLeft[i], aTop[i]]);
-					if (i == els.length - 1) self._drawLines();
-				})
-				.hover(
-					function(){
-						
-						$(".breadcrumb .current:first")
-							.removeClass("current")
-							.addClass("link")
-						
-						setTimeout(function(){
-							$(".breadcrumb .link:last").css("font-family", "Copy0855");
-						}, 180);
-						
-						$("<span> / </span>")
-							.appendTo($(".breadcrumb .link:last"));
-							
-						$('<li class="current">' + ($(this).text()).substring(0, 2) + '</li>')
-							.appendTo( $(".breadcrumb") )
-							.show();
-							
-						// $(this).text().shuffle( $(".breadcrumb .current:last") );
-						$(".breadcrumb .current:last").text( $(this).text() );
-						
-						var url = "/img/work/projects/"+ $(this).data('slug') +".jpg";
-						$("nav .selected span").css({
-							"background-image" : "url(" + url + ")",
-							"background-position" : "50% -5px"
-						});
-						
-					},
-					function(){
-
-						$(".breadcrumb .link:last")
-							.removeClass("link")
-							.addClass("current")
-							.css("font-family", "");
-
-						$(".breadcrumb .current:first span").remove();
-						$(".breadcrumb .current:last").remove();
-
-						$("nav .selected span").css({
-							"background-position" : "50% 100px"
-						});
-					}
-				);
-		});
-
-	},
-	
-	_drawLines : function(redraw){
-		
-		if ( !redraw ) this.lines = Raphael(document.getElementById("works-lines"), "100%", "100%");
-		if ( redraw ) this.lines.clear();
-
-		var 
-			self = this,
-			width = Math.round($(window).width() / 2),
-			height = Math.round($(window).height() / 2),
-			path = "",
-			line = this.lines.path(path).attr({
-				"stroke" : "#333"
-			}),
-			i = 0;
-
-		var animTimer = setInterval(function(){
-			
-			if ( !self.ordered[i][0] ) return;
-			var 
-				x = Math.round(self.ordered[i][0] * width / 100) + 25,
-				y = Math.round(self.ordered[i][1] * height / 100) + 25;
-
-			if ( i == 0) path = "M" + x + "," + y;
-			else if ( i == 1 ) path += "L" + x + "," + y;
-			else path += " " + x + "," + y;
-
-			line.animate({
-				"path" : path
-			}, ( redraw ? 0 : 150));
-
-			i++;
-			if ( i > self.ordered.length - 1 ) clearInterval(animTimer);
-		}, ( redraw ? 0 : 200) );
-	},
-	
 	_display : function() {
 		var 
 			self = this,
@@ -219,58 +114,80 @@ PF.View.Work = Backbone.View.extend({
 		});
 	},
 	
-	_drawLinks : function(){
+	_drawLinks : function( redraw ){
 		
-		this.lines = Raphael( document.getElementById("works-lines"), "100%", "100%" );
+		if ( this.lines ) this.lines.clear();
+		else this.lines = Raphael( document.getElementById("works-lines"), "100%", "100%" );
 		
-		this.ordered = [];
 		var 
 			self = this,
-			
-			aLeft = [20, 30, 40, 50, 60, 70, 80, 90, 95],
-			aTop = [10, 20, 30, 40, 50, 60, 70, 80, 85],
-			
-			width = Math.round($(window).width() / 2),
-			height = Math.round($(window).height() / 2),
-			
 			path = "";
-			
+		
+		this.width = Math.round($(window).width() / 2),
+		this.height = Math.round($(window).height() / 2);
+		
 		this.connection = this.lines.path(path).attr({
 			"stroke" : "#333"
 		});
-
-		aLeft = $.shuffle(aLeft);
-		aTop = $.shuffle(aTop);
-
-		$.each(this.collection.models, function(i, link){
+		
+		if ( redraw ) {
 			
-			var 
-				x = Math.round(aLeft[i] * width / 100) + 25,
-				y = Math.round(aTop[i] * height / 100) + 25;
-
-			self.ordered.push([x, y]);
-			
-			setTimeout(function(){
+			$.each(this.percent, function(i, coord){
 				
+				var 
+					x = Math.round(coord[0] * self.width / 100) + 25,
+					y = Math.round(coord[1] * self.height / 100) + 25;
+					
 				if ( i == 0) path = "M" + x + "," + y;
 				else if ( i == 1 ) path += "L" + x + "," + y;
 				else path += " " + x + "," + y;
 
-				self.connection.animate({
-					"path" : path
-				}, 150);
-				
-				setTimeout(function(){
-					self._drawLink(link, i);
-				}, 200);
-
-			}, i * 200 );
+				self.connection.attr("path", path);
+				self._drawLink(self.collection.models[i], i, false);
+			});
 			
-		});
+		} else {
 		
+			this.ordered = [],
+			this.percent = [];
+			var 
+				aLeft = [20, 30, 40, 50, 60, 70, 80, 85, 90],
+				aTop = [10, 20, 30, 40, 50, 60, 70, 80, 85];
+
+			aLeft = $.shuffle(aLeft);
+			aTop = $.shuffle(aTop);
+
+			$.each(this.collection.models, function(i, link){
+
+				var 
+					x = Math.round(aLeft[i] * self.width / 100) + 25,
+					y = Math.round(aTop[i] * self.height / 100) + 25;
+
+				self.ordered.push([x, y]);
+				self.percent.push([aLeft[i], aTop[i]]);
+
+				setTimeout(function(){
+
+					if ( i == 0) path = "M" + x + "," + y;
+					else if ( i == 1 ) path += "L" + x + "," + y;
+					else path += " " + x + "," + y;
+
+					self.connection.animate({
+						"path" : path
+					}, 150);
+
+					setTimeout(function(){
+						self._drawLink(link, i, true);
+					}, 200);
+
+				}, i * 200);
+
+			});
+		}
 	},
 	
-	_drawLink : function(link, index){
+	_drawLink : function(link, index, animate){
+		
 		var 
 			self = this,
 			attrCircle = {
@@ -295,26 +212,59 @@ PF.View.Work = Backbone.View.extend({
 			},
 			radius = link.attributes.featured ? 5 : 3,
 			radiusPlus = link.attributes.featured ? 8 : 5,
-			x = self.ordered[index][0],
-			y = self.ordered[index][1],
-			circle = this.lines.circle(x, y, radius).scale(0,0).attr(attrCircle),
-			lineCircle = this.lines.circle(x, y, radius + radiusPlus).scale(0,0).attr(attrLineCircle),
-			areaCircle = this.lines.circle(x, y, radius + radiusPlus * 4).attr(attrAreaCircle);
 			
-		circle.animate({
-			"transform" : "s1,1"
-		}, 200);
+			x = Math.round(self.percent[index][0] * self.width / 100) + 25,
+			y = Math.round(self.percent[index][1] * self.height / 100) + 25,
+			
+			circle = this.lines.circle(x, y, radius).attr(attrCircle),
+			lineCircle = this.lines.circle(x, y, radius + radiusPlus).attr(attrLineCircle),
+			areaCircle = this.lines.circle(x, y, radius + radiusPlus * 4).attr(attrAreaCircle),
+			defaultPath = "";
+			
+		$.each(self.percent, function(i, coords){
+			defaultPath += (( i == 0 ) ? "M" : "L") + (Math.round(coords[0] * self.width / 100) + 25) + "," + (Math.round(coords[1] * self.height / 100) + 25);
+		});
 		
-		lineCircle.animate({
-			"transform" : "s1,1"
-		}, 200);
+		if ( animate ) {
+			circle.scale(0,0).animate({
+				"transform" : "s1,1"
+			}, 500, "easeout");
+
+			lineCircle.scale(0,0).animate({
+				"transform" : "s1,1"
+			}, 500);
+		}
 		
+		$(areaCircle).data("link", link.attributes);
 		areaCircle
 			.mouseover(function(){
 				circle.attr("opacity", 1);
 				lineCircle.attr("opacity", 1);
 				
 				// TODO add updateBreadcrumb + image
+				$(".breadcrumb .current:first")
+					.removeClass("current")
+					.addClass("link")
+
+				setTimeout(function(){
+					$(".breadcrumb .link:last").css("font-family", "Copy0855");
+				}, 180);
+
+				$("<span> / </span>")
+					.appendTo($(".breadcrumb .link:last"));
+				
+				var data = $(this).data("link");
+				$('<li class="current">' + (data.title).substring(0, 2) + '</li>')
+					.appendTo( $(".breadcrumb") )
+					.show();
+
+				data.title.shuffle( $(".breadcrumb .current:last") );
+				
+				var url = "/img/work/projects/"+ data.slug +".jpg";
+				$("nav .selected span").css({
+					"background-image" : "url(" + url + ")",
+					"background-position" : "50% -5px"
+				});
 			})
 			.mouseout(function(){
 				
@@ -330,13 +280,21 @@ PF.View.Work = Backbone.View.extend({
 					"opacity": .3
 				}, 200);
 				
-				var path = "";
-				$.each(self.ordered, function(i, coords){
-					path += (( i == 0 ) ? "M" : "L") + coords[0] + "," + coords[1];
-				});
 				self.connection.animate({
-					"path" : path
+					"path" : defaultPath
 				}, 200);
+				
+				$(".breadcrumb .link:last")
+					.removeClass("link")
+					.addClass("current")
+					.css("font-family", "");
+
+				$(".breadcrumb .current:first span").remove();
+				$(".breadcrumb .current:last").remove();
+
+				$("nav .selected span").css({
+					"background-position" : "50% 100px"
+				});
 			})
 			.mousemove(function(e, mouseX, mouseY){
 				var 
@@ -354,9 +312,15 @@ PF.View.Work = Backbone.View.extend({
 				});
 				
 				var path = "";
-				$.each(self.ordered, function(i, coords){
-					path += (( i == 0 ) ? "M" : "L") + (( i == index ) ? (newX + "," + newY) : (coords[0] + "," + coords[1]));
+				
+				$.each(self.percent, function(i, coords){
+					var
+						currentX = Math.round(coords[0] * self.width / 100) + 25,
+						currentY = Math.round(coords[1] * self.height / 100) + 25;
+						
+					path += (( i == 0 ) ? "M" : "L") + (( i == index ) ? (newX + "," + newY) : (currentX + "," + currentY));
 				});
+				
 				self.connection.attr("path", path);
 			})
 			.click(function(){

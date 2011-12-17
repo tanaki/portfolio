@@ -1,63 +1,60 @@
-
-var 
-	object = null,
-	R = null,
-	isMenu = false,
-
-	square = null,
-	blob = null,
-	pull = null,
-	pullLabel = null,
-	pullCircle = null,
-
-	pullHelp = null,
-	squareHelp = null,
-	circleHelp = null,
-
-	circles = null,
-	labels = null,
-	areas = null,
-
-	offsetX = -90,
-	offsetY = -20,
-
-	winWidth = $(window).width(),
-	winHeight = $(window).height(),
-
-	halfWidth = Math.round(winHeight / 2),
-
-	nameX = Math.round(winWidth * .89),
-	nameY = Math.round(winHeight * .49),
-
-	initialOffset = 102,
-	offsetLeftX = Math.round(winWidth * .15);
 	
 PF.View.Home = Backbone.View.extend({
 	
 	container: "main-canvas",
 	el: "#page .content",
+	
+	R : null,
+	isMenu : false,
+	isDragging : false,
+	
+	square : null,
+	blob : null,
+	pull : null,
+	pullLabel : null,
+	pullCircle : null,
+	
+	pullHelp : null,
+	squareHelp : null,
+	circleHelp : null,
+	
+	circles : null,
+	labels : null,
+	areas : null,
+	
+	winWidth : $(window).width(),
+	winHeight : $(window).height(),
+	
+	offsetX : -90,
+	offsetY : -20,
+	
+	nameX : Math.round(this.winWidth * .89),
+	nameY : Math.round(this.winHeight * .49),
+	
+	halfWidth : Math.round(this.winHeight / 2),
+
+	initialOffset : 102,
+	offsetLeftX : Math.round(this.winWidth * .15),
 
 	initialize: function(){
 		
-		object = this;
-	
 		var self = this;
 		$(window).resize(function(){
 
-			winWidth = $(window).width();
-			winHeight = $(window).height();
+			self.winWidth = $(window).width();
+			self.winHeight = $(window).height();
 
-			halfWidth = Math.round(winHeight / 2);
+			self.halfWidth = Math.round(self.winHeight / 2);
 
-			nameX = Math.round(winWidth * .89);
-			nameY = Math.round(winHeight * .49);
+			self.nameX = Math.round(self.winWidth * .89);
+			self.nameY = Math.round(self.winHeight * .49);
 
-			offsetLeftX = Math.round(winWidth * .15);
+			self.offsetLeftX = Math.round(self.winWidth * .15);
 
-			if (isMenu) {
+			if (self.isMenu) {
 				self._moveMenu();
 			} else {
-				if (R) R.clear();
+				if (self.R) self.R.clear();
 				$("#" + self.container).empty();
 				self._initRaphael();			
 			}
@@ -66,44 +63,44 @@ PF.View.Home = Backbone.View.extend({
 	hide: function( callbackEvent ){
 		
 		var self = this;
-		if ( circles ) {
-			$.each(circles, function(i, circle){
+		if ( self.circles ) {
+			$.each(self.circles, function(i, circle){
 				circle.animate({
 					"cx" : i * 30 + 15,
-					"cy" : halfWidth
+					"cy" : self.halfWidth
 				}, i * 100 + 300, function(){
-					if ( i == circles.length - 1 ) {
+					if ( i == self.circles.length - 1 ) {
 						$(self.el).fadeOut(300, function(){
-							isMenu = false;
-							R.clear();
+							self.isMenu = false;
+							self.R.clear();
 							$("#" + self.container).empty();
 							if (callbackEvent) PF.EventManager.trigger(callbackEvent);
 						});
 					}
 				});
 
-				if ( areas[i] ) areas[i].remove();
-				if ( labels[i] ) labels[i].remove();
+				if ( self.areas[i] ) self.areas[i].remove();
+				if ( self.labels[i] ) self.labels[i].remove();
 				if (i == 0) {
-					square.animate({
+					self.square.animate({
 						"opacity" : 0
 					}, 200, function(){
-						square.remove();
+						self.square.remove();
 					});
-					blob.animate({
+					self.blob.animate({
 						"cx" : 180,
-						"cy" : halfWidth,
+						"cy" : self.halfWidth,
 						"opacity" : 0,
 						"transform" : "s0.2,0.2"
 					}, 600, function(){
-						blob.remove();
+						self.blob.remove();
 					});
 				}
 			})
 		} else {
 			$(self.el).fadeOut(300, function(){
-				isMenu = false;
-				R.clear();
+				self.isMenu = false;
+				self.R.clear();
 				$(this).empty();
 				if (callbackEvent) PF.EventManager.trigger(callbackEvent);
 			});
@@ -117,49 +114,50 @@ PF.View.Home = Backbone.View.extend({
 	},
 
 	_initRaphael : function(){
-		R = Raphael(document.getElementById(this.container), "100%", "100%");
+		this.R = Raphael(document.getElementById(this.container), "100%", "100%");
 		this._initGraphics();
 	},
 
 	_initGraphics: function() {
 
 		var
-			pullX = nameX + offsetX,
-			pullY = nameY + offsetY;
-
-		var
+			self = this,
+			
+			pullX = self.nameX + self.offsetX,
+			pullY = self.nameY + self.offsetY,
+			
 			left = {
-				x : (pullX + initialOffset),
+				x : (pullX + self.initialOffset),
 				y : pullY
 			},
 			top = {
-				x : (pullX + offsetLeftX),
+				x : (pullX + self.offsetLeftX),
 				y : -100
 			},
 			right = {
-				x : (winWidth + 200),
+				x : (self.winWidth + 200),
 				y : pullY
 			},
 			bottom = {
-				x : (pullX + offsetLeftX),
-				y : (winHeight + 100)
+				x : (pullX + self.offsetLeftX),
+				y : (self.winHeight + 100)
 			};
 
-		blob = R.path( this._getBlobPath(right, bottom, left, top, 0) );
-		blob.attr({
+		self.blob = self.R.path( self._getBlobPath(right, bottom, left, top, 0) );
+		self.blob.attr({
 			"fill" : "#161616",
 			"stroke-width" : "0",
 			"stroke-opacity" : "0"
 		});
 
-		square = R
+		self.square = self.R
 			.path("M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z")
 			.attr({
 				"stroke" : "#666",
 				"stroke-width" : "1"
 			});
 
-		squareHelp = R
+		self.squareHelp = self.R
 			.path("M" + top.x + "," + top.y + "L" + left.x + "," + left.y + "L" + bottom.x + "," + bottom.y)
 			.attr({
 				"stroke" : "#444",
@@ -167,33 +165,33 @@ PF.View.Home = Backbone.View.extend({
 				"opacity" : 0
 			});
 
-		pullHelp = R.text(pullX + 80, pullY, "Pull").attr({
+		self.pullHelp = self.R.text(pullX + 80, pullY, "Pull").attr({
 			"font" : "8px Copy0855",
 			"fill" : "#ffffff",
 			"cursor" : "pointer",
 			"opacity" : 0
 		});
 
-		pullLabel = R.text(pullX + 50, pullY, "Nicolas Pigelet").attr({
+		self.pullLabel = self.R.text(pullX + 50, pullY, "Nicolas Pigelet").attr({
 			"font" : "8px Copy0855",
 			"fill" : "#ffffff",
 			"cursor" : "pointer"
 		});
 
-		pullCircle = R.circle(pullX + 102, pullY, 5).attr({
+		self.pullCircle = self.R.circle(pullX + 102, pullY, 5).attr({
 			"fill" : "#ddd",
 			"stroke-width" : 0,
 			"stroke-opacity" : 0
 		});
 
-		circleHelp = R.circle(pullX + 102, pullY, 5).attr({
+		self.circleHelp = self.R.circle(pullX + 102, pullY, 5).attr({
 			"fill" : "#777",
 			"stroke-width" : 0,
 			"stroke-opacity" : 0,
 			"opacity" : 0
 		});
 
-		pull = R
+		self.pull = self.R
 			.rect(pullX, pullY - 40, 120, 80)
 			.attr({
 				"fill" : "#222",
@@ -202,85 +200,106 @@ PF.View.Home = Backbone.View.extend({
 				"stroke-opacity" : 0,
 				"cursor": "pointer"
 			});
-		pull.drag(this._handleMove, this._handleStart, this._handleStop);
+			
+		self.pull.drag( self._handleMove, self._handleStart, self._handleStop, self);
 
-		pull
-			.mouseover(this._mouseOver)
-			.mouseout(this._mouseOut);
+		self.pull
+			.mouseover(function(){
+				self._mouseOver(self);
+			})
+			.mouseout(function(){
+				self._mouseOut(self);
+			});
 	},
 
-	_mouseOver : function(){
-		var pullX = nameX + offsetX;
+	_mouseOver : function(self){
+		
+		if ( self.isDragging ) return;
+		
+		var pullX = self.nameX + self.offsetX;
 
-		pullLabel.animate({
+		self.pullLabel.animate({
 			"x" : pullX + 30,
 			"opacity" : 0
 		}, 100);
 
-		pullHelp.animate({
+		self.pullHelp.animate({
 			"x" : pullX + 50,
 			"opacity" : 1
 		}, 100);
 
-		squareHelp.animate({
+		self.squareHelp.animate({
 			"opacity": 1,
 			"transform" : "t-100,0"
 		}, 100);
-		circleHelp.animate({
+		
+		self.circleHelp.animate({
 			"opacity": 1,
 			"transform" : "t-100,0"
 		}, 100);
 	},
 
-	_mouseOut : function(){
-		var pullX = nameX + offsetX;
+	_mouseOut : function(self){
+		
+		if ( self.isDragging ) return;
+		
+		var pullX = self.nameX + self.offsetX;
 
-		pullLabel.animate({
+		self.pullLabel.animate({
 			"x" : pullX + 50,
 			"opacity" : 1
 		}, 100);
 
-		pullHelp.animate({
+		self.pullHelp.animate({
 			"x" : pullX + 80,
 			"opacity" : 0
 		}, 100);
 
-		squareHelp.animate({
+		self.squareHelp.animate({
 			"opacity": 0,
 			"transform" : "t0,0"
 		}, 100);
 
-		circleHelp.animate({
+		self.circleHelp.animate({
 			"opacity": 0,
 			"transform" : "t0,0"
 		}, 100);
 	},
 
-	_handleMove: function ( dx, dy ){
-		if (object) object._move(false, dx, dy);
+	_handleMove: function ( dx, dy, c, d, a, b ){
+		this._move(false, dx, dy);
 	},
 
 	_handleStart: function(){
-		object._mouseOut();
-		pull.unmouseover(object._mouseOver);
-		pull.unmouseout(object._mouseOut);
+		this._mouseOut(this);
+		this.isDragging = true;
 	},
 
 	_handleStop: function( e ){
-		if ( e.pageX < Math.round(winWidth * .66) ) {
-			isMenu = true;
-			pull.undrag();
+		var self = this;
+		
+		if ( e.pageX < Math.round(self.winWidth * .66) ) {
+			
+			self.isMenu = true;
+			self.pull.undrag();
+			
 		} else {
-			pull
-				.mouseover(object._mouseOver)
-				.mouseout(object._mouseOut);
+			self.pull
+				.mouseover(function(){
+					self._mouseOver(self);
+				})
+				.mouseout(function(){
+					self._mouseOut(self);
+				});
 		}
-		if (object) object._move(true, 0, 0);
+		this._move(true, 0, 0);
 	},
 
 	_move : function(animate, dx, dy){
 
-		var coords = object._getLatestCoords(dx, dy);
+		var 
+			self = this,
+			coords = self._getLatestCoords(dx, dy);
 
 		if ( animate ) {
 
@@ -288,52 +307,53 @@ PF.View.Home = Backbone.View.extend({
 				duration = 300,
 				easing = "easeOut";
 
-			pull.animate({
+			self.pull.animate({
 				"x": coords.pullX,
 				"y": coords.pullY - 40
 			}, duration, easing);
 
-			pullLabel.animate({
+			self.pullLabel.animate({
 				"x": coords.pullX + 50,
 				"y": coords.pullY
 			}, duration, easing);
 
-			pullCircle.animate({
+			self.pullCircle.animate({
 				"cx": coords.pullX + 102,
 				"cy": coords.pullY
 			}, duration, easing);
 
-			square.animate({
+			self.square.animate({
 				"path": coords.path
 			}, duration, easing);
 
-			blob.animate({
+			self.blob.animate({
 				"path": coords.blobPath
 			}, duration, easing, function(){
-				if (isMenu) {
-					object._initMenu(coords.left, coords.top, coords.right, coords.bottom, coords.center);
+				if (self.isMenu) {
+					self._initMenu(coords.left, coords.top, coords.right, coords.bottom, coords.center);
 				}
+				self.isDragging = false;
 			});
 
 		} else {
 
-			pull.attr({
+			self.pull.attr({
 				"x": coords.pullX,
 				"y": coords.pullY - 40
 			});
 
-			pullLabel.attr({
+			self.pullLabel.attr({
 				"x": coords.pullX + 50,
 				"y": coords.pullY
 			});
 
-			pullCircle.attr({
+			self.pullCircle.attr({
 				"cx": coords.pullX + 102,
 				"cy": coords.pullY
 			});
 
-			square.attr( "path", coords.path );
-			blob.attr("path", coords.blobPath);
+			self.square.attr( "path", coords.path );
+			self.blob.attr("path", coords.blobPath);
 		}
 
 	},
@@ -370,40 +390,41 @@ PF.View.Home = Backbone.View.extend({
 
 		return blobPath;
 	},
-
-
+	
 	/* FUNCTIONNAL MENU */
 	_initMenu : function(left, top, right, bottom, center){
-
-		if ( pull ) {
-			pull.remove();
-			pull = null;
+		
+		var self = this;
+		
+		if ( self.pull ) {
+			self.pull.remove();
+			self.pull = null;
 		}
-		if ( pullCircle ) {
-			pullCircle.remove();
-			pullCircle = null;
+		if ( self.pullCircle ) {
+			self.pullCircle.remove();
+			self.pullCircle = null;
 		}
 
-		if (pullLabel) {
-			pullLabel.animate({
+		if ( self.pullLabel ) {
+			self.pullLabel.animate({
 				"opacity" : 0
 			}, 300, function(){
-				pullLabel.remove();
-				pullLabel = null;
+				self.pullLabel.remove();
+				self.pullLabel = null;
 			});
 		}
 
 
-		if ( blob && blob.type != "circle" ) {
-			blob.remove();
-			blob = R.circle(center.x, center.y, 79).attr({
+		if ( self.blob && self.blob.type != "circle" ) {
+			self.blob.remove();
+			self.blob = self.R.circle(center.x, center.y, 79).attr({
 				"scale" :[0.1,0.1],
 				"fill" : "#161616",
 				"stroke-width" : "0",
 				"stroke-opacity" : "0"
 			});
 		} else {
-			blob.attr({
+			self.blob.attr({
 				"cx" : center.x,
 				"cy" : center.y
 			});
@@ -434,36 +455,36 @@ PF.View.Home = Backbone.View.extend({
 			href = ["about", "work", "stuffs", "links"];
 
 		var 
-			aboutCircle = R.circle(left.x, left.y, 3).attr(circleAttr),
-			workCircle = R.circle(bottom.x, bottom.y, 3).attr(circleAttr),
-			stuffsCircle = R.circle(right.x, right.y, 3).attr(circleAttr),
-			linksCircle = R.circle(top.x, top.y, 3).attr(circleAttr);
+			aboutCircle = self.R.circle(left.x, left.y, 3).attr(circleAttr),
+			workCircle = self.R.circle(bottom.x, bottom.y, 3).attr(circleAttr),
+			stuffsCircle = self.R.circle(right.x, right.y, 3).attr(circleAttr),
+			linksCircle = self.R.circle(top.x, top.y, 3).attr(circleAttr);
 
 		var 
-			aboutLabel = R.text(left.x - 30, left.y, "About").attr(textAttr),
-			workLabel = R.text(bottom.x, bottom.y + 20, "Work").attr(textAttr),
-			stuffsLabel = R.text(right.x + 30, right.y, "Stuffs").attr(textAttr),
-			linksLabel = R.text(top.x, top.y - 20, "Links").attr(textAttr);
+			aboutLabel = self.R.text(left.x - 30, left.y, "About").attr(textAttr),
+			workLabel = self.R.text(bottom.x, bottom.y + 20, "Work").attr(textAttr),
+			stuffsLabel = self.R.text(right.x + 30, right.y, "Stuffs").attr(textAttr),
+			linksLabel = self.R.text(top.x, top.y - 20, "Links").attr(textAttr);
 
 		var 
-			aboutArea = R.rect(left.x - 100, left.y - 50, 120, 100).attr(rectAttr).toFront(),
-			workArea = R.rect(bottom.x - 50, bottom.y - 20, 100, 120).attr(rectAttr).toFront(),
-			stuffsArea = R.rect(right.x - 20, right.y - 50, 120, 100).attr(rectAttr).toFront(),
-			linksArea = R.rect(top.x - 50, top.y - 100, 100, 120).attr(rectAttr).toFront();
+			aboutArea = self.R.rect(left.x - 100, left.y - 50, 120, 100).attr(rectAttr).toFront(),
+			workArea = self.R.rect(bottom.x - 50, bottom.y - 20, 100, 120).attr(rectAttr).toFront(),
+			stuffsArea = self.R.rect(right.x - 20, right.y - 50, 120, 100).attr(rectAttr).toFront(),
+			linksArea = self.R.rect(top.x - 50, top.y - 100, 100, 120).attr(rectAttr).toFront();
 
-		circles = [aboutCircle, workCircle, stuffsCircle, linksCircle];
-		labels = [aboutLabel, workLabel, stuffsLabel, linksLabel];
-		areas = [aboutArea, workArea, stuffsArea, linksArea];
+		self.circles = [aboutCircle, workCircle, stuffsCircle, linksCircle];
+		self.labels = [aboutLabel, workLabel, stuffsLabel, linksLabel];
+		self.areas = [aboutArea, workArea, stuffsArea, linksArea];
 
-		var self = this;
-		$.each(areas, function(i, area){
-			self._addEvents(i, area, circles, labels, positions, href, left, top, right, bottom);
+		$.each(self.areas, function(i, area){
+			self._addEvents(i, area, self.circles, self.labels, positions, href, left, top, right, bottom);
 		});
 
 	},
 
 	_addEvents : function(i, target, circles, labels, positions, href, left, top, right, bottom ) {
-
+		
+		var self = this;
 		target.mousemove(function(e, mouseX, mouseY){
 
 			var 
@@ -501,7 +522,7 @@ PF.View.Home = Backbone.View.extend({
 				"opacity" : 1
 			});
 
-			square.attr({
+			self.square.attr({
 				"path": path
 			});
 
@@ -536,7 +557,7 @@ PF.View.Home = Backbone.View.extend({
 			}, duration);
 
 			var path = "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z";
-			square.animate({
+			self.square.animate({
 				"path": path
 			}, duration);
 
@@ -550,17 +571,17 @@ PF.View.Home = Backbone.View.extend({
 
 		var coords = this._getLatestCoords();
 
-		square.attr({
+		this.square.attr({
 			"path" : coords.path
 		});
 
-		$.each(circles, function(i, circle){
+		$.each(this.circles, function(i, circle){
 			if (circle) circle.remove();
 		});
-		$.each(areas, function(i, area){
+		$.each(this.areas, function(i, area){
 			if (area) area.remove();
 		});
-		$.each(labels, function(i, label){
+		$.each(this.labels, function(i, label){
 			if (label) label.remove();
 		});
 
@@ -574,26 +595,26 @@ PF.View.Home = Backbone.View.extend({
 			deltaX = dx || 0,
 			deltaY = dy || 0;
 
-		coords.pullX = isMenu ? Math.round(winWidth * .33) : nameX + deltaX + offsetX;
-		coords.pullY = nameY + deltaY + offsetY;
-		coords.halfY = nameY + offsetY;
-		coords.middleX = nameX + Math.round(deltaX / 3) + offsetX;
+		coords.pullX = this.isMenu ? Math.round(this.winWidth * .33) : this.nameX + deltaX + this.offsetX;
+		coords.pullY = this.nameY + deltaY + this.offsetY;
+		coords.halfY = this.nameY + this.offsetY;
+		coords.middleX = this.nameX + Math.round(deltaX / 3) + this.offsetX;
 
 		coords.left = {
-			x : (coords.pullX + initialOffset),
+			x : (coords.pullX + this.initialOffset),
 			y : coords.pullY
 		};
 		coords.top = {
-			x : isMenu ? coords.left.x + 70 : (coords.middleX + offsetLeftX),
-			y : isMenu ? coords.pullY - 140 : -100
+			x : this.isMenu ? coords.left.x + 70 : (coords.middleX + this.offsetLeftX),
+			y : this.isMenu ? coords.pullY - 140 : -100
 		};
 		coords.right = {
-			x : isMenu ? coords.left.x + 216 : (winWidth + 200),
-			y : isMenu ? coords.left.y - 57 : coords.halfY
+			x : this.isMenu ? coords.left.x + 216 : (this.winWidth + 200),
+			y : this.isMenu ? coords.left.y - 57 : coords.halfY
 		};
 		coords.bottom = {
-			x : isMenu ? coords.left.x + 135 : (coords.middleX + offsetLeftX),
-			y : isMenu ? coords.left.y + 85 : (winHeight + 100)
+			x : this.isMenu ? coords.left.x + 135 : (coords.middleX + this.offsetLeftX),
+			y : this.isMenu ? coords.left.y + 85 : (this.winHeight + 100)
 		};
 		coords.center = {
 			x : Math.round((coords.left.x + coords.right.x) / 2) - 1,
@@ -605,7 +626,7 @@ PF.View.Home = Backbone.View.extend({
 		coords.path += "L" + coords.right.x + "," + coords.right.y;
 		coords.path += "L" + coords.bottom.x + "," + coords.bottom.y + "Z";
 
-		coords.blobPath = object._getBlobPath(coords.right, coords.bottom, coords.left, coords.top, deltaX);
+		coords.blobPath = this._getBlobPath(coords.right, coords.bottom, coords.left, coords.top, deltaX);
 
 		return coords;
 	}
