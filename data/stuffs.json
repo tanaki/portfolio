@@ -19,7 +19,7 @@
 			"img" : "backbone.jpg",
 			"top" : "39%",
 			"date" : "06.12.2011",
-			"text" : "This website is based on a quick boilerplate for <a href=\"http://documentcloud.github.com/backbone/\">Backbone JS</a> I've been working on. You can fork <a rel=\"external\" href=\"http://github.com/tanaki/base-backbone/\">the project</a>.<br/><br/>It also uses the sweet vectorial drawing library <a href=\"http://raphaeljs.com\" rel=\"external\">Raphael JS</a>. Take a look at <a href=\"/#/work/mindreader\">Mindreader</a>, which is a commercial project I've built with Raphael JS too.<br/><br/><a rel=\"external\" href=\"http://github.com/tanaki/portfolio\">http://github.com/tanaki/portfolio</a>",
+			"text" : "This website is based on a quick boilerplate for <a href=\"http://documentcloud.github.com/backbone/\">Backbone JS</a> I've been working on. You can fork <a rel=\"external\" href=\"http://github.com/tanaki/base-backbone/\">the project</a>.<br/><br/>It also uses the sweet vectorial drawing library <a href=\"http://raphaeljs.com\" rel=\"external\">Raphael JS</a>. Take a look at <a href=\"/#/work/mindreader\">Mindreader</a>, which is a commercial project I've built with Raphael JS too.<br/><br/><a rel=\"external\" href=\"http://github.com/tanaki/portfolio/tree/dev-final\">http://github.com/tanaki/portfolio/tree/dev-final</a>",
 			"tags" : [
 				"JS"
 			]

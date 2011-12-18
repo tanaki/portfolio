@@ -10,7 +10,7 @@
 		
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script>
 		
-		<?php if ( preg_match( "/localhost/", $_SERVER["SERVER_NAME"] ) ) { ?>
+		<!--?php if ( preg_match( "/localhost/", $_SERVER["SERVER_NAME"] ) ) { ?-->
 			<script type="text/javascript" src="/js/lib/underscore-1.2.2.js"></script>
 			<script type="text/javascript" src="/js/lib/backbone.js"></script>
 			<script type="text/javascript" src="/js/lib/raphael-full.js"></script>
@@ -39,10 +39,10 @@
 			<script type="text/javascript" src="/js/app/views/Stuffs.js"></script>
 			<script type="text/javascript" src="/js/app/views/Work.js"></script>
 			<script type="text/javascript" src="/js/app/views/WorkDetail.js"></script>
-		<?php } else { ?>
+		<!-- ?php } else { ?>
 			<script type="text/javascript" src="/js/lib/libs.min.js"></script>
-			<script type="text/javascript" src="/js/portfolio.min.js"></script>
-		<?php } ?>
+			<script type="text/javascript" src="/js/portfolio.min.js"></script-->
+		<!-- ?php } ? -->
 
 	</head>
 	<body>

@@ -19,11 +19,13 @@ PF.View.Work = Backbone.View.extend({
 	initialize : function(){
 		var self = this;
 		$(window).resize(function(){
-			var target = $("#works-lines").position();
-			self.offsetX = target.left;
-			self.offsetY = target.top;
-			
-			self._drawLinks(true);
+			if ( $("body").hasClass("page-work") ) {
+				var target = $("#works-lines").position();
+				self.offsetX = target.left;
+				self.offsetY = target.top;
+
+				self._drawLinks(true);
+			}
 		});
 	},
 		
@@ -53,7 +55,6 @@ PF.View.Work = Backbone.View.extend({
 				"noStorage" : true // util for debug
 			});
 		}
-		
 	},
 	
 	_loadData : function() {
@@ -121,6 +122,7 @@ PF.View.Work = Backbone.View.extend({
 	},
 	
 	_display : function() {
+		
 		var 
 			self = this,
 			params = {
@@ -132,6 +134,7 @@ PF.View.Work = Backbone.View.extend({
 			var target = $("#works-lines").position();
 			self.offsetX = target.left;
 			self.offsetY = target.top;
+			
 			self._drawLinks();
 		});
 	},
@@ -139,7 +142,7 @@ PF.View.Work = Backbone.View.extend({
 	_drawLinks : function( redraw ){
 		
 		if ( this.lines ) this.lines.clear();
-		else this.lines = Raphael( document.getElementById("works-lines"), "100%", "100%" );
+		this.lines = Raphael( document.getElementById("works-lines"), "100%", "100%" );
 		
 		var 
 			self = this,

@@ -50,23 +50,31 @@ PF.View.Home = Backbone.View.extend({
 		self.offsetLeftX = Math.round(self.winWidth * .15);
 		
 		$(window).resize(function(){
+			
+			if ( 
+				!$("body").hasClass("page-about") 
+				&& !$("body").hasClass("page-links")
+				&& !$("body").hasClass("page-stuffs")
+				&& !$("body").hasClass("page-work")
+			) {
+			
+				self.winWidth = $(window).width();
+				self.winHeight = $(window).height();
 
-			self.winWidth = $(window).width();
-			self.winHeight = $(window).height();
+				self.halfWidth = Math.round(self.winHeight / 2);
 
-			self.halfWidth = Math.round(self.winHeight / 2);
+				self.nameX = Math.round(self.winWidth * .89);
+				self.nameY = Math.round(self.winHeight * .49);
 
-			self.nameX = Math.round(self.winWidth * .89);
-			self.nameY = Math.round(self.winHeight * .49);
+				self.offsetLeftX = Math.round(self.winWidth * .15);
 
-			self.offsetLeftX = Math.round(self.winWidth * .15);
-
-			if (self.isMenu) {
-				self._moveMenu();
-			} else {
-				if (self.R) self.R.clear();
-				$("#" + self.container).empty();
-				self._initRaphael(false);			
+				if (self.isMenu) {
+					self._moveMenu();
+				} else {
+					if (self.R) self.R.clear();
+					$("#" + self.container).empty();
+					self._initRaphael(false);			
+				}
 			}
 		});
 	},

@@ -9,8 +9,10 @@ PF.View.Stuffs = Backbone.View.extend({
 	initialize : function(){
 		var self = this;
 		$(window).resize(function(){
-			$(self.el).css("width", $(window).width() - 545 );
-			self._updateNavPos(true);
+			if ( !$("body").hasClass("page-stuffs") ) {
+				$(self.el).css("width", $(window).width() - 545 );
+				self._updateNavPos(true);
+			}
 		});
 	},
 	
@@ -124,8 +126,8 @@ PF.View.Stuffs = Backbone.View.extend({
 			.fadeIn(300, function(){
 				self._initNavLinks();
 				self._updateImage();
+				$(self.el).css("width", $(window).width() - 545 );
 				self._updateNavPos(true);
-				$(window).resize();
 			});
 	},
 	

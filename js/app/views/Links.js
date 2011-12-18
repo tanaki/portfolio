@@ -114,6 +114,7 @@ PF.View.Links = Backbone.View.extend({
 		var 
 			self = this,
 			thumb = new Image();
+			
 		thumb.onload = function(){
 			$(".content-loading").text("Loading... " + (self.indexLoaded * 100 / self.totalImages) + "%" ) ;
 			if ( self.indexLoaded == self.totalImages ) self._display();
