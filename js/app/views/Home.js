@@ -66,7 +66,7 @@ PF.View.Home = Backbone.View.extend({
 			} else {
 				if (self.R) self.R.clear();
 				$("#" + self.container).empty();
-				self._initRaphael();			
+				self._initRaphael(false);			
 			}
 		});
 	},
@@ -120,15 +120,15 @@ PF.View.Home = Backbone.View.extend({
 		$("body").attr("class", "");
 		
 		$(this.el).empty();
-		this._initRaphael();
+		this._initRaphael(true);
 	},
 
-	_initRaphael : function(){
+	_initRaphael : function( firstInit ){
 		this.R = Raphael(document.getElementById(this.container), "100%", "100%");
-		this._initGraphics();
+		this._initGraphics( firstInit );
 	},
 
-	_initGraphics: function() {
+	_initGraphics: function( firstInit ) {
 
 		var
 			self = this,
@@ -151,9 +151,22 @@ PF.View.Home = Backbone.View.extend({
 			bottom = {
 				x : (pullX + self.offsetLeftX),
 				y : (self.winHeight + 100)
+			},
+			leftInit = {
+				x : left.x + 150,
+				y : left.y
+			},
+			topInit = {
+				x : top.x + 50,
+				y : top.y
+			},
+			bottomInit = {
+				x : bottom.x + 50,
+				y : bottom.y
 			};
 		
-		self.blob = self.R.path( self._getBlobPath(right, bottom, left, top, 0) );
+		
+		self.blob = self.R.path( self._getBlobPath(right, (firstInit ? bottomInit : bottom), (firstInit ? leftInit : left), (firstInit ? topInit : top), 0) );
 		self.blob.attr({
 			"fill" : "#161616",
 			"stroke-width" : "0",
@@ -161,7 +174,7 @@ PF.View.Home = Backbone.View.extend({
 		});
 
 		self.square = self.R
-			.path("M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z")
+			.path("M" + (firstInit ? leftInit.x : left.x) + "," + left.y + "L" + (firstInit ? topInit.x : top.x) + "," + top.y + "L" + right.x + "," + right.y + "L" + (firstInit ? bottomInit.x : bottom.x) + "," + bottom.y + "Z")
 			.attr({
 				"stroke" : "#666",
 				"stroke-width" : "1"
@@ -182,13 +195,13 @@ PF.View.Home = Backbone.View.extend({
 			"opacity" : 0
 		});
 
-		self.pullLabel = self.R.text(pullX + 50, pullY, "Nicolas Pigelet").attr({
+		self.pullLabel = self.R.text( firstInit ? (pullX + 100 ) : (pullX + 50), pullY, "Nicolas Pigelet").attr({
 			"font" : "8px Copy0855",
 			"fill" : "#ffffff",
 			"cursor" : "pointer"
 		});
 
-		self.pullCircle = self.R.circle(pullX + 102, pullY, 5).attr({
+		self.pullCircle = self.R.circle( firstInit ? (pullX + 252) : (pullX + 102), pullY, 5).attr({
 			"fill" : "#ddd",
 			"stroke-width" : 0,
 			"stroke-opacity" : 0
@@ -202,7 +215,7 @@ PF.View.Home = Backbone.View.extend({
 		});
 	
 		self.pull = self.R
-			.rect(pullX, pullY - 40, 120, 80)
+			.rect( pullX, pullY - 40, 120, 80)
 			.attr({
 				"fill" : "#222",
 				"opacity" : 0,
@@ -220,6 +233,33 @@ PF.View.Home = Backbone.View.extend({
 			.mouseout(function(){
 				self._mouseOut(self);
 			});
+			
+		if ( firstInit ) {
+			
+			self.pullCircle
+				.attr("opacity", 0)
+				.animate({
+					"cx" : pullX + 102,
+					"opacity" : 1
+				}, 300);
+			
+			self.pullLabel
+				.attr("opacity", 0)
+				.animate({
+					"x" : pullX + 50,
+					"opacity" : 1
+				}, 300);
+				
+			self.square
+				.animate({
+					"path": "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z"
+				}, 300);
+			
+			self.blob
+				.animate({
+					"path" : self._getBlobPath(right, bottom, left, top, 0)
+				}, 300)
+		}
 	},
 
 	_mouseOver : function(self){

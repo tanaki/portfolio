@@ -71,7 +71,13 @@ PF.View.Work = Backbone.View.extend({
 				url: "/data/works.json",
 
 				success : function(response){
+					
+					var 
+						total = response.projects.length * 2 - 1,
+						indexLoaded = 0;
+						
 					$.each(response.projects, function(i, el){
+						
 						self.collection.add(new PF.Model.Work({
 							index: el.index,
 							color: el.color,
@@ -88,9 +94,25 @@ PF.View.Work = Backbone.View.extend({
 							text: el.text,
 							tags: el.tags
 						}));
+						
+						var 
+							thumb = new Image(),
+							illu = new Image();
+							
+						thumb.onload = function(){
+							$(".content-loading").text("Loading... " + (indexLoaded * 100 / total) + "%" ) ;
+							if ( indexLoaded == total ) self._display();
+							indexLoaded++;
+						}
+						thumb.src = "/img/work/projects/" + el.slug + ".jpg";
+						
+						illu.onload = function(){
+							$(".content-loading").text("Loading... " + (indexLoaded * 100 / total) + "%" ) ;
+							if ( indexLoaded == total ) self._display();
+							indexLoaded++;
+						}
+						illu.src = "/img/work/illus/" + el.slug + ".jpg";
 					});
-
-					self._display();
 				}
 			});
 		}

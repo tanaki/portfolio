@@ -257,7 +257,17 @@ table { border-collapse: collapse; border-spacing: 0; }
 	.page-work #main-canvas {
 		display:none;
 	}
-
+	
+	.content-loading {
+		position: absolute;
+		top: 50%;
+		left: 570px;
+		margin-top: -8px;
+	}
+	.page-links .content-loading {
+		left: 0;
+	}
+	
 /* NAV */
 	nav {
 		float:left;

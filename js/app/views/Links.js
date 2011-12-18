@@ -5,38 +5,9 @@ PF.View.Links = Backbone.View.extend({
 	page: "#page",
 	tpl_links : null,
 	collection : null,
+	totalImages : 0,
+	indexLoaded : 0,
 	
-	initialize : function(){
-		
-		var self = this;
-			
-		$(".link-az").live("click", function(e){
-			e.preventDefault();
-			self.toggleLists(this, true);
-		});
-		$(".link-gobelins").live("click", function(e){
-			e.preventDefault();
-			self.toggleLists(this, false);
-		});
-		$(".container ul li a")
-			.live("mouseover", function(){
-
-				var url = "/img/links/external/"+ $(this).data('slug') +".jpg";
-				
-				$("nav .selected span").css({
-					"background-image" : "url(" + url + ")",
-					"background-position" : "50% -5px"
-				});
-				
-			})
-			.live("mouseout", function(){
-				
-				$("nav .selected span").css({
-					"background-position" : "50% 100px"
-				});
-			});
-	},
-
 	toggleLists : function (target, isAZ) {
 
 		if ( $(target).hasClass("selected") ) return;
@@ -100,7 +71,9 @@ PF.View.Links = Backbone.View.extend({
 				url: "/data/links.json",
 			
 				success : function(response){
-				
+					
+					self.totalImages = response.az.length + response.gobelins.length - 1;
+					
 					_.each(response.az, function(el, i){
 						self.collection.add(new PF.Model.Link({
 							name: el.name,
@@ -108,6 +81,7 @@ PF.View.Links = Backbone.View.extend({
 							slug: el.slug,
 							type: "az"
 						}));
+						self._loadImage(el.slug);
 					});
 
 					_.each(response.gobelins, function(el, i){
@@ -118,7 +92,8 @@ PF.View.Links = Backbone.View.extend({
 							isSubtitle: true,
 							"class": i != 0
 						}));
-
+						self.indexLoaded++;
+						
 						_.each( el.people, function(link){
 							self.collection.add(new PF.Model.Link({
 								name: link.name,
@@ -126,14 +101,25 @@ PF.View.Links = Backbone.View.extend({
 								slug: link.slug,
 								type: "gobelins"
 							}));
+							self._loadImage(el.slug);
 						});
 					});
-				
-					self._display();
 				}
 			});
 		}
 		
+	},
+	
+	_loadImage : function( slug ){
+		var 
+			self = this,
+			thumb = new Image();
+		thumb.onload = function(){
+			$(".content-loading").text("Loading... " + (self.indexLoaded * 100 / self.totalImages) + "%" ) ;
+			if ( self.indexLoaded == self.totalImages ) self._display();
+			self.indexLoaded++;
+		}
+		thumb.src = "/img/links/external/" + slug + ".jpg";
 	},
 	
 	_display : function() {
@@ -147,6 +133,42 @@ PF.View.Links = Backbone.View.extend({
 		if ($(".line").length == 0) $(self.page).append('<div class="line"></div>');
 		else $(".line").removeClass("line-toggled");
 		
-		$(this.el).html( tpl(params) ).fadeIn(300);
+		$(this.el).html( tpl(params) ).fadeIn(300, function(){
+			self._initLinks();
+		});
+	},
+	
+	_initLinks : function(){
+		
+		var self = this;
+		
+		$(".link-az").click(function(e){
+			e.preventDefault();
+			self.toggleLists(this, true);
+		});
+		
+		$(".link-gobelins").click(function(e){
+			e.preventDefault();
+			self.toggleLists(this, false);
+		});
+		$(".container ul li a").hover(
+			function(){
+				
+				var url = "/img/links/external/"+ $(this).data('slug') +".jpg";
+				
+				$("nav .selected span").css({
+					"background-image" : "url(" + url + ")",
+					"background-position" : "50% -5px"
+				});
+				
+			},
+			function(){
+				
+				$("nav .selected span").css({
+					"background-position" : "50% 100px"
+				});
+			}
+		);
+		
 	}
 });

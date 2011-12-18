@@ -11,38 +11,37 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script>
 		
 		<?php if ( preg_match( "/localhost/", $_SERVER["SERVER_NAME"] ) ) { ?>
-        <script type="text/javascript" src="/js/lib/underscore-1.2.2.js"></script>
-        <script type="text/javascript" src="/js/lib/backbone.js"></script>
-        <script type="text/javascript" src="/js/lib/raphael-full.js"></script>
-		
-		<script type="text/javascript" src="/js/lib/jquery.loadTemplate.js"></script>
-		<script type="text/javascript" src="/js/lib/jquery.shuffle.js"></script>
-		
-		<script type="text/javascript" src="/js/lib/utils/Strings.js"></script>
-		
-		<script type="text/javascript" src="/js/Portfolio.js"></script>
-		<script type="text/javascript" src="/js/app/Router.js"></script>
-		<script type="text/javascript" src="/js/app/Background.js"></script>
-		
-		<script type="text/javascript" src="/js/app/models/Link.js"></script>
-		<script type="text/javascript" src="/js/app/models/Stuff.js"></script>
-		<script type="text/javascript" src="/js/app/models/Work.js"></script>
-		
-		<script type="text/javascript" src="/js/app/collections/LinksCollection.js"></script>
-		<script type="text/javascript" src="/js/app/collections/StuffsCollection.js"></script>
-		<script type="text/javascript" src="/js/app/collections/WorksCollection.js"></script>
-		
-		<script type="text/javascript" src="/js/app/views/About.js"></script>
-		<script type="text/javascript" src="/js/app/views/Credits.js"></script>
-		<script type="text/javascript" src="/js/app/views/Home.js"></script>
-		<script type="text/javascript" src="/js/app/views/Links.js"></script>
-		<script type="text/javascript" src="/js/app/views/Nav.js"></script>
-		<script type="text/javascript" src="/js/app/views/Stuffs.js"></script>
-		<script type="text/javascript" src="/js/app/views/Work.js"></script>
-		<script type="text/javascript" src="/js/app/views/WorkDetail.js"></script>
+			<script type="text/javascript" src="/js/lib/underscore-1.2.2.js"></script>
+			<script type="text/javascript" src="/js/lib/backbone.js"></script>
+			<script type="text/javascript" src="/js/lib/raphael-full.js"></script>
+
+			<script type="text/javascript" src="/js/lib/jquery.loadTemplate.js"></script>
+			<script type="text/javascript" src="/js/lib/jquery.shuffle.js"></script>
+			<script type="text/javascript" src="/js/lib/utils/Strings.js"></script>
+
+			<script type="text/javascript" src="/js/Portfolio.js"></script>
+			<script type="text/javascript" src="/js/app/Router.js"></script>
+			<script type="text/javascript" src="/js/app/Background.js"></script>
+
+			<script type="text/javascript" src="/js/app/models/Link.js"></script>
+			<script type="text/javascript" src="/js/app/models/Stuff.js"></script>
+			<script type="text/javascript" src="/js/app/models/Work.js"></script>
+
+			<script type="text/javascript" src="/js/app/collections/LinksCollection.js"></script>
+			<script type="text/javascript" src="/js/app/collections/StuffsCollection.js"></script>
+			<script type="text/javascript" src="/js/app/collections/WorksCollection.js"></script>
+
+			<script type="text/javascript" src="/js/app/views/About.js"></script>
+			<script type="text/javascript" src="/js/app/views/Credits.js"></script>
+			<script type="text/javascript" src="/js/app/views/Home.js"></script>
+			<script type="text/javascript" src="/js/app/views/Links.js"></script>
+			<script type="text/javascript" src="/js/app/views/Nav.js"></script>
+			<script type="text/javascript" src="/js/app/views/Stuffs.js"></script>
+			<script type="text/javascript" src="/js/app/views/Work.js"></script>
+			<script type="text/javascript" src="/js/app/views/WorkDetail.js"></script>
 		<?php } else { ?>
-		<script type="text/javascript" src="/js/lib/libs.min.js"></script>
-		<script type="text/javascript" src="/js/portfolio.min.js"></script>
+			<script type="text/javascript" src="/js/lib/libs.min.js"></script>
+			<script type="text/javascript" src="/js/portfolio.min.js"></script>
 		<?php } ?>
 
 	</head>
@@ -72,7 +71,7 @@
 					<li class="current transition"></li>
 				</ul>
 				<div class="content">
-					Loading...
+					<span class="content-loading">Loading...</span>
 				</div>
 				<div id="detail-container">
 					<div id="detail-background"></div>
