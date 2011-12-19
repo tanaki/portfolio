@@ -37,6 +37,8 @@ PF.Events = {
 
 $(window).ready(function(){
 	
+	if ( $(window).width() < 1000 ) window.location.href = "/mobile";
+	
 	// start background graphic
 	PF.AppBackground = new PF.Background();
 	
