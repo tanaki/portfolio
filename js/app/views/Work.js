@@ -82,7 +82,8 @@ PF.View.Work = Backbone.View.extend({
 					
 					var 
 						total = response.projects.length * 2 - 1,
-						indexLoaded = 0;
+						indexLoaded = 0,
+						contentLoading = $(".content-loading");
 						
 					$.each(response.projects, function(i, el){
 						
@@ -105,8 +106,7 @@ PF.View.Work = Backbone.View.extend({
 						
 						var 
 							thumb = new Image(),
-							illu = new Image(),
-							contentLoading = $(".content-loading");
+							illu = new Image();
 							
 						thumb.onload = function(){
 							contentLoading.text("Loading... " + (indexLoaded * 100 / total) + "%" ) ;

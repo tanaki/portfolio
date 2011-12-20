@@ -65,6 +65,11 @@ PF.View.Stuffs = Backbone.View.extend({
 
 				success : function(response){
 
+					var 
+						total = response.stuffs.length - 1,
+						indexLoaded = 0,
+						contentLoading = $(".content-loading");
+						
 					$.each(response.stuffs, function(i, el){
 						self.collection.add(new PF.Model.Stuff({
 							index: el.index,
@@ -76,9 +81,22 @@ PF.View.Stuffs = Backbone.View.extend({
 							text: el.text,
 							tags: el.tags
 						}));
-					});
 
-					self._display();
+						if ( el.img ) {
+							var thumb = new Image();
+							thumb.onload = function(){
+								contentLoading.text("Loading... " + (indexLoaded * 100 / total) + "%" ) ;
+								if ( indexLoaded == total ) self._display();
+								indexLoaded++;
+							}
+							thumb.src = "/img/stuffs/" + el.img;
+						} else {
+							if ( indexLoaded == total ) self._display();
+							indexLoaded++;
+						}
+						
+					
+					});
 				}
 			});
 		}
