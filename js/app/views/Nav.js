@@ -1,28 +1,33 @@
 
 PF.View.Nav = Backbone.View.extend({
 	
-	nav: "nav",
-	footer: "footer",
-	breadcrumb: ".breadcrumb",
+	nav: null,
+	footer: null,
+	breadcrumb: null,
 	currentViewID : null,
 	
 	initialize : function(){
 
 		var self = this;
+		
+		self.nav = $("nav");
+		self.footer = $("footer");
+		self.breadcrumb = $(".breadcrumb");
+		
 		$("nav a:not(.selected)").live({
 			"mouseenter" : function(){
-				if ( $(".breadcrumb .link").length > 1 )
-					$(".breadcrumb .link:last").hide(200);
+				if ( self.breadcrumb.find(".link").length > 1 )
+					self.breadcrumb.find(".link:last").hide(200);
 
 				var text = $("span", this).text();
-				text.shuffle( $(".breadcrumb .current") );
+				text.shuffle( self.breadcrumb.find(".current") );
 			},
 			"mouseleave" : function(){
-				if ( $(".breadcrumb .link").length > 1 )
-					$(".breadcrumb .link:last").show(200);
+				if ( self.breadcrumb.find(".link").length > 1 )
+					self.breadcrumb.find(".link:last").show(200);
 
 				self.breadcrumbText = self.currentViewID.capitalize();
-				self.breadcrumbText.shuffle( $(".breadcrumb .current") );
+				self.breadcrumbText.shuffle( self.breadcrumb.find(".current") );
 			}
 		});
 		
@@ -44,14 +49,14 @@ PF.View.Nav = Backbone.View.extend({
 			.attr("class", "")
 			.addClass("page-" + idView);
 
-		$(".selected", this.nav).removeClass("selected");
+		this.nav.find(".selected").removeClass("selected");
 		$("#" + idView)
 			.removeClass("first")
 			.removeClass("second")
 			.removeClass("third")
 			.addClass("selected");
 
-		$("a:not(.selected)", this.nav).each(function(i, a){
+		this.nav.find("a:not(.selected)").each(function(i, a){
 			$(a)
 				.removeClass("first")
 				.removeClass("second")
@@ -69,34 +74,35 @@ PF.View.Nav = Backbone.View.extend({
 	},
 
 	hide: function(){
-		$(this.nav).fadeOut(200);
-		$(this.footer).fadeOut(200);
-		$(this.breadcrumb).fadeOut(200);
+		this.nav.fadeOut(200);
+		this.footer.fadeOut(200);
+		this.breadcrumb.fadeOut(200);
 	},
 	
 	render: function( idView ){
 		
-		if ( $(this.nav).hasClass("hidden") ) {
-			$(this.nav)
+		var self = this;
+		if ( this.nav.hasClass("hidden") ) {
+			this.nav
 				.css("visibility", "visible")
 				.fadeIn(200, function(){
-					$(this).removeClass("hidden");
+					self.nav.removeClass("hidden");
 				});
 		}
 		
-		if ( $(this.footer).hasClass("hidden") ) {
-			$(this.footer)
+		if ( this.footer.hasClass("hidden") ) {
+			this.footer
 				.css("visibility", "visible")
 				.fadeIn(200, function(){
-					$(this).removeClass("hidden");
+					self.footer.removeClass("hidden");
 				});
 		}
 		
-		if ( $(this.breadcrumb).hasClass("hidden") ) {
-			$(this.breadcrumb)
+		if ( this.breadcrumb.hasClass("hidden") ) {
+			this.breadcrumb
 				.css("visibility", "visible")
 				.fadeIn(200, function(){
-					$(this).removeClass("hidden");
+					self.breadcrumb.removeClass("hidden");
 				});
 		}
 		

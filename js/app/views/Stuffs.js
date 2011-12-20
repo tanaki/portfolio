@@ -2,22 +2,27 @@
 PF.View.Stuffs = Backbone.View.extend({
 	
 	el : "#page .content",
+	$el : null,
 	tpl_stuffs : null,
 	collection : null,
 	currentSlug : null,
 	
+	$window : $(window),
+	$body : $("body"),
+	
 	initialize : function(){
 		var self = this;
-		$(window).resize(function(){
-			if ( !$("body").hasClass("page-stuffs") ) {
-				$(self.el).css("width", $(window).width() - 545 );
+		self.$el = $(self.el);
+		self.$window.resize(function(){
+			if ( !self.$body.hasClass("page-stuffs") ) {
+				self.$el.css("width", self.$window.width() - 545 );
 				self._updateNavPos(true);
 			}
 		});
 	},
 	
 	hide : function (callbackEvent) {
-		$(this.el).hide().css("width", "");
+		this.$el.hide().css("width", "");
 		if (callbackEvent) PF.EventManager.trigger( callbackEvent );
 	},
 	
@@ -92,11 +97,12 @@ PF.View.Stuffs = Backbone.View.extend({
 			middle = Math.floor(this.collection.length / 2),
 			index = $(".nav-stuffs li.current").data("index"),
 			top = Math.round(($(window).height() - navHeight) / 2),
-			offset = 35 * (middle - index);
+			offset = 35 * (middle - index),
+			navStuffs = $(".nav-stuffs");
 
-		if ( resize ) $(".nav-stuffs").css("top", Math.round(top + offset));
+		if ( resize ) navStuffs.css("top", Math.round(top + offset));
 		else 
-			$(".nav-stuffs").animate({ 
+			navStuffs.animate({ 
 				"top" : Math.round(top + offset)
 			}, 200 );
 	},
@@ -117,16 +123,16 @@ PF.View.Stuffs = Backbone.View.extend({
 			params = {
 				stuffs : this.collection.models,
 				selectedSlug : this.currentSlug,
-				baseTop : Math.round($(window).height() / 2)
+				baseTop : Math.round(this.$window.height() / 2)
 			},
 			tpl = _.template(this.tpl_stuffs);
 		
-		$(this.el)
+		this.$el
 			.html( tpl(params) )
 			.fadeIn(300, function(){
 				self._initNavLinks();
 				self._updateImage();
-				$(self.el).css("width", $(window).width() - 545 );
+				self.$el.css("width", self.$window.width() - 545 );
 				self._updateNavPos(true);
 			});
 	},
@@ -134,15 +140,18 @@ PF.View.Stuffs = Backbone.View.extend({
 	_changePartial: function(selectedSlug){
 
 		var
-			currentArticle = $("ul.articles li:not(.hidden)"),
-			targetArticle = $("ul.articles li[data-slug="+ selectedSlug +"]"),
+			ulArticles = $("ul.articles"),
+			currentArticle = ulArticles.find("li:not(.hidden)"),
+			targetArticle = ulArticles.find("li[data-slug="+ selectedSlug +"]"),
 			currentSlug = currentArticle.data("slug"),
 			currentIndex = currentArticle.data("index"),
 			targetIndex = targetArticle.data("index"),
-			currentLink = $("ul.nav-stuffs li.current"),
-			targetLink = $("ul.nav-stuffs li[data-index=" + targetIndex + "]"),
-			currentToAnimate = $("span.stuff-content", currentArticle),
-			targetToAnimate = $("span.stuff-content", targetArticle);
+			
+			navStuffs = $("ul.nav-stuffs"),
+			currentLink = navStuffs.find("li.current"),
+			targetLink = navStuffs.find("li[data-index=" + targetIndex + "]"),
+			currentToAnimate = currentArticle.find("span.stuff-content"),
+			targetToAnimate = targetArticle.find("span.stuff-content");
 
 		if (selectedSlug == currentSlug) return;
 

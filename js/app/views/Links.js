@@ -129,10 +129,11 @@ PF.View.Links = Backbone.View.extend({
 			params = {
 				links : this.collection.models
 			},
-			tpl = _.template(this.tpl_links);
+			tpl = _.template(this.tpl_links),
+			line = $(".line");
 			
-		if ($(".line").length == 0) $(self.page).append('<div class="line"></div>');
-		else $(".line").removeClass("line-toggled");
+		if (line.length == 0) $(self.page).append('<div class="line"></div>');
+		else line.removeClass("line-toggled");
 		
 		$(this.el).html( tpl(params) ).fadeIn(300, function(){
 			self._initLinks();

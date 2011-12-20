@@ -2,6 +2,7 @@
 PF.View.Work = Backbone.View.extend({
 	
 	el : "#page .content",
+	$el : null,
 	tpl_work : null,
 	collection : null,
 	
@@ -13,13 +14,19 @@ PF.View.Work = Backbone.View.extend({
 	offsetX : 0,
 	offsetY : 0,
 	
-	width : Math.round($(window).width() / 2),
-	height : Math.round($(window).height() / 2),
+	$window : $(window),
+	$body : $("body"),
+	
+	width : 0,
+	height : 0,
 	
 	initialize : function(){
+		
 		var self = this;
-		$(window).resize(function(){
-			if ( $("body").hasClass("page-work") ) {
+		self.$el = $(self.el);
+		
+		self.$window.resize(function(){
+			if ( self.$body.hasClass("page-work") ) {
 				var target = $("#works-lines").position();
 				self.offsetX = target.left;
 				self.offsetY = target.top;
@@ -30,7 +37,7 @@ PF.View.Work = Backbone.View.extend({
 	},
 		
 	hide : function (callbackEvent) {
-		$(this.el).hide();
+		this.$el.hide();
 		if (callbackEvent) PF.EventManager.trigger( callbackEvent );
 	},
 	
@@ -98,17 +105,18 @@ PF.View.Work = Backbone.View.extend({
 						
 						var 
 							thumb = new Image(),
-							illu = new Image();
+							illu = new Image(),
+							contentLoading = $(".content-loading");
 							
 						thumb.onload = function(){
-							$(".content-loading").text("Loading... " + (indexLoaded * 100 / total) + "%" ) ;
+							contentLoading.text("Loading... " + (indexLoaded * 100 / total) + "%" ) ;
 							if ( indexLoaded == total ) self._display();
 							indexLoaded++;
 						}
 						thumb.src = "/img/work/projects/" + el.slug + ".jpg";
 						
 						illu.onload = function(){
-							$(".content-loading").text("Loading... " + (indexLoaded * 100 / total) + "%" ) ;
+							contentLoading.text("Loading... " + (indexLoaded * 100 / total) + "%" ) ;
 							if ( indexLoaded == total ) self._display();
 							indexLoaded++;
 						}
@@ -130,7 +138,7 @@ PF.View.Work = Backbone.View.extend({
 			},
 			tpl = _.template(this.tpl_work);
 		
-		$(this.el).html( tpl(params) ).fadeIn(300, function(){
+		this.$el.html( tpl(params) ).fadeIn(300, function(){
 			var target = $("#works-lines").position();
 			self.offsetX = target.left;
 			self.offsetY = target.top;
@@ -148,8 +156,8 @@ PF.View.Work = Backbone.View.extend({
 			self = this,
 			path = "";
 		
-		this.width = Math.round($(window).width() / 2),
-		this.height = Math.round($(window).height() / 2);
+		this.width = Math.round(this.$window.width() / 2),
+		this.height = Math.round(this.$window.height() / 2);
 		
 		this.connection = this.lines.path(path).attr({
 			"stroke" : "#333"
@@ -244,7 +252,9 @@ PF.View.Work = Backbone.View.extend({
 			circle = this.lines.circle(x, y, radius).attr(attrCircle),
 			lineCircle = this.lines.circle(x, y, radius + radiusPlus).attr(attrLineCircle),
 			areaCircle = this.lines.circle(x, y, radius + radiusPlus * 4).attr(attrAreaCircle),
-			defaultPath = "";
+			defaultPath = "",
+			
+			breadcrumb = $(".breadcrumb");
 			
 		$.each(self.percent, function(i, coords){
 			defaultPath += (( i == 0 ) ? "M" : "L") + (Math.round(coords[0] * self.width / 100) + 25) + "," + (Math.round(coords[1] * self.height / 100) + 25);
@@ -261,29 +271,30 @@ PF.View.Work = Backbone.View.extend({
 		}
 		
 		$(areaCircle).data("link", link.attributes);
+		
 		areaCircle
 			.mouseover(function(){
 				circle.attr("opacity", 1);
 				lineCircle.attr("opacity", 1);
 				
 				// TODO add updateBreadcrumb + image
-				$(".breadcrumb .current:first")
+				breadcrumb.find(".current:first")
 					.removeClass("current")
 					.addClass("link")
 
 				setTimeout(function(){
-					$(".breadcrumb .link:last").css("font-family", "Copy0855");
+					breadcrumb.find(".link:last").css("font-family", "Copy0855");
 				}, 180);
 
 				$("<span> / </span>")
-					.appendTo($(".breadcrumb .link:last"));
+					.appendTo( breadcrumb.find(".link:last") );
 				
 				var data = $(this).data("link");
 				$('<li class="current">' + (data.title).substring(0, 2) + '</li>')
-					.appendTo( $(".breadcrumb") )
+					.appendTo( breadcrumb )
 					.show();
 
-				data.title.shuffle( $(".breadcrumb .current:last") );
+				data.title.shuffle( breadcrumb.find(".current:last") );
 				
 				var url = "/img/work/projects/"+ data.slug +".jpg";
 				$("nav .selected span").css({
@@ -309,13 +320,13 @@ PF.View.Work = Backbone.View.extend({
 					"path" : defaultPath
 				}, 200);
 				
-				$(".breadcrumb .link:last")
+				breadcrumb.find(".link:last")
 					.removeClass("link")
 					.addClass("current")
 					.css("font-family", "");
 
-				$(".breadcrumb .current:first span").remove();
-				$(".breadcrumb .current:last").remove();
+				breadcrumb.find(".current:first span").remove();
+				breadcrumb.find(".current:last").remove();
 
 				$("nav .selected span").css({
 					"background-position" : "50% 100px"

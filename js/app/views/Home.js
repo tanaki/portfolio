@@ -4,6 +4,9 @@ PF.View.Home = Backbone.View.extend({
 	container: "main-canvas",
 	el: "#page .content",
 	
+	$container : null,
+	$el : null,
+	
 	R : null,
 	isMenu : false,
 	isDragging : false,
@@ -35,31 +38,37 @@ PF.View.Home = Backbone.View.extend({
 
 	initialOffset : 102,
 	offsetLeftX : 0,
+	
+	$window : null,
+	$body : null,
 
 	initialize: function(){
 		
 		var self = this;
 		
-		self.winWidth = $(window).width();
-		self.winHeight = $(window).height();
+		self.$window = $(window);
+		self.$body = $("body");
+		
+		self.winWidth = self.$window.width();
+		self.winHeight = self.$window.height();
 		
 		self.nameX = Math.round(self.winWidth * .89);
 		self.nameY = Math.round(self.winHeight * .49);
 		
 		self.halfWidth = Math.round(self.winHeight / 2);
 		self.offsetLeftX = Math.round(self.winWidth * .15);
-		
-		$(window).resize(function(){
+			
+		self.$window.resize(function(){
 			
 			if ( 
-				!$("body").hasClass("page-about") 
-				&& !$("body").hasClass("page-links")
-				&& !$("body").hasClass("page-stuffs")
-				&& !$("body").hasClass("page-work")
+				!self.$body.hasClass("page-about") 
+				&& !self.$body.hasClass("page-links")
+				&& !self.$body.hasClass("page-stuffs")
+				&& !self.$body.hasClass("page-work")
 			) {
 			
-				self.winWidth = $(window).width();
-				self.winHeight = $(window).height();
+				self.winWidth = self.$window.width();
+				self.winHeight = self.$window.height();
 
 				self.halfWidth = Math.round(self.winHeight / 2);
 
@@ -72,7 +81,7 @@ PF.View.Home = Backbone.View.extend({
 					self._moveMenu();
 				} else {
 					if (self.R) self.R.clear();
-					$("#" + self.container).empty();
+					self.$container.empty();
 					self._initRaphael(false);			
 				}
 			}
@@ -81,6 +90,7 @@ PF.View.Home = Backbone.View.extend({
 	hide: function( callbackEvent ){
 		
 		var self = this;
+		
 		if ( self.circles ) {
 			$.each(self.circles, function(i, circle){
 				circle.animate({
@@ -88,10 +98,10 @@ PF.View.Home = Backbone.View.extend({
 					"cy" : self.halfWidth
 				}, i * 100 + 300, function(){
 					if ( i == self.circles.length - 1 ) {
-						$(self.el).fadeOut(300, function(){
+						self.$el.fadeOut(300, function(){
 							self.isMenu = false;
 							self.R.clear();
-							$("#" + self.container).empty();
+							self.$container.empty();
 							if (callbackEvent) PF.EventManager.trigger(callbackEvent);
 						});
 					}
@@ -116,18 +126,21 @@ PF.View.Home = Backbone.View.extend({
 				}
 			})
 		} else {
-			$(self.el).fadeOut(300, function(){
+			self.$el.fadeOut(300, function(){
 				self.isMenu = false;
 				self.R.clear();
-				$(this).empty();
+				self.$el.empty();
 				if (callbackEvent) PF.EventManager.trigger(callbackEvent);
 			});
 		}
 	},
 	render: function(){
-		$("body").attr("class", "");
+		this.$body.attr("class", "");
 		
-		$(this.el).empty();
+		this.$container = $("#" + this.container);
+		this.$el = $(this.el);
+		
+		this.$el.empty();
 		this._initRaphael(true);
 	},
 
