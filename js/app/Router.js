@@ -9,7 +9,10 @@ PF.Router = Backbone.Router.extend({
 	homeView : null,
 	aboutView : null,
 	workView : null,
+	workDetailView : null,
 	stuffsView : null,
+	linksView : null,
+	creditsView : null,
 	
 	routes : {
 		"about" : "_aboutAction",
@@ -43,8 +46,10 @@ PF.Router = Backbone.Router.extend({
 	 * @private
 	 */
 	_workDetailAction : function( slug ) {
-		console.log("work detail action", slug);
-		//this._displayPage( PF.Events.INIT_WORK_DETAIL );
+		
+		if ( this.currentView !== null && this.currentView === this.workView ) this._displayPage( PF.Events.INIT_WORK_DETAIL, slug );
+		else this._displayPage( PF.Events.INIT_WORK, slug );
+		
 	},
 	
 	/*
@@ -87,10 +92,11 @@ PF.Router = Backbone.Router.extend({
 		
 		if ( !this.isInit ) this._init();
 		
-		if ( this.currentView ) {
+		if ( this.currentView && callbackEvent !== PF.Events.INIT_WORK_DETAIL ) {
 			this.currentView.hide( callbackEvent );
 		} else {
-			PF.EventManager.trigger( callbackEvent, [ slug ] );
+			var data = callbackEvent == PF.Events.INIT_WORK_DETAIL ? this.workView.collection : null;
+			PF.EventManager.trigger( callbackEvent, [ slug, data ] );
 		}
 	},
 	
@@ -103,7 +109,7 @@ PF.Router = Backbone.Router.extend({
 		
 		$("html").removeClass("no-js");
 		this._initEventHandlers();
-		this._initExternals();
+		this._initAnchorTags();
 		
 		this.nav = new PF.View.Nav();
 	},
@@ -126,14 +132,21 @@ PF.Router = Backbone.Router.extend({
 	},
 	
 	/*
-	 * init external links
+	 * init external/internal links
 	 * @private
 	 */
-	_initExternals : function(){
+	_initAnchorTags : function(){
+		
 		$('a[rel="external"]').live("click", function(e){
 			e.preventDefault();
 			window.open( $(this).attr('href') , "_blank" );
 		});
+		
+		$('a[rel="internal"]').live("click", function(e){
+			e.preventDefault();
+			PF.AppRouter.navigate($(this).attr('href'), true);
+		});
+		
 	},
 	
 	/********
@@ -162,14 +175,24 @@ PF.Router = Backbone.Router.extend({
 		
 	},
 	
-	_initWork : function() {
+	_initWork : function( e, slug ) {
 		
 		var self = PF.AppRouter;
 		
 		if ( self.workView == null ) self.workView = new PF.View.Work();
-		self.workView.render();
+		self.workView.render( slug );
 		self.currentView = self.workView;
 		self.nav.render("work");
+		
+	},
+	
+	_initWorkDetail : function( e, slug, collection ){
+		
+		var self = PF.AppRouter;
+		
+		if ( self.workDetailView == null ) self.workDetailView = new PF.View.WorkDetail();
+		self.workDetailView.render(slug, collection);
+		self.currentView = self.workDetailView;
 		
 	},
 	

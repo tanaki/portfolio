@@ -5,6 +5,7 @@ PF.View.Work = Backbone.View.extend({
 	$el : null,
 	tpl_work : null,
 	collection : null,
+	currentSlug : null,
 	
 	lines : null,
 	ordered : null,
@@ -14,8 +15,8 @@ PF.View.Work = Backbone.View.extend({
 	offsetX : 0,
 	offsetY : 0,
 	
-	$window : $(window),
-	$body : $("body"),
+	$window : null,
+	$body : null,
 	
 	width : 0,
 	height : 0,
@@ -23,6 +24,10 @@ PF.View.Work = Backbone.View.extend({
 	initialize : function(){
 		
 		var self = this;
+		
+		self.$window = $(window);
+		self.$body = $("body");
+		
 		self.$el = $(self.el);
 		
 		self.$window.resize(function(){
@@ -41,7 +46,8 @@ PF.View.Work = Backbone.View.extend({
 		if (callbackEvent) PF.EventManager.trigger( callbackEvent );
 	},
 	
-	render : function() {
+	render : function ( slug ) {
+		this.currentSlug = slug;
 		this._loadTemplate();
 	},
 	
@@ -125,8 +131,6 @@ PF.View.Work = Backbone.View.extend({
 				}
 			});
 		}
-
-		
 	},
 	
 	_display : function() {
@@ -144,6 +148,10 @@ PF.View.Work = Backbone.View.extend({
 			self.offsetY = target.top;
 			
 			self._drawLinks();
+			if (self.currentSlug) {
+				PF.AppRouter.navigate( "/work/" + self.currentSlug, true );
+				self.currentSlug = null;
+			}
 		});
 	},
 	
@@ -198,6 +206,7 @@ PF.View.Work = Backbone.View.extend({
 
 				self.ordered.push([x, y]);
 				self.percent.push([aLeft[i], aTop[i]]);
+				link.set("position", [aLeft[i], aTop[i]]);
 
 				setTimeout(function(){
 
@@ -360,8 +369,7 @@ PF.View.Work = Backbone.View.extend({
 				self.connection.attr("path", path);
 			})
 			.click(function(){
-				// TODO open the work detail
-				console.log( link.attributes.slug );
+				PF.AppRouter.navigate( "/work/" + link.attributes.slug, true );
 			});
 	}
 	

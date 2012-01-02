@@ -3,6 +3,7 @@ PF.Model.Work = Backbone.Model.extend({
 	
 	defaults: {
 		index: 0,
+		position : [],
 		color: "ffffff",
 		slug: "project",
 		title: "Project",

@@ -2,30 +2,6 @@
     "stuffs": [
 		{
 			"index" : 0,
-			"slug" : "current-and-next-projects",
-			"title" : "Current and Next Projects",
-			"img" : "",
-			"top" : "42%",
-			"date" : "11.12.2011",
-			"text" : "These days I'm working on CSS3 Animations, AS3 (PureMVC), AMD Architecture on Javascript.<br/><br/>My next projects involve : Java for Android, WebGL, Kinect, Arduino + Twitter API, Tangible objects&hellip;",
-			"tags" : [
-				"CSS3", "AS3", "AMD", "JS", "Java", "WebGL", "Kinect", "Arduino", "API", "Twitter"
-			]
-		},
-		{
-			"index" : 1,
-			"slug" : "this-website",
-			"title" : "This Website",
-			"img" : "backbone.jpg",
-			"top" : "39%",
-			"date" : "06.12.2011",
-			"text" : "This website is based on a quick boilerplate for <a href=\"http://documentcloud.github.com/backbone/\">Backbone JS</a> I've been working on. You can fork <a rel=\"external\" href=\"http://github.com/tanaki/base-backbone/\">the project</a>.<br/><br/>It also uses the sweet vectorial drawing library <a href=\"http://raphaeljs.com\" rel=\"external\">Raphael JS</a>. Take a look at <a href=\"/#/work/mindreader\">Mindreader</a>, which is a commercial project I've built with Raphael JS too.<br/><br/><a rel=\"external\" href=\"http://github.com/tanaki/portfolio/tree/dev-final\">http://github.com/tanaki/portfolio/tree/dev-final</a>",
-			"tags" : [
-				"JS"
-			]
-		},
-		{
-			"index" : 2,
 			"slug" : "dopplr-api",
 			"title" : "Dopplr API",
 			"img" : "dopplr.jpg",
@@ -37,17 +13,40 @@
 			]
 		},
 		{
-			"index" : 3,
-			"slug" : "one-year-at-pirata",
-			"title" : "One year at Pirata",
-			"img" : "pirata.jpg",
-			"top" : "47%",
-			"date" : "15.11.2011",
-			"text" : "This 15th November was my first year at <a href=\"http://piratalondon.com\" rel=\"external\">Pirata</a>.",
+			"index" : 1,
+			"slug" : "this-website",
+			"title" : "This Website",
+			"img" : "backbone.jpg",
+			"top" : "39%",
+			"date" : "06.12.2011",
+			"text" : "This website is based on a quick boilerplate for <a rel=\"external\" href=\"http://documentcloud.github.com/backbone/\">Backbone JS</a> I've been working on. You can see and fork <a rel=\"external\" href=\"http://github.com/tanaki/base-backbone/\">the project on Github</a>.<br/><br/>It also uses the sweet vectorial drawing library <a href=\"http://raphaeljs.com\" rel=\"external\">Raphael JS</a>. Take a look at <a href=\"/work/mindreader\" rel=\"internal\">Mindreader</a>, which is a commercial project I've built with Raphael JS too.<br/><br/><a rel=\"external\" href=\"http://github.com/tanaki/portfolio/tree/dev-final\">Github repository</a>",
 			"tags" : [
-				"Pirata"
+				"JS"
+			]
+		},
+		{
+			"index" : 2,
+			"slug" : "current-and-next-projects",
+			"title" : "Current and Next Projects",
+			"img" : "",
+			"top" : "42%",
+			"date" : "11.12.2011",
+			"text" : "These days I'm working on CSS3 Animations, AS3 (PureMVC), AMD Architecture on Javascript.<br/><br/>My next projects involve : Java for Android, WebGL, Kinect, Arduino + Twitter API, Tangible objects&hellip;",
+			"tags" : [
+				"CSS3", "AS3", "AMD", "JS", "Java", "WebGL", "Kinect", "Arduino", "API", "Twitter"
+			]
+		},
+		{
+			"index" : 3,
+			"slug" : "nodejs-nowjs",
+			"title" : "Node JS and Now JS",
+			"img" : "",
+			"top" : "42%",
+			"date" : "22.12.2011",
+			"text" : "This is a quick experiment I've made at Pirata. It uses <a href=\"#\" rel=\"external\">Now JS</a> to create a real time communication between different client instances of a <a href=\"#\" rel=\"external\">Node JS</a> Server (even using two different interfaces).",
+			"tags" : [
+				"JS", "Node JS", "Now JS", "iPad"
 			]
 		}
-
 	]
 }

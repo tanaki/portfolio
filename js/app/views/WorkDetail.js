@@ -1,45 +1,46 @@
 
 PF.View.WorkDetail = Backbone.View.extend({
 	
-	el : ".main-content",
+	el : "#detail-container",
+	$el : null,
 	tpl_work_detail : null,
 	collection : null,
+	
+	currentSlug : null,
+	currentWork : null,
+	
+	initialize : function(){
+		var self = this;
+		self.$el = $(self.el);
+	},
 	
 	hide : function (callbackEvent) {
 		$(this.el).hide();
 		if (callbackEvent) PF.EventManager.trigger( callbackEvent );
 	},
 	
-	render : function() {
-		this._loadTemplate();
-	},
-	
-	_loadTemplate : function() {
+	render : function ( slug, workCollection ) {
 		
-		console.log("boum");
-		/*
 		var self = this;
-		$.loadTemplate({
-			"template" : "template_work",
-			"file" : "/templates/work.html",
-			"callback" : function(data){
-				self.tpl_work_detail = data;
-				self._loadData();
-			},
-			"noStorage" : true // util for debug
+		self.currentSlug = slug;
+		self.collection = workCollection;
+		
+		$.each( this.collection.models, function(i, model){
+			if ( model.attributes.slug == self.currentSlug ) self.currentWork = model;
 		});
-		*/
+		
+		this._display();
 	},
 	
 	_display : function() {
-		/*
-		var 
-			params = {
-				works : this.collection.models
-			},
-			tpl = _.template(this.tpl_work_detail);
+		$("body").addClass("page-work-detail");
+		this._init();
+	},
+	
+	_init : function() {
 		
-		$(this.el).html( tpl(params) );
-		*/
+		console.log( $("#detail-background"), this.currentWork.attributes );
+		
+		
 	}
 });

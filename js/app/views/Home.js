@@ -1,7 +1,7 @@
 	
 PF.View.Home = Backbone.View.extend({
 	
-	container: "main-canvas",
+	container: "home",
 	el: "#page .content",
 	
 	$container : null,
@@ -11,6 +11,7 @@ PF.View.Home = Backbone.View.extend({
 	isMenu : false,
 	isDragging : false,
 	
+	line : null,
 	square : null,
 	blob : null,
 	pull : null,
@@ -24,6 +25,7 @@ PF.View.Home = Backbone.View.extend({
 	circles : null,
 	labels : null,
 	areas : null,
+	images : null,
 	
 	winWidth : 0,
 	winHeight : 0,
@@ -186,6 +188,12 @@ PF.View.Home = Backbone.View.extend({
 				y : bottom.y
 			};
 		
+		self.line = self.R
+			.path("M66," + self.winHeight + "L0,0")
+			.attr({
+				"stroke" : "#444",
+				"stroke-width" : "1"
+			});
 		
 		self.blob = self.R.path( self._getBlobPath(right, (firstInit ? bottomInit : bottom), (firstInit ? leftInit : left), (firstInit ? topInit : top), 0) );
 		self.blob.attr({
@@ -254,32 +262,38 @@ PF.View.Home = Backbone.View.extend({
 			.mouseout(function(){
 				self._mouseOut(self);
 			});
-			
+		
 		if ( firstInit ) {
+			
+			var duration = 300;
+			self.line
+				.animate({
+					"path" : "M66," + self.winHeight + "L200,0"
+				}, duration);
 			
 			self.pullCircle
 				.attr("opacity", 0)
 				.animate({
 					"cx" : pullX + 102,
 					"opacity" : 1
-				}, 300);
+				}, duration);
 			
 			self.pullLabel
 				.attr("opacity", 0)
 				.animate({
 					"x" : pullX + 50,
 					"opacity" : 1
-				}, 300);
+				}, duration);
 				
 			self.square
 				.animate({
 					"path": "M" + left.x + "," + left.y + "L" + top.x + "," + top.y + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z"
-				}, 300);
+				}, duration);
 			
 			self.blob
 				.animate({
 					"path" : self._getBlobPath(right, bottom, left, top, 0)
-				}, 300)
+				}, duration);
 		}
 	},
 
@@ -370,7 +384,8 @@ PF.View.Home = Backbone.View.extend({
 
 		var 
 			self = this,
-			coords = self._getLatestCoords(dx, dy);
+			coords = self._getLatestCoords(dx, dy),
+			pathLine = "M" + (66 + Math.round(Math.abs(dx) / 3)) + "," + self.winHeight + "L" + (200 + Math.abs(dx)) + ",0";
 
 		if ( animate ) {
 
@@ -405,6 +420,10 @@ PF.View.Home = Backbone.View.extend({
 				}
 				self.isDragging = false;
 			});
+			
+			self.line.animate({
+				"path": pathLine
+			}, duration);
 
 		} else {
 
@@ -425,6 +444,8 @@ PF.View.Home = Backbone.View.extend({
 
 			self.square.attr( "path", coords.path );
 			self.blob.attr("path", coords.blobPath);
+			
+			self.line.attr("path", pathLine);
 		}
 
 	},
@@ -467,6 +488,10 @@ PF.View.Home = Backbone.View.extend({
 		
 		var self = this;
 		
+		if ( self.line ) {
+			self.line.remove();
+			self.line = null;
+		}
 		if ( self.pull ) {
 			self.pull.remove();
 			self.pull = null;
@@ -543,17 +568,43 @@ PF.View.Home = Backbone.View.extend({
 			stuffsArea = self.R.rect(right.x - 20, right.y - 50, 120, 100).attr(rectAttr).toFront(),
 			linksArea = self.R.rect(top.x - 50, top.y - 100, 100, 120).attr(rectAttr).toFront();
 
+		var 
+			imgSrc = "/img/site/",
+			imgWidth = 182,
+			imgHeight = 182,
+			imgX = center.x - Math.round(imgWidth / 2),
+			imgY = center.y - Math.round(imgHeight / 2),
+			
+			aboutImage = self._createImage(imgSrc + "menu-about.png", imgX, imgY, imgWidth, imgHeight),
+			workImage = self._createImage(imgSrc + "menu-work.png", imgX, imgY, imgWidth, imgHeight),
+			stuffsImage = self._createImage(imgSrc + "menu-stuffs.png", imgX, imgY, imgWidth, imgHeight), 
+			linksImage = self._createImage(imgSrc + "menu-links.png", imgX, imgY, imgWidth, imgHeight);
+
 		self.circles = [aboutCircle, workCircle, stuffsCircle, linksCircle];
 		self.labels = [aboutLabel, workLabel, stuffsLabel, linksLabel];
 		self.areas = [aboutArea, workArea, stuffsArea, linksArea];
+		self.images = [aboutImage, workImage, stuffsImage, linksImage];
 
 		$.each(self.areas, function(i, area){
-			self._addEvents(i, area, self.circles, self.labels, positions, href, left, top, right, bottom);
+			self._addEvents(i, area, self.circles, self.labels, self.images, positions, href, left, top, right, bottom);
 		});
 
 	},
+	
+	_createImage : function( src, x, y, width, height ){
+		if (this.R) {
+			var image = this.R.image(src, x, y, width, height);
+			
+			image.animate({
+				"opacity" : 0,
+				"transform" : "s0.6,0.6"
+			}, 5);
+				
+			return image;
+		}
+	},
 
-	_addEvents : function(i, target, circles, labels, positions, href, left, top, right, bottom ) {
+	_addEvents : function(i, target, circles, labels, images, positions, href, left, top, right, bottom ) {
 		
 		var self = this;
 		target.mousemove(function(e, mouseX, mouseY){
@@ -580,6 +631,11 @@ PF.View.Home = Backbone.View.extend({
 
 				path = "M" + left.x + "," + left.y + "L" + circleX + "," + circleY + "L" + right.x + "," + right.y + "L" + bottom.x + "," + bottom.y + "Z";
 			}
+			
+			images[i].animate({
+				"opacity" : 1,
+				"transform" : "s1,1"
+			}, 100);
 
 			circles[i].attr({
 				"cx" : circleX,
@@ -596,6 +652,7 @@ PF.View.Home = Backbone.View.extend({
 			self.square.attr({
 				"path": path
 			});
+			
 
 		}).mouseout(function(){
 
@@ -631,6 +688,11 @@ PF.View.Home = Backbone.View.extend({
 			self.square.animate({
 				"path": path
 			}, duration);
+			
+			images[i].animate({
+				"opacity" : 0,
+				"transform" : "s0.6,0.6"
+			}, 100);
 
 		}).click(function(){
 			PF.AppRouter.navigate( href[i], true);

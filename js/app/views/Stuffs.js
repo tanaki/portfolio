@@ -109,15 +109,16 @@ PF.View.Stuffs = Backbone.View.extend({
 	},
 	
 	_updateNavPos : function(resize){
-			
+		
 		var 
-			navHeight = this.collection.length * 35 + 85,
-			middle = Math.floor(this.collection.length / 2),
-			index = $(".nav-stuffs li.current").data("index"),
+			length = this.collection.length,
+			navHeight = length * 35 + 85,
+			middle = Math.floor(length / 2),
+			index = (length - 1) - $(".nav-stuffs li.current").data("index"),
 			top = Math.round(($(window).height() - navHeight) / 2),
 			offset = 35 * (middle - index),
 			navStuffs = $(".nav-stuffs");
-
+			
 		if ( resize ) navStuffs.css("top", Math.round(top + offset));
 		else 
 			navStuffs.animate({ 
@@ -131,6 +132,25 @@ PF.View.Stuffs = Backbone.View.extend({
 			e.preventDefault();
 			PF.AppRouter.navigate( $(this).attr("href") );
 			self._changePartial( $(this).data("slug") );
+		});
+		
+		$(window).keydown(function(e){
+			
+			if ( !$("body").hasClass("page-stuffs") ) return;
+			var 
+				nav = self.$el.find(".nav-stuffs"),
+				current = nav.find(".current"),
+				currentIndex = current.data("index");
+				
+			if ( e.keyCode == 38 && currentIndex < (self.collection.length - 1) ) {				
+				var prev = nav.find("li[data-index=" + (currentIndex + 1) + "] a").data("slug");
+				self._changePartial( prev );
+				PF.AppRouter.navigate("/stuffs/" + prev);
+			} else if ( e.keyCode == 40 && currentIndex > 0 ) {
+				var next = nav.find("li[data-index=" + (currentIndex - 1) + "] a").data("slug");
+				self._changePartial( next );
+				PF.AppRouter.navigate("/stuffs/" + next);
+			}
 		});
 	},
 	
@@ -178,17 +198,19 @@ PF.View.Stuffs = Backbone.View.extend({
 		this._updateNavPos();
 
 		var self = this;
-		currentToAnimate.animate({
-			"opacity" : 0,
-			"top" : currentIndex > targetIndex ? "70%" : "30%"
-		}, 400, function(){
-			currentArticle.addClass("hidden");
-			self._updateImage();
-			currentToAnimate.css({
-				"top": currentToAnimate.data("top"),
-				"opacity": 1
+		currentToAnimate
+			.stop(true,true)
+			.animate({
+				"opacity" : 0,
+				"top" : currentIndex > targetIndex ? "70%" : "30%"
+			}, 400, function(){
+				currentArticle.addClass("hidden");
+				self._updateImage();
+				currentToAnimate.css({
+					"top": currentToAnimate.data("top"),
+					"opacity": 1
+				});
 			});
-		});
 
 		targetArticle.removeClass("hidden");
 		targetToAnimate
@@ -196,6 +218,7 @@ PF.View.Stuffs = Backbone.View.extend({
 				"top": currentIndex > targetIndex ? "30%" : "70%",
 				"opacity" : 0
 			})
+			.stop(true,true)
 			.animate({
 				"opacity" : 1,
 				"top": targetToAnimate.data("top")

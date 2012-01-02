@@ -1,17 +1,17 @@
 <ul class="articles" data-se="<%= selectedSlug %>">
-	<% _.each(stuffs, function(stuff){ %>
-	<li <% if ( (selectedSlug && stuff.get('slug') !== selectedSlug) || (!selectedSlug && stuff.get('index') != 0) ) { print('class="hidden"'); } %> data-index="<%= stuff.get('index') %>" data-img="<%= stuff.get('img') %>" data-slug="<%= stuff.get('slug') %>">
-			<span class="stuff-content" style="top:<%= stuff.get('top') %>;" data-top="<%= stuff.get('top') %>">
-				<span class="title"><%= stuff.get("title") %></span>
-				<span class="text"><%= stuff.get("text") %></span>
+	<% for ( var i = stuffs.length - 1; i >= 0; i-- ) { %>
+		<li <% if ( (selectedSlug && stuffs[i].get('slug') !== selectedSlug) || (!selectedSlug && i !== (stuffs.length - 1) ) ) { print('class="hidden"'); } %> data-index="<%= stuffs[i].get('index') %>" data-img="<%= stuffs[i].get('img') %>" data-slug="<%= stuffs[i].get('slug') %>">
+			<span class="stuff-content" style="top:<%= stuffs[i].get('top') %>;" data-top="<%= stuffs[i].get('top') %>">
+				<span class="title"><%= stuffs[i].get("title") %></span>
+				<span class="text"><%= stuffs[i].get("text") %></span>
 			</span>
 		</li>
-	<% }); %>
+	<% }%>
 </ul>
 <ul class="nav-stuffs" style="top:<%= baseTop %>px;">
-	<% _.each(stuffs, function(stuff){ %>
-		<li <% if ( (selectedSlug && stuff.get('slug') === selectedSlug) || (!selectedSlug && stuff.get('index') == 0) ) { print('class="current"'); } %> data-index="<%= stuff.get('index') %>">
-			<a href="/stuffs/<%= stuff.get('slug') %>" data-slug="<%= stuff.get('slug') %>"><span><%= stuff.get('date') %></span></a>
+	<% for ( var i = stuffs.length - 1; i >= 0; i-- ) { %>
+		<li <% if ( (selectedSlug && stuffs[i].get('slug') === selectedSlug) || (!selectedSlug && i === (stuffs.length - 1) ) ) { print('class="current"'); } %> data-index="<%= stuffs[i].get('index') %>">
+			<a href="/stuffs/<%= stuffs[i].get('slug') %>" data-slug="<%= stuffs[i].get('slug') %>"><span><%= stuffs[i].get('date') %></span></a>
 		</li>
-	<% }); %>
+	<% }%>	
 </ul>

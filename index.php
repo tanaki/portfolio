@@ -8,7 +8,8 @@
 		<link rel="stylesheet" href="/css/screen.css" />
 		<link rel="stylesheet" href="/css/transitions.css" />
 		
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script>
+		<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script-->
+		<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
 		
 		<!--?php if ( preg_match( "/localhost/", $_SERVER["SERVER_NAME"] ) ) { ?-->
 			<script type="text/javascript" src="/js/lib/underscore-1.2.2.js"></script>
@@ -46,9 +47,12 @@
 
 	</head>
 	<body>
+		<!--[if IE]>
+		<div id="IE-disclaimer">// TODO : Write something offensive to IE Users</div>
+		<![endif]-->
 		
 		<div id="background"></div>
-		<div id="main-canvas"></div>
+		<div id="home"></div>
 		
 		<div id="wrapper">
 			<nav class="hidden">

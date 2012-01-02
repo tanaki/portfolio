@@ -251,10 +251,10 @@ table { border-collapse: collapse; border-spacing: 0; }
 	.page-work #wrapper {
 		display: block;
 	}
-	.page-about #main-canvas,
-	.page-links #main-canvas,
-	.page-stuffs #main-canvas,
-	.page-work #main-canvas {
+	.page-about #home,
+	.page-links #home,
+	.page-stuffs #home,
+	.page-work #home {
 		display:none;
 	}
 	
@@ -471,6 +471,16 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 	/* WORK DETAIL */
 		.page-work-detail #detail-container {
+			display:block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 100;
+
+			width:100%;
+			height:100%;
+		}
+		.page-work-detail #detail-background {
 			display:block;
 			position: absolute;
 			top: 0;
@@ -809,6 +819,9 @@ table { border-collapse: collapse; border-spacing: 0; }
 		border-radius:3px;
 		margin:0 auto;
 	}
+	.page-stuffs .content .nav-stuffs li a:hover span {
+		background:#666;
+	}
 	.page-stuffs .content .nav-stuffs li.current {
 		width:80px;
 		height:80px;
@@ -975,7 +988,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 
 	/* raphael div */
-	#main-canvas,
+	#home,
 	#background {
 		width:100%;
 		height:100%;
@@ -986,8 +999,23 @@ table { border-collapse: collapse; border-spacing: 0; }
 	#background {
 		z-index: 1;
 	}
-	#main-canvas {
+	#home {
 		z-index: 2;
+	}
+	
+	/* IE Disclaimer */
+	#IE-disclaimer {
+		width:100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		background:#f00;
+		color:#fff;
+		z-index: 999;
+		
+		font-family: Arial;
+		font-size: 16px;
+		padding:10px 20px;
 	}
 
 /* =============================================================================
