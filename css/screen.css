@@ -892,20 +892,20 @@ table { border-collapse: collapse; border-spacing: 0; }
 			top:0;
 			z-index:12;
 
-			-webkit-transform:rotate(0deg);
-			-moz-transform:rotate(0deg);
-			-o-transform:rotate(0deg);
-			-ms-transform:rotate(0deg);
-			transform:rotate(0deg);
+			-webkit-transform:rotate(2deg);
+			-moz-transform:rotate(2deg);
+			-o-transform:rotate(2deg);
+			-ms-transform:rotate(2deg);
+			transform:rotate(2deg);
 		}
 		.page-links .line-toggled {
 			background-position:136px center;
 
-			-webkit-transform:rotate(5deg);
-			-moz-transform:rotate(5deg);
-			-o-transform:rotate(5deg);
-			-ms-transform:rotate(5deg);
-			transform:rotate(5deg);
+			-webkit-transform:rotate(3deg);
+			-moz-transform:rotate(3deg);
+			-o-transform:rotate(3deg);
+			-ms-transform:rotate(3deg);
+			transform:rotate(3deg);
 
 		}
 
@@ -921,12 +921,15 @@ table { border-collapse: collapse; border-spacing: 0; }
 		.page-links .gobelins ul li.subtitle {
 			margin-top:50px;
 		}
-		.page-links .link-az {
+		.page-links .link-gobelins {
 			display:block;
 			margin-top:50px;
 			padding:3px;
 			float:left;
 			background:url(/img/links/bg_links_8.png) no-repeat -41px top;
+			
+			position: relative;
+			z-index:1;
 		}
 
 		/* A-Z */
@@ -937,13 +940,16 @@ table { border-collapse: collapse; border-spacing: 0; }
 			position:relative;
 			z-index:13;
 		}
-		.page-links .link-gobelins {
+		.page-links .link-az {
 			display:block;
 			text-align:right;
 			float:right;
 			padding:3px;
 			margin:50px 8px 0 0;
 			background:url(/img/links/bg_links_8.png) no-repeat 41px top;
+			
+			position: relative;
+			z-index:1;
 		}
 
 		.page-links .content .link-az:hover,

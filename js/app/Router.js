@@ -69,11 +69,11 @@ PF.Router = Backbone.Router.extend({
 	},
 	
 	/*
-	 * work Action
+	 * credits Action
 	 * @private
 	 */
 	_creditsAction : function() {
-		this._displayPage( PF.Events.INIT_CREDITS );
+		this._initCredits();
 	},
 	
 	/*
@@ -91,6 +91,7 @@ PF.Router = Backbone.Router.extend({
 	_displayPage : function ( callbackEvent, slug ) {
 		
 		if ( !this.isInit ) this._init();
+		if ( this.currentView == this.creditsView ) console.log("hide credits");
 		
 		if ( this.currentView && callbackEvent !== PF.Events.INIT_WORK_DETAIL ) {
 			this.currentView.hide( callbackEvent );
@@ -126,7 +127,6 @@ PF.Router = Backbone.Router.extend({
 		this.eventHandlers[PF.Events.INIT_WORK_DETAIL] = this._initWorkDetail;
 		this.eventHandlers[PF.Events.INIT_STUFFS] = this._initStuffs;
 		this.eventHandlers[PF.Events.INIT_LINKS] = this._initLinks;
-		this.eventHandlers[PF.Events.INIT_CREDITS] = this._initCredits;
 		
 		PF.EventManager.bind(this.eventHandlers);
 	},
@@ -216,6 +216,12 @@ PF.Router = Backbone.Router.extend({
 		self.currentView = self.linksView;
 		self.nav.render("links");
 
+	},
+	
+	_initCredits : function(){
+		
+		console.log("show credits");
+		
 	}
 	
 });

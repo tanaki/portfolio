@@ -40,9 +40,9 @@
 	}
 	
 	.page-links .line {
-		-webkit-transition: .27s linear;
-		-moz-transition: .27s linear;
-		-ms-transition: .27s linear;
-		-o-transition: .27s linear;
-		transition: .27s linear;
+		-webkit-transition: .5s linear;
+		-moz-transition: .5s linear;
+		-ms-transition: .5s linear;
+		-o-transition: .5s linear;
+		transition: .5s linear;
 	}

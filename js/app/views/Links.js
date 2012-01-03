@@ -18,14 +18,14 @@ PF.View.Links = Backbone.View.extend({
 		var marginLeft = isAZ ? "0px" : "-127px";
 		$(".container").animate({
 			"margin-left" : marginLeft
-		}, 270);
+		}, 500, "linear");
 
 		$(".a-z ul").animate({
 			"opacity" : (isAZ ? 1 : 0)
-		});
+		}, 400, "linear");
 		$(".gobelins ul").animate({
 			"opacity" : (isAZ ? 0 : 1)
-		});
+		}, 400, "linear");
 
 		$(".line").toggleClass("line-toggled");
 	},

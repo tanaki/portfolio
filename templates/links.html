@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="a-z">
-		<a class="link-gobelins selected" href="#">Gobelins</a>
+		<a class="link-az" href="#">A-Z</a>
 		<ul>
 			<% _.each(links, function(link){
 				if ( link.get("type") == "az" ) {
@@ -12,7 +12,7 @@
 		</ul>
 	</div>
 	<div class="gobelins">
-		<a class="link-az" href="#">A-Z</a>
+		<a class="link-gobelins selected" href="#">Gobelins</a>
 		<ul>
 			<%
 				_.each(links, function(link, i){
