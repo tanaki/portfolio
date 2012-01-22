@@ -78,6 +78,8 @@ PF.View.Stuffs = Backbone.View.extend({
 							top: el.top,
 							date: el.date,
 							img: el.img,
+							videoType: el.videoType,
+							videoId: el.videoId,
 							text: el.text,
 							tags: el.tags
 						}));
@@ -172,6 +174,7 @@ PF.View.Stuffs = Backbone.View.extend({
 				self._updateImage();
 				self.$el.css("width", self.$window.width() - 545 );
 				self._updateNavPos(true);
+				self._initVideo( $("ul.articles li:not(.hidden) .stuff-content") );
 			});
 	},
 	
@@ -195,8 +198,10 @@ PF.View.Stuffs = Backbone.View.extend({
 
 		currentLink.removeClass("current");
 		targetLink.addClass("current");
+		
 		this._updateNavPos();
-
+		this._initVideo( targetArticle.find(".stuff-content"), currentArticle.find(".stuff-content") );
+				
 		var self = this;
 		currentToAnimate
 			.stop(true,true)
@@ -224,6 +229,32 @@ PF.View.Stuffs = Backbone.View.extend({
 				"top": targetToAnimate.data("top")
 			}, 400);
 			
+	},
+	
+	_initVideo : function( newContainer, oldContainer ) {
+		
+		if ( oldContainer ) oldContainer.find("iframe").remove();
+		
+		var 
+			videoType = newContainer.data("video-type"),
+			videoId = newContainer.data("video-id"),
+			color = newContainer.data("color"),
+			iframe = "";
+			
+		switch(videoType) {
+			
+			case "youtube" : 
+				iframe = '<iframe width="435" height="251" src="http://www.youtube.com/embed/' + videoId + '?rel=0" frameborder="0" allowfullscreen></iframe>';
+				break;
+			case "vimeo" : 
+				iframe = '<iframe src="http://player.vimeo.com/video/' + videoId + '?title=0&amp;byline=0&amp;portrait=0&amp;color=' + color + '" width="435" height="261" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+				break;
+			
+		}
+		if ( videoType ) {
+			$(iframe).insertAfter(newContainer.find(".title"));
+		}
+		
 	}
 });
 

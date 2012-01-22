@@ -534,7 +534,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 		.page-work-detail .navigation-work {
 			display: block;
 			float: left;
-			width: 35%;
+			width: 340px;
 			height: 100%;
 		}
 			/* NAV WORK DETAILS */
@@ -620,12 +620,18 @@ table { border-collapse: collapse; border-spacing: 0; }
 			.page-work-detail .project-detail {
 				display: block;
 				float: left;
-				width: 65%;
-				height: 100%;
+				width: 635px;
+				height: 620px;
 				overflow: hidden;
 				
 				font-family: Abadi, Arial, sans-serif;
 				font-size: 16px;
+				
+				position: absolute;
+				top: 50%;
+				left: 340px;
+				margin-top: -310px;
+				background: #ddd;
 			}
 			.page-work-detail .project-detail > li {
 				height: 100%;
@@ -652,7 +658,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 			/* LEFT COLUMN */
 			.page-work-detail .project-detail .left-column {
 				float: left;
-				width: 60%;
+				width: 435px;
 				overflow: hidden;
 			}
 			.page-work-detail .project-detail .left-column img {
@@ -680,7 +686,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 			/* RIGHT COLUMN */
 			.page-work-detail .project-detail .right-column {
 				float: left;
-				width: 40%;
+				width: 200px;
 				height:100%;
 				overflow: hidden;
 				
@@ -771,6 +777,9 @@ table { border-collapse: collapse; border-spacing: 0; }
 	.page-stuffs .content .articles li .stuff-content {
 		position: absolute;
 		width: 290px;
+	}
+	.page-stuffs .content .articles li .stuff-content iframe {
+		margin-bottom: 10px;
 	}
 	.page-stuffs .content .articles li .title {
 		display: block;
@@ -989,6 +998,21 @@ table { border-collapse: collapse; border-spacing: 0; }
 		text-decoration:none;
 	}
 	footer ul li a:hover {
+		color:#fff;
+	}
+	
+	footer #credits {
+		position: absolute;
+		color:#555;
+		right: 20px;
+		top: 20px;
+		display:none;
+	} 
+	
+	footer #credits a {
+		color:#888;
+	}
+	footer #credits a:hover {
 		color:#fff;
 	}
 

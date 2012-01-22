@@ -8,6 +8,8 @@ PF.Model.Stuff = Backbone.Model.extend({
 		top: "40%",
 		date: "11.2011",
 		img: "",
+		videoType: null,
+		videoId: null,
 		text: "description of the stuff",
 		tags: []
 	},

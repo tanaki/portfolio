@@ -1,7 +1,7 @@
 <ul class="articles" data-se="<%= selectedSlug %>">
 	<% for ( var i = stuffs.length - 1; i >= 0; i-- ) { %>
 		<li <% if ( (selectedSlug && stuffs[i].get('slug') !== selectedSlug) || (!selectedSlug && i !== (stuffs.length - 1) ) ) { print('class="hidden"'); } %> data-index="<%= stuffs[i].get('index') %>" data-img="<%= stuffs[i].get('img') %>" data-slug="<%= stuffs[i].get('slug') %>">
-			<span class="stuff-content" style="top:<%= stuffs[i].get('top') %>;" data-top="<%= stuffs[i].get('top') %>">
+			<span class="stuff-content" style="top:<%= stuffs[i].get('top') %>;" data-top="<%= stuffs[i].get('top') %>" <% if ( stuffs[i].get('videoType') ) print('data-video-type="' + stuffs[i].get('videoType') + '" data-video-id="' + stuffs[i].get('videoId') + '"') %>>
 				<span class="title"><%= stuffs[i].get("title") %></span>
 				<span class="text"><%= stuffs[i].get("text") %></span>
 			</span>

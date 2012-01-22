@@ -33,7 +33,6 @@
 			<script type="text/javascript" src="/js/app/collections/WorksCollection.js"></script>
 
 			<script type="text/javascript" src="/js/app/views/About.js"></script>
-			<script type="text/javascript" src="/js/app/views/Credits.js"></script>
 			<script type="text/javascript" src="/js/app/views/Home.js"></script>
 			<script type="text/javascript" src="/js/app/views/Links.js"></script>
 			<script type="text/javascript" src="/js/app/views/Nav.js"></script>
@@ -87,8 +86,11 @@
 					<li><a href="mailto:nico@nicolaspigelet.com" rel="external">Contact</a>&nbsp;|&nbsp;</li>
 					<li><a href="http://www.linkedin.com/in/nicolaspigelet/en" rel="external">LinkedIn</a>&nbsp;|&nbsp;</li>
 					<li><a href="http://github.com/tanaki" rel="external">Github</a>&nbsp;|&nbsp;</li>
-					<li><a href="/credits">Credits</a></li>
+					<li><a href="/credits" rel="credits">Credits</a></li>
 				</ul>
+				<div id="credits">
+					<a href="mailto:nico@nicolaspigelet.com">Nicolas Pigelet</a> - Design by <a href="http://frederikdelmotte.be" rel="external">Frederik Delmotte</a>
+				</div>
 			</footer>
 		</div>
 		

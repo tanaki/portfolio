@@ -143,11 +143,13 @@ PF.View.Work = Backbone.View.extend({
 			tpl = _.template(this.tpl_work);
 		
 		this.$el.html( tpl(params) ).fadeIn(300, function(){
+			
 			var target = $("#works-lines").position();
 			self.offsetX = target.left;
 			self.offsetY = target.top;
 			
 			self._drawLinks();
+			self._cleanup();
 			if (self.currentSlug) {
 				PF.AppRouter.navigate( "/work/" + self.currentSlug, true );
 				self.currentSlug = null;
@@ -371,6 +373,11 @@ PF.View.Work = Backbone.View.extend({
 			.click(function(){
 				PF.AppRouter.navigate( "/work/" + link.attributes.slug, true );
 			});
+	},
+	
+	_cleanup : function(){
+		$("#detail-background").empty();
+		$("#detail").html("Loading Details...");
 	}
 	
 });

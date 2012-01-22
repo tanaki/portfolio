@@ -12,8 +12,6 @@ PF.Router = Backbone.Router.extend({
 	workDetailView : null,
 	stuffsView : null,
 	linksView : null,
-	creditsView : null,
-	
 	routes : {
 		"about" : "_aboutAction",
 		"work" : "_workAction",
@@ -21,7 +19,6 @@ PF.Router = Backbone.Router.extend({
 		"stuffs" : "_stuffsAction",
 		"stuffs/:slug" : "_stuffsAction",
 		"links" : "_linksAction",
-		"credits" : "_creditsAction",
 		"*actions" : "_defaultAction"
 	},
 	
@@ -69,14 +66,6 @@ PF.Router = Backbone.Router.extend({
 	},
 	
 	/*
-	 * credits Action
-	 * @private
-	 */
-	_creditsAction : function() {
-		this._initCredits();
-	},
-	
-	/*
 	 * defaultAction
 	 * @private
 	 */
@@ -91,7 +80,6 @@ PF.Router = Backbone.Router.extend({
 	_displayPage : function ( callbackEvent, slug ) {
 		
 		if ( !this.isInit ) this._init();
-		if ( this.currentView == this.creditsView ) console.log("hide credits");
 		
 		if ( this.currentView && callbackEvent !== PF.Events.INIT_WORK_DETAIL ) {
 			this.currentView.hide( callbackEvent );
@@ -111,6 +99,7 @@ PF.Router = Backbone.Router.extend({
 		$("html").removeClass("no-js");
 		this._initEventHandlers();
 		this._initAnchorTags();
+		this._initCredits();
 		
 		this.nav = new PF.View.Nav();
 	},
@@ -137,14 +126,56 @@ PF.Router = Backbone.Router.extend({
 	 */
 	_initAnchorTags : function(){
 		
-		$('a[rel="external"]').live("click", function(e){
+		$("body").delegate('a[rel="external"]', 'click', function(e){
 			e.preventDefault();
 			window.open( $(this).attr('href') , "_blank" );
 		});
 		
-		$('a[rel="internal"]').live("click", function(e){
+		$("body").delegate('a[rel="internal"]', 'click', function(e){
 			e.preventDefault();
 			PF.AppRouter.navigate($(this).attr('href'), true);
+		});
+		
+	},
+	
+	/*
+	 * init external/internal links
+	 * @private
+	 */
+	_initCredits : function(){
+		
+		var creditsTimeout = null;
+		$("footer").delegate('a[rel="credits"]', 'click', function(e){
+			e.preventDefault();
+			clearTimeout(creditsTimeout);
+			
+			$("footer ul").animate({
+				"opacity" : 0
+			}, 300);
+			
+			$("footer #credits")
+				.css({
+					"opacity": 0,
+					"display" : "block"
+				})
+				.animate({
+					"opacity" : 1,
+					"top" : 0
+				}, 300);
+				
+			creditsTimeout = setTimeout(function(){
+				
+				$("footer ul").animate({
+					"opacity" : 1
+				}, 300);
+				
+				$("footer #credits")
+					.animate({
+						"opacity" : 0,
+						"top" : 20,
+						"display" : "none"
+					}, 300);
+			}, 4000);
 		});
 		
 	},
@@ -216,12 +247,6 @@ PF.Router = Backbone.Router.extend({
 		self.currentView = self.linksView;
 		self.nav.render("links");
 
-	},
-	
-	_initCredits : function(){
-		
-		console.log("show credits");
-		
 	}
 	
 });

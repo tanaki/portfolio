@@ -41,8 +41,10 @@
 			"slug" : "nodejs-nowjs",
 			"title" : "Node JS and Now JS",
 			"img" : "",
-			"top" : "42%",
+			"top" : "22%",
 			"date" : "22.12.2011",
+			"videoType" : "vimeo",
+			"videoId" : "33900109",
 			"text" : "This is a quick experiment I've made at Pirata. It uses <a href=\"#\" rel=\"external\">Now JS</a> to create a real time communication between different client instances of a <a href=\"#\" rel=\"external\">Node JS</a> Server (even using two different interfaces).",
 			"tags" : [
 				"JS", "Node JS", "Now JS", "iPad"
