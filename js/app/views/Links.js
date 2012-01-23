@@ -116,7 +116,7 @@ PF.View.Links = Backbone.View.extend({
 			thumb = new Image();
 			
 		thumb.onload = function(){
-			$(".content-loading").text("Loading... " + (self.indexLoaded * 100 / self.totalImages) + "%" ) ;
+			$(".content-loading").show().text("Loading... " + Math.round(self.indexLoaded * 100 / self.totalImages) + "%" ) ;
 			if ( self.indexLoaded == self.totalImages ) self._display();
 			self.indexLoaded++;
 		}
@@ -132,6 +132,7 @@ PF.View.Links = Backbone.View.extend({
 			tpl = _.template(this.tpl_links),
 			line = $(".line");
 			
+		$(".content-loading").hide();
 		if (line.length == 0) $(self.page).append('<div class="line"></div>');
 		else line.removeClass("line-toggled");
 		

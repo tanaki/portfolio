@@ -91,6 +91,7 @@ PF.View.Work = Backbone.View.extend({
 						indexLoaded = 0,
 						contentLoading = $(".content-loading");
 						
+					contentLoading.show();
 					$.each(response.projects, function(i, el){
 						
 						self.collection.add(new PF.Model.Work({
@@ -115,14 +116,14 @@ PF.View.Work = Backbone.View.extend({
 							illu = new Image();
 							
 						thumb.onload = function(){
-							contentLoading.text("Loading... " + (indexLoaded * 100 / total) + "%" ) ;
+							contentLoading.text("Loading... " + Math.round(indexLoaded * 100 / total) + "%" ) ;
 							if ( indexLoaded == total ) self._display();
 							indexLoaded++;
 						}
 						thumb.src = "/img/work/projects/" + el.slug + ".jpg";
 						
 						illu.onload = function(){
-							contentLoading.text("Loading... " + (indexLoaded * 100 / total) + "%" ) ;
+							contentLoading.text("Loading... " + Math.round(indexLoaded * 100 / total) + "%" ) ;
 							if ( indexLoaded == total ) self._display();
 							indexLoaded++;
 						}
@@ -142,6 +143,7 @@ PF.View.Work = Backbone.View.extend({
 			},
 			tpl = _.template(this.tpl_work);
 		
+		$(".content-loading").hide();
 		this.$el.html( tpl(params) ).fadeIn(300, function(){
 			
 			var target = $("#works-lines").position();

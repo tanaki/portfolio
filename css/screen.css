@@ -700,12 +700,18 @@ table { border-collapse: collapse; border-spacing: 0; }
 			.page-work-detail .project-detail .right-column img {
 				max-width: 100%;
 			}
-			.page-work-detail .project-detail .right-column ul.tags li {
-				color:#000;
-				font-family: Copy0855, Arial, sans-serif;
-				font-size: 8px;
-			}
-
+		/* TAGS */
+		.page-work-detail .list-tags {
+			position: absolute;
+			left:20px;
+			bottom:32px;
+			list-style: none;
+		}
+		.page-work-detail .list-tags li {
+			padding:0;
+			margin:0;
+			color:#fff;
+		}
 
 /* ABOUT CONTENT */
 	.page-about p {

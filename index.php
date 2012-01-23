@@ -73,9 +73,8 @@
 					<li class="link link-first"><a href="/">Nicolas Pigelet</a> / </li>
 					<li class="current transition"></li>
 				</ul>
-				<div class="content">
-					<span class="content-loading">Loading...</span>
-				</div>
+				<div class="content"></div>
+				<span class="content-loading">Loading...</span>
 				<div id="detail-container">
 					<div id="detail-background"></div>
 					<div id="detail">Loading Details...</div>

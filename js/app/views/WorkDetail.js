@@ -112,10 +112,10 @@ PF.View.WorkDetail = Backbone.View.extend({
 			m = "M" + hWidth + "," + (hHeight - 20),
 			n = "L" + (hWidth + 20) + "," + hHeight,
 			o = " " + hWidth + "," + (hHeight + 20),
-			p = " " + hWidth + "," + (hHeight + 20),
+			p = " " + (hWidth - 20) + "," + hHeight,
 			q = " " + (hWidth - 20) + "," + hHeight,
 			r = " " + hWidth + "," + (hHeight - 20),
-			smallCircle = m+n+o+p+q+r,
+			smallCircle = m + n + o + p + q + r,
 			
 			i = "M" + (hWidth - 200) + "," + (hHeight + 200),
 			j = "L" + (hWidth - 200) + "," + (hHeight - 200),
@@ -128,8 +128,8 @@ PF.View.WorkDetail = Backbone.View.extend({
 			a = "M20,20",
 			b = "L" + (fWidth - 20) + ",20",
 			c = " " + (fWidth - 20) + "," + (fHeight - 40),
-			d = " " + (fWidth - 350) + "," + (fHeight - 20),
-			e = " 20," + (fHeight - 20),
+			d = " " + (fWidth - 380) + "," + (fHeight - 20),
+			e = " 20," + (fHeight - 30),
 			f = " 20,20",
 			finalPath = a + b + c + d + e + f;
 			

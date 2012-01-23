@@ -70,6 +70,7 @@ PF.View.Stuffs = Backbone.View.extend({
 						indexLoaded = 0,
 						contentLoading = $(".content-loading");
 						
+					contentLoading.show();
 					$.each(response.stuffs, function(i, el){
 						self.collection.add(new PF.Model.Stuff({
 							index: el.index,
@@ -87,7 +88,7 @@ PF.View.Stuffs = Backbone.View.extend({
 						if ( el.img ) {
 							var thumb = new Image();
 							thumb.onload = function(){
-								contentLoading.text("Loading... " + (indexLoaded * 100 / total) + "%" ) ;
+								contentLoading.text("Loading... " + Math.round(indexLoaded * 100 / total) + "%" ) ;
 								if ( indexLoaded == total ) self._display();
 								indexLoaded++;
 							}
@@ -167,6 +168,7 @@ PF.View.Stuffs = Backbone.View.extend({
 			},
 			tpl = _.template(this.tpl_stuffs);
 		
+		$(".content-loading").hide();
 		this.$el
 			.html( tpl(params) )
 			.fadeIn(300, function(){

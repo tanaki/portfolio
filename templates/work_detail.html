@@ -31,15 +31,17 @@
 						<span class="color" style="background-color:#<%= project.get('color') %>;"></span>
 						<% if ( project.get('videoType') === "vimeo" || project.get('videoType') === "youtube" ) print( '<img src="/img/work/illus/<%= project.get('slug') %>.jpg" alt="<%= project.get('title') %>" />' ); %>
 						<% if ( project.get('linkText') !== "") print( '<a href="<%= project.get('link') %>" rel="external"><%= project.get('linkText') %></a>'); %>
-						<ul class="tags">
-							<% _.each(project.get("tags"), function(tag){ %>
-								<li><%= tag %></li>
-							<% }); %>
-						</ul>
 					</span>
 				</span>
 			</li>
 		<% }); %>
 	</ul>
 	<a class="close-detail" href="/work">Close</a>
+	<ul class="list-tags">
+		<% _.each(projects, function(project){ %>
+			<li <% if ( (selectedSlug && project.get('slug') !== selectedSlug) || (!selectedSlug && project.get('index') != 0) ) { print('class="hidden"'); } %> data-index="<%= project.get('index') %>" data-slug="<%= project.get('slug') %>">
+				<span class="tags">Tags = [<% _.each(project.get("tags"), function(tag){ %>"<%= tag %>",<% }); %>]</span>
+			</li>
+		<% }); %>
+	</ul>
 </div>
