@@ -67,6 +67,7 @@ PF.View.About = Backbone.View.extend({
 			},
 			tpl = _.template(this.tpl_about);
 			
+		$(".content-loading").hide();
 		$(this.el).html( tpl(params) ).fadeIn(300);
 	}
 });

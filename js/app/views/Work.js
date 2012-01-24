@@ -348,7 +348,7 @@ PF.View.Work = Backbone.View.extend({
 			.mousemove(function(e, mouseX, mouseY){
 				var 
 					newX = mouseX - self.offsetX,
-					newY = mouseY - self.offsetY + 20;
+					newY = mouseY - self.offsetY + ($.browser.webkit ? 20 : 200);
 				
 				circle.attr({
 					"cx" : newX,
