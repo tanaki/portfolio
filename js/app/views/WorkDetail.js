@@ -219,9 +219,39 @@ PF.View.WorkDetail = Backbone.View.extend({
 		
 		this.$el.delegate(".close-detail", "click", function(e){
 			e.preventDefault();
-			self.block = null;
-			$(".page-work").removeClass("page-work-detail");
-			PF.AppRouter.navigate("work", true);
+			
+			var 
+				hWidth = Math.round(self.winWidth / 2),
+				hHeight = Math.round(self.winHeight / 2),
+				
+				m = "M" + hWidth + "," + (hHeight - 20),
+				n = "L" + (hWidth + 20) + "," + hHeight,
+				o = " " + hWidth + "," + (hHeight + 20),
+				p = " " + (hWidth - 20) + "," + hHeight,
+				q = " " + (hWidth - 20) + "," + hHeight,
+				r = " " + hWidth + "," + (hHeight - 20),
+				smallCircle = m + n + o + p + q + r,
+				
+				i = "M" + (hWidth - 200) + "," + (hHeight + 200),
+				j = "L" + (hWidth - 200) + "," + (hHeight - 200),
+				k = " " + (hWidth + 200) + "," + (hHeight - 200),
+				l = " " + (hWidth + 200) + "," + (hHeight + 200),
+				g = " " + (hWidth + 200) + "," + (hHeight + 200),
+				h = " " + (hWidth - 200) + "," + (hHeight + 200),
+				bigCircle = i + j + k + l + g + h;
+				
+			$("#detail").empty();
+			self.whiteBG.animate({
+				"path" : bigCircle
+			}, 300, function(){
+				self.whiteBG.animate({
+					"path" : smallCircle
+				}, 200, function(){
+					self.block = null;
+					$(".page-work").removeClass("page-work-detail");
+					PF.AppRouter.navigate("work", true);
+				});
+			});
 		});
 	},
 
