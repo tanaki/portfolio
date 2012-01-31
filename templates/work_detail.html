@@ -40,7 +40,7 @@
 	<ul class="list-tags">
 		<% _.each(projects, function(project){ %>
 			<li <% if ( (selectedSlug && project.get('slug') !== selectedSlug) || (!selectedSlug && project.get('index') != 0) ) { print('class="hidden"'); } %> data-index="<%= project.get('index') %>" data-slug="<%= project.get('slug') %>">
-				<span class="tags">Tags = [<% _.each(project.get("tags"), function(tag){ %>"<%= tag %>",<% }); %>]</span>
+				<span class="tags"><span class="tags-title">Tags</span> = <span class="tags-array">[<%= project.get("tags") %>]</span></span>
 			</li>
 		<% }); %>
 	</ul>

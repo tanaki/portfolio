@@ -25,6 +25,8 @@
 			"link" : "http://mindreader.mindshareworld.com",
 			"linkText" : "Visit site",
 			"context" : "Built at Pirata",
+			"videoType" : "vimeo",
+			"videoId" : "33547309",
 			"text" : "Mindreader is a website based on datavisualisation. The client didn't want a flash website so we choose SVG as a good compromise for cross browser animated graphs.",
 			"tags" : [
 				"HTML",

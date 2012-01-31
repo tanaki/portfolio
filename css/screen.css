@@ -264,9 +264,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 		left: 570px;
 		margin-top: -8px;
 	}
-	.page-links .content-loading {
-		left: 0;
-	}
 	
 /* NAV */
 	nav {
@@ -711,6 +708,12 @@ table { border-collapse: collapse; border-spacing: 0; }
 			padding:0;
 			margin:0;
 			color:#fff;
+		}
+		.page-work-detail .list-tags li .tags-title {
+			color:#555;
+		}
+		.page-work-detail .list-tags li .tags-array {
+			color:#888;
 		}
 
 /* ABOUT CONTENT */

@@ -13,6 +13,7 @@ PF.View.WorkDetail = Backbone.View.extend({
 	winHeight : null,
 	
 	block : null,
+	whiteBG : null,
 	
 	initialize : function(){
 		var self = this;
@@ -24,6 +25,18 @@ PF.View.WorkDetail = Backbone.View.extend({
 		$(window).resize(function(){
 			self.winWidth = $(window).width();
 			self.winHeight = $(window).height();
+			
+			if ( self.whiteBG ) {
+				var 
+					a = "M20,20",
+					b = "L" + (self.winWidth - 20) + ",20",
+					c = " " + (self.winWidth - 20) + "," + (self.winHeight - 40),
+					d = " " + (self.winWidth - 380) + "," + (self.winHeight - 20),
+					e = " 20," + (self.winHeight - 30),
+					f = " 20,20",
+					finalPath = a + b + c + d + e + f;
+				self.whiteBG.attr("path", finalPath);
+			}
 		});
 		
 		$(window).keydown(function(e){
@@ -137,8 +150,7 @@ PF.View.WorkDetail = Backbone.View.extend({
 			this.block = Raphael(document.getElementById("detail-background"), "100%", "100%");
 		}
 		
-		// TODO Animate
-		var whiteBG = this.block.path(smallCircle).attr(WBGAttr).animate({
+		this.whiteBG = this.block.path(smallCircle).attr(WBGAttr).animate({
 			"path" : bigCircle
 		}, 400, "<", function(){
 			$("#detail").css({
@@ -153,9 +165,10 @@ PF.View.WorkDetail = Backbone.View.extend({
 					"top" : 0
 				}).fadeOut(50);
 				
-				whiteBG.animate({
+				self.whiteBG.animate({
 					"path" : finalPath
 				}, 400, "<", function(){
+					$(window).resize();
 					self._initContent();
 				});
 			}, 500);
@@ -249,15 +262,22 @@ PF.View.WorkDetail = Backbone.View.extend({
 			targetArticle = $(".project-detail > li[data-slug=" + slug + "]"),
 			currentSlug = currentArticle.data("slug"),
 			currentLink = navDetails.find(".current"),
-			targetLink = navDetails.find("li[data-slug=" + slug + "]");
+			targetLink = navDetails.find("li[data-slug=" + slug + "]"),
+			tags = this.$el.find(".list-tags"),
+			currentTags = tags.find("li:not(.hidden)"),
+			targetTags = tags.find("li[data-slug=" + slug + "]");
 
 		if (slug == currentSlug) return;
+		PF.AppRouter.navigate("/work/" + slug);
 
 		currentLink.removeClass("current");
 		targetLink.addClass("current");
 
 		currentArticle.addClass("hidden");
 		targetArticle.removeClass("hidden");
+		
+		currentTags.addClass("hidden");
+		targetTags.removeClass("hidden");
 
 		this._initVideo(targetArticle, currentArticle);
 		
