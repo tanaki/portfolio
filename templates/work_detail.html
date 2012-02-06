@@ -1,15 +1,15 @@
 <div class="work-detail">
 	<div class="navigation-work">
 		<ul class="nav-work-details">
-			<% _.each(projects, function(project){ %>
-				<li <% if ( (selectedSlug && project.get('slug') === selectedSlug) || (!selectedSlug && project.get('index') == 0) ) { print('class="current"'); } %> data-index="<%= project.get('index') %>" data-slug="<%= project.get('slug') %>" data-white="<%= project.get('white') %>">
-					<a href="/work/<%= project.get('slug') %>">
+			<% for ( var i = projects.length - 1; i >= 0; i-- ) { %>
+				<li <% if ( (selectedSlug && projects[i].get('slug') === selectedSlug) || (!selectedSlug && i === (projects.length - 1)) ) { print('class="current"'); } %> data-index="<%= projects[i].get('index') %>" data-slug="<%= projects[i].get('slug') %>" data-white="<%= projects[i].get('white') %>">
+					<a href="/work/<%= projects[i].get('slug') %>">
 						<span>
-							<img src="/img/work/projects/<%= project.get('slug') %>.jpg" alt="<%= project.get('slug') %>" />
+							<img src="/img/work/projects/<%= projects[i].get('slug') %>.jpg" alt="<%= projects[i].get('slug') %>" />
 						</span>
 					</a>
 				</li>
-			<% }); %>
+			<% }; %>
 		</ul>
 		<ul class="breadcrumb-work-details">
 			<li><a href="/">Nicolas Pigelet</a>&nbsp;&nbsp;/</li>
@@ -18,30 +18,85 @@
 		</ul>
 	</div>
 	<ul class="project-detail">
-		<% _.each(projects, function(project){ %>
-			<li <% if ( (selectedSlug && project.get('slug') !== selectedSlug) || (!selectedSlug && project.get('index') != 0) ) { print('class="hidden"'); } %> data-index="<%= project.get('index') %>" data-slug="<%= project.get('slug') %>" <% if ( project.get('videoType') ) print( 'data-video-type="' + project.get('videoType') + '" data-video-id="' + project.get('videoId') + '" data-color="' + project.get('color') + '"' ); %>>
-				<span class="work-detail-content">
-					<span class="left-column">
-						<% if ( !project.get('videoType') ) print( '<img src="/img/work/illus/<%= project.get('slug') %>.jpg" alt="<%= project.get('title') %>" />' ); %>
-
-						<span class="title"><%= project.get('title') %></span>
-						<span class="text"><%= project.get('text') %></span>
-					</span>
-					<span class="right-column">
-						<span class="color" style="background-color:#<%= project.get('color') %>;"></span>
-						<% if ( project.get('videoType') === "vimeo" || project.get('videoType') === "youtube" ) print( '<img src="/img/work/illus/<%= project.get('slug') %>.jpg" alt="<%= project.get('title') %>" />' ); %>
-						<% if ( project.get('linkText') !== "") print( '<a href="<%= project.get('link') %>" rel="external"><%= project.get('linkText') %></a>'); %>
+		<% for ( var i = projects.length - 1; i >= 0; i-- ) { %>
+			<li <% if ( (selectedSlug && projects[i].get('slug') !== selectedSlug) || (!selectedSlug && i !== (projects.length - 1)) ) { print('class="hidden"'); } %> data-index="<%= projects[i].get('index') %>" data-slug="<%= projects[i].get('slug') %>" data-color="<%= projects[i].get('color') %>">
+				<span class="scrollable">
+					<span class="items">
+						<span class="item first active">
+							<span class="text"><%= projects[i].get("text") %></span>
+							<% if ( projects[i].get("link") ) { %><a href="<%= projects[i].get('link') %>" class="link transition"><%= projects[i].get("linkText") %></a><% } %>
+							<img alt="<%= projects[i].get('title') %>" src="/img/work/projects/<%= projects[i].get('slug') %>/logo.png" />
+						</span>
+						<% _.each( projects[i].get('slides'), function(slide){ %>
+							<span class="item">
+								<span class="title"><%= slide["title"] %></span>
+								<% 
+								switch ( slide["type"] ) {
+									case 'video' :
+										switch( slide["videoType"] ){
+											case 'youtube':
+												print('youtube');
+											break;
+											case 'vimeo':
+												print('vimeo');
+											break;
+											case 'mp4':
+												print('mp4');
+											break;
+										}
+									break;
+									case 'swf' :
+										src = slide['src'];
+										width = slide['width'];
+										height = slide['height'];
+										iframe = '<iframe frameborder="0" src="' + src + '" width="' + width + '" height="' + height + '"></iframe>';
+										print(iframe);
+									break;
+									case 'image' :
+										src = "/img/work/projects/" + projects[i].get("slug") + "/" + slide['src'];
+										alt = slide['title'];
+										img = '<img src="' + src + '" alt="' + alt + '" />';
+										print(img);
+									break;
+								}
+								%>
+							</span>
+						<% }); %>
+						
+						<!--<video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264" poster="my_video_poster.png" data-setup="{}">
+						<source src="my_video.mp4" type='video/mp4'>
+						<source src="my_video.webm" type='video/webm'>
+						</video>-->
 					</span>
 				</span>
+				<a class="prev browse disable">PREV</a>
+				<a class="next browse">NEXT</a>
+		
+
+<!--
+<span class="work-detail-content">
+	<span class="left-column">
+		<% if ( !projects[i].get('videoType') ) print( '<img src="/img/work/illus/<%= projects[i].get('slug') %>.jpg" alt="<%= projects[i].get('title') %>" />' ); %>
+
+		<span class="title"><%= projects[i].get('title') %></span>
+		<span class="text"><%= projects[i].get('text') %></span>
+	</span>
+	<span class="right-column">
+		<span class="color" style="background-color:#<%= projects[i].get('color') %>;"></span>
+		<% if ( projects[i].get('videoType') === "vimeo" || projects[i].get('videoType') === "youtube" ) print( '<img src="/img/work/illus/<%= projects[i].get('slug') %>.jpg" alt="<%= projects[i].get('title') %>" />' ); %>
+		<% if ( projects[i].get('linkText') !== "") print( '<a href="<%= projects[i].get('link') %>" rel="external"><%= projects[i].get('linkText') %></a>'); %>
+	</span>
+</span>
+-->
 			</li>
-		<% }); %>
+		<% }; %>
 	</ul>
 	<a class="close-detail" href="/work">Close</a>
 	<ul class="list-tags">
-		<% _.each(projects, function(project){ %>
-			<li <% if ( (selectedSlug && project.get('slug') !== selectedSlug) || (!selectedSlug && project.get('index') != 0) ) { print('class="hidden"'); } %> data-index="<%= project.get('index') %>" data-slug="<%= project.get('slug') %>">
-				<span class="tags"><span class="tags-title">Tags</span> = <span class="tags-array">[<%= project.get("tags") %>]</span></span>
+		<% for ( var i = projects.length - 1; i >= 0; i-- ) { %>
+			<li <% if ( (selectedSlug && projects[i].get('slug') !== selectedSlug) || (!selectedSlug && i !== (projects.length - 1)) ) { print('class="hidden"'); } %> data-index="<%= projects[i].get('index') %>" data-slug="<%= projects[i].get('slug') %>">
+				<span class="tags"><span class="tags-title">Tags</span> = <span class="tags-array">[<%= projects[i].get("tags") %>]</span></span>
 			</li>
-		<% }); %>
+		<% } %>
 	</ul>
 </div>

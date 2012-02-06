@@ -27,6 +27,8 @@ PF.View.WorkDetail = Backbone.View.extend({
 			self.winHeight = $(window).height();
 			
 			if ( self.whiteBG ) {
+				
+				self._updateNavPos(true);
 				var 
 					a = "M20,20",
 					b = "L" + (self.winWidth - 20) + ",20",
@@ -42,9 +44,9 @@ PF.View.WorkDetail = Backbone.View.extend({
 		$(window).keydown(function(e){
 			if ( !$("body").hasClass("page-work-detail") ) return;
 			var currentIndex = self.currentWork.attributes.index;
-			if ( e.keyCode == 38 && currentIndex > 0 ) {
+			if ( e.keyCode == 40 && currentIndex > 0 ) {
 				self._nextItem( self.collection.at(currentIndex - 1).attributes.slug );
-			} else if ( e.keyCode == 40 && currentIndex < self.collection.length - 1 ) {
+			} else if ( e.keyCode == 38 && currentIndex < self.collection.length - 1 ) {
 				self._nextItem( self.collection.at(currentIndex + 1).attributes.slug );
 			}
 		});
@@ -271,9 +273,9 @@ PF.View.WorkDetail = Backbone.View.extend({
 			index = navDetails.find("li.current").data("index"),
 			top = Math.round((this.winHeight - navDetails.height()) / 2),
 			offset = 24 * (middle - index);
-
-		if ( resize ) navDetails.css("top", Math.round(top + offset));
-		else navDetails.animate({"top" : Math.round(top + offset)}, 200);
+			
+		if ( resize ) navDetails.css("top", Math.round(top - offset));
+		else navDetails.animate({"top" : Math.round(top - offset)}, 200);
 	},
 
 	_updateBreadcrumb : function(i) {

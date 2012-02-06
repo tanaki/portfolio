@@ -617,17 +617,11 @@ table { border-collapse: collapse; border-spacing: 0; }
 			.page-work-detail .project-detail {
 				display: block;
 				float: left;
-				width: 635px;
-				height: 620px;
 				overflow: hidden;
 				
 				font-family: Abadi, Arial, sans-serif;
 				font-size: 16px;
 				
-				position: absolute;
-				top: 50%;
-				left: 340px;
-				margin-top: -310px;
 				background: #ddd;
 			}
 			.page-work-detail .project-detail > li {
@@ -648,18 +642,85 @@ table { border-collapse: collapse; border-spacing: 0; }
 				font-size: 18px;
 				margin: 10px 0;
 			}
-			.page-work-detail .project-detail .text {
-				text-align: justify;
-				max-width: 95%;
+			
+			.page-work-detail .project-detail .scrollable {
+				display:block;
+				position:absolute;
+				overflow:hidden;
+				width: 750px;
+				height:600px;
+				top:50%;
+				left:50%;
+				margin:-325px 0 0 -300px;
 			}
-			/* LEFT COLUMN */
-			.page-work-detail .project-detail .left-column {
-				float: left;
-				width: 435px;
+
+			.page-work-detail .project-detail .scrollable .items {
+				display:block;
+				width:20000em;
+				position:absolute;
+				clear:both;
+			}
+
+			.page-work-detail .project-detail .items .item {
+				display:block;
+				float:left;
+				width:750px;
+				position:relative;
+			}
+			
+			.page-work-detail .project-detail .prev,
+			.page-work-detail .project-detail .next {
+				cursor: pointer;
+				position: absolute;
+				top: 50%;
+				right:25px;
+				margin-top: -10px;
+				
 				overflow: hidden;
+				text-indent: -5000px;
+				width:24px;
+				height:25px;
+				background:url(/img/work/arrows.jpg) no-repeat right top;
 			}
-			.page-work-detail .project-detail .left-column img {
-				max-width: 100%;
+			.page-work-detail .project-detail .prev {
+				right:75px;
+				background-position:-24px top;
+			}
+			.page-work-detail .project-detail .prev:hover {
+				background-position:left top;
+			}
+			.page-work-detail .project-detail .next:hover {
+				background-position:-48px top;
+			}
+			.page-work-detail .project-detail .disable {
+				/*display:none;*/
+			}
+			/* First slide */
+			.page-work-detail .project-detail .first .text {
+				width:200px;
+				font-size: 14px;
+				margin:310px 0 0 0;
+			}
+			.page-work-detail .project-detail .first .text a {
+				text-decoration: underline;
+			}
+			.page-work-detail .project-detail .first img {
+				position:absolute;
+				top: 20px;
+				right: 20px;
+			}
+			.page-work-detail .project-detail .first .link {
+				position:absolute;
+				bottom: -40px;
+				right: 20px;
+				
+				color:#026cfe;
+				font-size: 14px;
+				padding-left:16px;
+				background:url(/img/work/link.png) no-repeat -11px 6px;
+			}
+			.page-work-detail .project-detail .first .link:hover {
+				background-position:left 6px;
 			}
 			
 			/* RESPONSIVE VIDEO EMBED */
@@ -1105,6 +1166,26 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 @media only screen and (max-width: 768px) {
 
+}
+
+@media only screen and (max-width: 1350px) {
+
+	.page-work-detail .project-detail .scrollable {
+		width: 500px;
+		height:600px;
+		
+		left:340px;
+		margin:-325px 0 0 0;
+	}
+
+	.page-work-detail .project-detail .items .item {
+		width:500px;
+	}
+	
+	.page-work-detail .project-detail .first .text {
+		margin-left:50px;
+	}
+	
 }
 
 

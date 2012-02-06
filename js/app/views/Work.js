@@ -108,7 +108,8 @@ PF.View.Work = Backbone.View.extend({
 							videoType: el.videoType,
 							videoId: el.videoId,
 							text: el.text,
-							tags: el.tags
+							tags: el.tags,
+							slides: el.slides
 						}));
 						
 						var 

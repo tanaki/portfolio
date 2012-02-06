@@ -2,6 +2,260 @@
     "projects": [
 		{
 			"index" : 0,
+			"color" : "ffffff",
+			"slug" : "others",
+			"title" : "Others",
+			"text" : "Others Projects : Toblerone, Renault, SFR",
+			"tags" : [
+				"HTML",
+				"CSS",
+				"JS"
+			],
+			"slides" : [
+				{
+					"type" : "image",
+					"src" : "renault.jpg",
+					"title" : "Renault",
+					"link" : "http://renault.fr"
+				},
+				{
+					"type" : "image",
+					"src" : "toblerone.jpg",
+					"title" : "My Toblerone",
+					"link" : "http://mytoblerone.co.uk"
+				}
+			]
+		},
+		{
+			"index" : 1,
+			"color" : "202020",
+			"white" : true,
+			"slug" : "howbama",
+			"title" : "Howbama",
+			"link" : "http://howbama.nicolaspigelet.com/air/HowBama.air",
+			"linkText" : "Download Air Application",
+			"context" : "Student project",
+			"text" : "How'Bama is a first year uni project, it is a documentary application. The subject was \"create an interactive & multimedia application to (re)visit a moment of History\". This was my first proper AS3 project. Built with Marie Laurent.",
+			"tags" : [
+				"AIR",
+				"AS3",
+				"UX Design"
+			],
+			"slides" : [
+				{
+					"type" : "image",
+					"src" : "howbama-1.jpg",
+					"title" : "Howbama - Home Page",
+					"link" : "http://howbama.nicolaspigelet.com"
+				},
+				{
+					"type" : "image",
+					"src" : "howbama-2.jpg",
+					"title" : "Howbama - Detail Page",
+					"link" : "http://howbama.nicolaspigelet.com"
+				},
+				{
+					"type" : "image",
+					"src" : "howbama-3.jpg",
+					"title" : "Howbama - Detail Page",
+					"link" : "http://howbama.nicolaspigelet.com"
+				},
+				{
+					"type" : "image",
+					"src" : "howbama-4.jpg",
+					"title" : "Howbama - Detail Page",
+					"link" : "http://howbama.nicolaspigelet.com"
+				}
+			]
+		},
+		{
+			"index" : 2,
+			"color" : "ffff00",
+			"slug" : "arduin-hockey",
+			"title" : "Arduin'Hockey",
+			"featured" : true,
+			"context" : "Personal/Student project",
+			"text" : "I worked with Sebastien and Valentin to conceive and build the game in 48h. It's a mix of pong and air hockey controlled by hand gestures. We also livestreamed the game and score on every screen in the building.",
+			"tags" : [
+				"Arduino",
+				"HCI"
+			],
+			"slides" : [
+				{
+					"type" : "video",
+					"videoType" : "youtube",
+					"src" : "_KQVpXPdpks",
+					"title" : "Arduin'Hockey"
+				},
+				{
+					"type" : "image",
+					"src" : "arduinhockey.jpg",
+					"title" : "Arduin'Hockey"
+				}
+			]
+		},
+		{
+			"index" : 3,
+			"color" : "EC6439",
+			"white" : true,
+			"slug" : "yummy",
+			"title" : "Yummy",
+			"featured" : true,
+			"link" : "http://www.projet-yummy.com/en",
+			"linkText" : "Visit site",
+			"context" : "Student project",
+			"text" : "Yummy is a diploma project produced by 5 graduate students from the Digital Design and Production course at Gobelins, l'École de l'Image.",
+			"tags" : [
+				"UX Design",
+				"AIR",
+				"AS3"
+			],
+			"slides" : [
+				{
+					"type" : "video",
+					"videoType" : "youtube",
+					"src" : "mCgDMyp4bug",
+					"title" : "Yummy",
+					"link" : "http://projet-yummy.com/en"
+				},
+				{
+					"type" : "video",
+					"videoType" : "mp4",
+					"src" : "http://projet-yummy.com/europrix/scheduling_and_shopping.mp4",
+					"title" : "Yummy - Scheduling and Shopping",
+					"link" : "http://projet-yummy.com/en"
+				},
+				{
+					"type" : "video",
+					"videoType" : "mp4",
+					"src" : "http://projet-yummy.com/europrix/searching_and_cooking.mp4",
+					"title" : "Yummy - Searching and Cooking",
+					"link" : "http://projet-yummy.com/en"
+				},
+				{
+					"type" : "video",
+					"videoType" : "mp4",
+					"src" : "http://projet-yummy.com/europrix/profile_and_diet.mp4",
+					"title" : "Yummy - Profile and Diet",
+					"link" : "http://projet-yummy.com/en"
+				}
+			]
+		},
+		{
+			"index" : 4,
+			"color" : "0057a4",
+			"white" : true,
+			"slug" : "nokia-push",
+			"title" : "Nokia Push",
+			"link" : "http://www.pushsnowboarding.com",
+			"linkText" : "Visit site",
+			"context" : "Built at Pirata",
+			"text" : "My first project at Pirata. I help on both front end and back end. My second task was adapting Wordpress outside of Wordpress, which was quite fun.<br/><br/>I also worked on the small flash demos. I learned more on AS and timeline animation.<br/><br/>And finally I helped on data-parsing for <a href=\"http://piratalondon.com/2011/03/nokia-push-data-visualisation/\" rel=\"external\">this other piece of work</a>.",
+			"tags" : [
+				"HTML",
+				"CSS",
+				"JS",
+				"PHP",
+				"AS3"
+			],
+			"slides" : [
+				{
+					"type" : "video",
+					"videoType" : "vimeo",
+					"src" : "30428082",
+					"title" : "Push Snowboarding - Nokia+Burton",
+					"link" : "http://pushsnowboarding.com"
+				},
+				{
+					"type" : "image",
+					"src" : "nokia-push-1.jpg",
+					"title" : "Push Snowboarding - Nokia+Burton",
+					"link" : "http://pushsnowboarding.com"
+				},
+				{
+					"type" : "image",
+					"src" : "nokia-push-2.jpg",
+					"title" : "Push Snowboarding - Nokia+Burton",
+					"link" : "http://pushsnowboarding.com"
+				}
+			]
+		},
+		{
+			"index" : 5,
+			"color" : "F2F2F2",
+			"slug" : "inq-mobile",
+			"title" : "INQ Mobile",
+			"link" : "http://inqmobile.com",
+			"linkText" : "Visit site",
+			"context" : "Built at Pirata",
+			"text" : "For this project, I mainly worked on the Front-end, but helped on the PHP/Zend Back-end.",
+			"tags" : [
+				"HTML",
+				"CSS",
+				"JS"
+			],
+			"slides" : [
+				{
+					"type" : "video",
+					"videoType" : "vimeo",
+					"src" : "30427703",
+					"title" : "INQ Mobile",
+					"link" : "http://inqmobile.com"
+				},
+				{
+					"type" : "image",
+					"src" : "inq-mobile-1.jpg",
+					"title" : "INQ Mobile",
+					"link" : "http://inqmobile.com"
+				},
+				{
+					"type" : "image",
+					"src" : "inq-mobile-2.jpg",
+					"title" : "INQ Mobile",
+					"link" : "http://inqmobile.com"
+				},
+				{
+					"type" : "image",
+					"src" : "inq-mobile-3.jpg",
+					"title" : "INQ Mobile",
+					"link" : "http://inqmobile.com"
+				}
+			]
+		},
+		{
+			"index" : 6,
+			"color" : "dfdfdf",
+			"slug" : "mindreader",
+			"title" : "Mindreader",
+			"link" : "http://mindreader.mindshareworld.com",
+			"linkText" : "Visit site",
+			"context" : "Built at Pirata",
+			"text" : "Mindreader is a website based on datavisualisation. The client didn't want a flash website so we choose SVG as a good compromise for cross browser animated graphs.",
+			"tags" : [
+				"HTML",
+				"CSS",
+				"JS",
+				"SVG",
+				"RaphaelJS"
+			],
+			"slides" : [
+				{
+					"type" : "video",
+					"videoType" : "vimeo",
+					"src" : "33547309",
+					"title" : "Mindreader",
+					"link" : "http://mindreader.mindshareworld.com"
+				},
+				{
+					"type" : "image",
+					"src" : "mindreader-1.jpg",
+					"title" : "Mindreader",
+					"link" : "http://mindreader.mindshareworld.com"
+				}
+			]
+		},
+		{
+			"index" : 7,
 			"color" : "f70064",
 			"white" : true,
 			"slug" : "marie-laurent",
@@ -15,145 +269,65 @@
 				"HTML",
 				"CSS3",
 				"JS"
-			]
-		},
-		{
-			"index" : 1,
-			"color" : "dfdfdf",
-			"slug" : "mindreader",
-			"title" : "Mindreader",
-			"link" : "http://mindreader.mindshareworld.com",
-			"linkText" : "Visit site",
-			"context" : "Built at Pirata",
-			"videoType" : "vimeo",
-			"videoId" : "33547309",
-			"text" : "Mindreader is a website based on datavisualisation. The client didn't want a flash website so we choose SVG as a good compromise for cross browser animated graphs.",
-			"tags" : [
-				"HTML",
-				"CSS",
-				"JS",
-				"SVG",
-				"RaphaelJS"
-			]
-		},
-		{
-			"index" : 2,
-			"color" : "F2F2F2",
-			"slug" : "inq-mobile",
-			"title" : "INQ Mobile",
-			"link" : "http://inqmobile.com",
-			"linkText" : "Visit site",
-			"context" : "Built at Pirata",
-			"videoType" : "vimeo",
-			"videoId" : "30427703",
-			"text" : "The setup was one senior developer on the backend and one on the front end and me as a support for both but I mainly worked on the front end.",
-			"tags" : [
-				"HTML",
-				"CSS",
-				"JS"
-			]
-		},
-		{
-			"index" : 3,
-			"color" : "704128",
-			"white" : true,
-			"slug" : "my-toblerone",
-			"title" : "My Toblerone",
-			"link" : "http://www.mytoblerone.co.uk",
-			"linkText" : "Visit site",
-			"context" : "Built at Pirata",
-			"videoType" : "vimeo",
-			"videoId" : "31485312",
-			"text" : "I worked on the front end, created the templates and the logic to interact with the flash bit via url.",
-			"tags" : [
-				"HTML",
-				"CSS",
-				"JS"
-			]
-		},
-		{
-			"index" : 4,
-			"color" : "0057a4",
-			"white" : true,
-			"slug" : "nokia-push",
-			"title" : "Nokia Push",
-			"link" : "http://www.pushsnowboarding.com",
-			"linkText" : "Visit site",
-			"context" : "Built at Pirata",
-			"videoType" : "vimeo",
-			"videoId" : "30428082",
-			"text" : "My first project at Pirata. I help on both front end and back end. My second task was adapting Wordpress outside of Wordpress, which was quite fun.<br/><br/>I also worked on the small flash demos. I learned more on AS and timeline animation.<br/><br/>And finally I helped on data-parsing for <a href=\"http://piratalondon.com/2011/03/nokia-push-data-visualisation/\" rel=\"external\">this other piece of work</a>.",
-			"tags" : [
-				"HTML",
-				"CSS",
-				"JS",
-				"PHP"
-			]
-		},
-		{
-			"index" : 5,
-			"color" : "EC6439",
-			"white" : true,
-			"slug" : "yummy",
-			"title" : "Yummy",
-			"featured" : true,
-			"link" : "http://www.projet-yummy.com/en",
-			"linkText" : "Visit site",
-			"context" : "Student project",
-			"videoType" : "youtube",
-			"videoId" : "mCgDMyp4bug",
-			"text" : "Yummy is a diploma project produced by 5 graduate students from the Digital Design and Production course at Gobelins, l'École de l'Image.",
-			"tags" : [
-				"UX Design",
-				"AIR",
-				"AS3"
-			]
-		},
-		{
-			"index" : 6,
-			"color" : "ffff00",
-			"slug" : "arduin-hockey",
-			"title" : "Arduin'Hockey",
-			"featured" : true,
-			"context" : "Personal/Student project",
-			"videoType" : "youtube",
-			"videoId" : "_KQVpXPdpks",
-			"text" : "We conceived and build the game in 48h. It's a mix of pong and air hockey controlled by hand gestures. We also livestreamed the game and score on every screen in the building.",
-			"tags" : [
-				"Arduino",
-				"HCI"
-			]
-		},
-		{
-			"index" : 7,
-			"color" : "202020",
-			"white" : true,
-			"slug" : "howbama",
-			"title" : "Howbama",
-			"link" : "http://howbama.nicolaspigelet.com/air/HowBama.air",
-			"linkText" : "Download Air Application",
-			"context" : "Student project",
-			"text" : "How'Bama is a first year project, it is a documentary application. The subject was \"create an interactive & multimedia application to (re)visit a moment of History\". This was my first proper AS3 project. Built with Marie Laurent.",
-			"tags" : [
-				"AIR",
-				"AS3",
-				"UX Design"
+			],
+			"slides" : [
+				{
+					"type" : "image",
+					"src" : "marie-laurent-1.jpg",
+					"title" : "Portfolio Marie Laurent",
+					"link" : "http://marielaurent.fr"
+				},
+				{
+					"type" : "image",
+					"src" : "marie-laurent-2.jpg",
+					"title" : "Portfolio Marie Laurent",
+					"link" : "http://marielaurent.fr"
+				},
+				{
+					"type" : "image",
+					"src" : "marie-laurent-3.jpg",
+					"title" : "Portfolio Marie Laurent",
+					"link" : "http://marielaurent.fr"
+				}
 			]
 		},
 		{
 			"index" : 8,
-			"color" : "ffffff",
-			"slug" : "renault",
-			"title" : "Renault",
-			"link" : "http://www.renault.com",
+			"color" : "000000",
+			"white" : true,
+			"slug" : "nike-makeitcount",
+			"title" : "Nike",
+			"featured" : true,
+			"link" : "http://www.nike.com/makeitcount",
 			"linkText" : "Visit site",
-			"context" : "Built at FullSIX",
-			"text" : "At FullSIX during 2 years, this was one of my biggest project. I worked closely with a Senior Developer and an Art Director to build 3 different module/pages.<ul><li>- Main Menu</li><li>- Vehicule selector on the home page</li><li>- Range page</li></ul>",
+			"context" : "Built at Pirata",
+			"text" : "We've build the twitterstream for the Nike \"Make it count\" Campaign. We had to build it as a proper JQuery plugin to be completely independant to AKQA developers' code. We also used mustache js as a template engine.",
 			"tags" : [
 				"HTML",
 				"CSS",
 				"JS"
+			],
+			"slides" : [
+				{
+					"type" : "image",
+					"src" : "nike-makeitcount-1.jpg",
+					"title" : "Nike - Make it count",
+					"link" : "http://www.nike.com/makeitcount"
+				},
+				{
+					"type" : "image",
+					"src" : "nike-makeitcount-2.jpg",
+					"title" : "Nike - Make it count",
+					"link" : "http://www.nike.com/makeitcount"
+				},
+				{
+					"type" : "image",
+					"src" : "nike-makeitcount-3.jpg",
+					"title" : "Nike - Make it count",
+					"link" : "http://www.nike.com/makeitcount"
+				}
 			]
 		}
+		
 	]
 }

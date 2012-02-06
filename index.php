@@ -11,6 +11,10 @@
 		<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script-->
 		<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
 		
+		<!-- Video -->
+		<link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
+		<script src="http://vjs.zencdn.net/c/video.js"></script>
+		
 		<!--?php if ( preg_match( "/localhost/", $_SERVER["SERVER_NAME"] ) ) { ?-->
 			<script type="text/javascript" src="/js/lib/underscore-1.2.2.js"></script>
 			<script type="text/javascript" src="/js/lib/backbone.js"></script>

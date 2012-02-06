@@ -15,7 +15,8 @@ PF.Model.Work = Backbone.Model.extend({
 		videoType: null,
 		videoId: null,
 		text: "description of the project",
-		tags: []
+		tags: [],
+		slides : []
 	},
 	
 	initialize: function(){
