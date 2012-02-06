@@ -693,7 +693,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 				background-position:-48px top;
 			}
 			.page-work-detail .project-detail .disable {
-				/*display:none;*/
+				display:none;
 			}
 			/* First slide */
 			.page-work-detail .project-detail .first .text {

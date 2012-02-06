@@ -27,7 +27,10 @@
 							<% if ( projects[i].get("link") ) { %><a href="<%= projects[i].get('link') %>" class="link transition"><%= projects[i].get("linkText") %></a><% } %>
 							<img alt="<%= projects[i].get('title') %>" src="/img/work/projects/<%= projects[i].get('slug') %>/logo.png" />
 						</span>
-						<% _.each( projects[i].get('slides'), function(slide){ %>
+						<% 
+							slug = projects[i].get('slug');
+							_.each( projects[i].get('slides'), function(slide){ 
+						%>
 							<span class="item">
 								<span class="title"><%= slide["title"] %></span>
 								<% 
@@ -49,7 +52,7 @@
 										src = slide['src'];
 										width = slide['width'];
 										height = slide['height'];
-										iframe = '<iframe frameborder="0" src="' + src + '" width="' + width + '" height="' + height + '"></iframe>';
+										iframe = '<iframe frameborder="0" src="/img/work/projects/' + slug + '/' + src + '" width="' + width + '" height="' + height + '"></iframe>';
 										print(iframe);
 									break;
 									case 'image' :

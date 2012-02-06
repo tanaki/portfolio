@@ -5,7 +5,7 @@
 			"color" : "ffffff",
 			"slug" : "others",
 			"title" : "Others",
-			"text" : "Others Projects : Toblerone, Renault, SFR",
+			"text" : "Others Projects : Toblerone, Sony, Renault...",
 			"tags" : [
 				"HTML",
 				"CSS",
@@ -14,15 +14,21 @@
 			"slides" : [
 				{
 					"type" : "image",
-					"src" : "renault.jpg",
-					"title" : "Renault",
-					"link" : "http://renault.fr"
+					"src" : "my-toblerone.jpg",
+					"title" : "My Toblerone",
+					"link" : "http://mytoblerone.co.uk"
 				},
 				{
 					"type" : "image",
-					"src" : "toblerone.jpg",
-					"title" : "My Toblerone",
-					"link" : "http://mytoblerone.co.uk"
+					"src" : "sony-ar.jpg",
+					"title" : "Sony - TV Size Guide",
+					"link" : "http://www.sony.co.uk/article/tv-size-guide"
+				},
+				{
+					"type" : "image",
+					"src" : "renault.jpg",
+					"title" : "Renault",
+					"link" : "http://renault.fr"
 				}
 			]
 		},
@@ -89,7 +95,7 @@
 				},
 				{
 					"type" : "image",
-					"src" : "arduinhockey.jpg",
+					"src" : "arduin-hockey-1.jpg",
 					"title" : "Arduin'Hockey"
 				}
 			]
@@ -176,6 +182,14 @@
 					"type" : "image",
 					"src" : "nokia-push-2.jpg",
 					"title" : "Push Snowboarding - Nokia+Burton",
+					"link" : "http://pushsnowboarding.com"
+				},
+				{
+					"type" : "swf",
+					"width" : "550",
+					"height" : "192",
+					"src" : "nokia-push.swf",
+					"title" : "Push Snowboarding - Nokia+Burton - Interactive Demos",
 					"link" : "http://pushsnowboarding.com"
 				}
 			]

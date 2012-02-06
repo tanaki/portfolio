@@ -43,11 +43,17 @@ PF.View.WorkDetail = Backbone.View.extend({
 		
 		$(window).keydown(function(e){
 			if ( !$("body").hasClass("page-work-detail") ) return;
-			var currentIndex = self.currentWork.attributes.index;
+			var 
+				currentIndex = self.currentWork.attributes.index,
+				currentLi = $(".project-detail > li:not(.hidden)");
 			if ( e.keyCode == 40 && currentIndex > 0 ) {
 				self._nextItem( self.collection.at(currentIndex - 1).attributes.slug );
 			} else if ( e.keyCode == 38 && currentIndex < self.collection.length - 1 ) {
 				self._nextItem( self.collection.at(currentIndex + 1).attributes.slug );
+			} else if ( e.keyCode == 37 ) {
+				self._navigate("prev", currentLi);
+			} else if ( e.keyCode == 39 ) {
+				self._navigate("next", currentLi);
 			}
 		});
 	},
@@ -198,7 +204,9 @@ PF.View.WorkDetail = Backbone.View.extend({
 	
 	_initHTML : function(){
 
-		this._initVideo( $(".project-detail > li:not(.hidden)") );
+		var currentLi = $(".project-detail > li:not(.hidden)");
+		this._initCarousel( currentLi );
+		this._initVideo( currentLi );
 		this._updateCloseBtn();
 		this._updateNavPos();
 		this._updateBreadcrumb();
@@ -311,6 +319,7 @@ PF.View.WorkDetail = Backbone.View.extend({
 		currentTags.addClass("hidden");
 		targetTags.removeClass("hidden");
 
+		this._initCarousel(targetArticle);
 		this._initVideo(targetArticle, currentArticle);
 		
 		this._updateCloseBtn();
@@ -353,8 +362,55 @@ PF.View.WorkDetail = Backbone.View.extend({
 			newContainer.find(".left-column").prepend($(iframe));
 		}
 		
-	}
+	},
+	
+	_initCarousel : function( container ) {
+		
+		if ( container.data("carousel") ) return;
+		
+		var self = this;
+		container.data("carousel", true);
+		container.data("carousel-index", "0");
+		
+		container.delegate(".next", "click", function(e){
+			e.preventDefault();
+			self._navigate("next", container);
+		});
+		container.delegate(".prev", "click", function(e){
+			e.preventDefault();
+			self._navigate("prev", container);
+		});
+	},
+	
+	_navigate : function(direction, container){
+		
+		var 
+			max = container.find(".item").length - 1,
+			min = 0,
+			currentIndex = parseInt(container.data("carousel-index")) || 0;
 
+		if ( direction == "next") {
+			
+			if ( currentIndex >= max ) return;
+			currentIndex++;
+			
+			if ( currentIndex >= max ) container.find(".next").addClass("disable");
+			container.find(".prev").removeClass("disable");
+			
+		} else if ( direction == "prev") {
+			
+			if ( currentIndex <= min ) return;
+			currentIndex--;
+			
+			if ( currentIndex <= min ) container.find(".prev").addClass("disable");
+			container.find(".next").removeClass("disable");
+		} 
+		
+		container.find(".items").animate({
+			"left" : -750 * currentIndex
+		}, 300);
+		container.data("carousel-index", currentIndex);
+	}
 	
 	
 });
