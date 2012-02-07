@@ -33,8 +33,10 @@ PF.View.Work = Backbone.View.extend({
 		self.$window.resize(function(){
 			if ( self.$body.hasClass("page-work") ) {
 				var target = $("#works-lines").position();
-				self.offsetX = target.left;
-				self.offsetY = target.top;
+				if ( target ) {
+					self.offsetX = target.left;
+					self.offsetY = target.top;
+				}
 
 				self._drawLinks(true);
 			}
@@ -87,7 +89,7 @@ PF.View.Work = Backbone.View.extend({
 				success : function(response){
 					
 					var 
-						total = response.projects.length * 2 - 1,
+						total = response.projects.length - 1,
 						indexLoaded = 0,
 						contentLoading = $(".content-loading");
 						
@@ -112,9 +114,7 @@ PF.View.Work = Backbone.View.extend({
 							slides: el.slides
 						}));
 						
-						var 
-							thumb = new Image(),
-							illu = new Image();
+						var thumb = new Image();
 							
 						thumb.onload = function(){
 							contentLoading.text("Loading... " + Math.round(indexLoaded * 100 / total) + "%" ) ;
@@ -122,13 +122,6 @@ PF.View.Work = Backbone.View.extend({
 							indexLoaded++;
 						}
 						thumb.src = "/img/work/projects/" + el.slug + ".jpg";
-						
-						illu.onload = function(){
-							contentLoading.text("Loading... " + Math.round(indexLoaded * 100 / total) + "%" ) ;
-							if ( indexLoaded == total ) self._display();
-							indexLoaded++;
-						}
-						illu.src = "/img/work/illus/" + el.slug + ".jpg";
 					});
 				}
 			});
