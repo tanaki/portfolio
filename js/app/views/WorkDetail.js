@@ -39,6 +39,10 @@ PF.View.WorkDetail = Backbone.View.extend({
 					finalPath = a + b + c + d + e + f;
 				self.whiteBG.attr("path", finalPath);
 			}
+			if ( self.rightColor ) {
+				var rightPath = "M" + (self.winWidth - 20) + ",20L" + (self.winWidth - 20) + "," + (self.winHeight - 40) + " " + (self.winWidth - 30) + "," + (self.winHeight - 39) + " " + (self.winWidth - 70) + ", 20Z";
+				self.rightColor.attr("path", rightPath);
+			}
 		});
 		
 		$(window).keydown(function(e){
@@ -198,8 +202,27 @@ PF.View.WorkDetail = Backbone.View.extend({
 		
 		this.$block.html( tpl(params) )
 			.fadeIn(300, function(){
+				self._drawRightColor();
 				self._initHTML();
 			});
+	},
+	
+	_drawRightColor : function(){
+		
+		var 
+			fWidth = this.winWidth,
+			fHeight = this.winHeight,
+			preRightPath = "M" + (fWidth - 20) + ",20L" + (fWidth - 20) + "," + (fHeight - 40) + " " + (fWidth - 20) + "," + (fHeight - 40) + " " + (fWidth - 20) + ", 20Z",
+			rightPath = "M" + (fWidth - 20) + ",20L" + (fWidth - 20) + "," + (fHeight - 40) + " " + (fWidth - 30) + "," + (fHeight - 39) + " " + (fWidth - 70) + ", 20Z";
+			
+		this.rightColor = this.block.path(preRightPath).attr({
+				"stroke-opacity" : 0,
+				"stroke-width" : 0,
+				"stroke" : "#" + this.currentWork.attributes.color,
+				"fill" : "#" + this.currentWork.attributes.color
+			}).animate({
+				"path" : rightPath
+			}, 250, ">");
 	},
 	
 	_initHTML : function(){
@@ -251,9 +274,12 @@ PF.View.WorkDetail = Backbone.View.extend({
 				bigCircle = i + j + k + l + g + h;
 				
 			$("#detail").empty();
+			self.rightColor.animate({
+				"opacity" : 0
+			}, 150);
 			self.whiteBG.animate({
 				"path" : bigCircle
-			}, 300, function(){
+			}, 200, function(){
 				self.whiteBG.animate({
 					"path" : smallCircle
 				}, 200, function(){
@@ -318,6 +344,14 @@ PF.View.WorkDetail = Backbone.View.extend({
 		
 		currentTags.addClass("hidden");
 		targetTags.removeClass("hidden");
+		
+		if ( this.rightColor ) {
+			var newColor = "#" + (targetArticle.data("color") || "000000");
+			this.rightColor.attr({ 
+				"stroke" : newColor,
+				"fill" : newColor
+			});
+		}
 
 		this._initCarousel(targetArticle);
 		this._initVideo(targetArticle, currentArticle);
@@ -366,6 +400,10 @@ PF.View.WorkDetail = Backbone.View.extend({
 	
 	_initCarousel : function( container ) {
 		
+		
+		if ( container.data("carousel-index") > 0 ) $(".breadcrumb-work-details").fadeOut(300);
+		else $(".breadcrumb-work-details").fadeIn(300);
+			
 		if ( container.data("carousel") ) return;
 		
 		var self = this;
@@ -405,6 +443,13 @@ PF.View.WorkDetail = Backbone.View.extend({
 			if ( currentIndex <= min ) container.find(".prev").addClass("disable");
 			container.find(".next").removeClass("disable");
 		} 
+		
+		container.find(".active").removeClass("active");
+		var activeItem = container.find(".item").get(currentIndex);
+		$(activeItem).addClass("active");
+		
+		if ( currentIndex > 0 ) $(".breadcrumb-work-details").fadeOut(300);
+		else $(".breadcrumb-work-details").fadeIn(300);
 		
 		container.find(".items").animate({
 			"left" : -750 * currentIndex

@@ -196,7 +196,8 @@
 		},
 		{
 			"index" : 5,
-			"color" : "F2F2F2",
+			"color" : "fe0000",
+			"white" : true,
 			"slug" : "inq-mobile",
 			"title" : "INQ Mobile",
 			"link" : "http://inqmobile.com",
@@ -238,7 +239,8 @@
 		},
 		{
 			"index" : 6,
-			"color" : "dfdfdf",
+			"color" : "2f1747",
+			"white" : true,
 			"slug" : "mindreader",
 			"title" : "Mindreader",
 			"link" : "http://mindreader.mindshareworld.com",

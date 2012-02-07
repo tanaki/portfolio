@@ -634,13 +634,23 @@ table { border-collapse: collapse; border-spacing: 0; }
 			.page-work-detail .project-detail img,
 			.page-work-detail .project-detail .video,
 			.page-work-detail .project-detail .title,
-			.page-work-detail .project-detail .text {
+			.page-work-detail .project-detail .text,
+			.page-work-detail .project-detail .link-project {
 				display: block;
 			}
 			
 			.page-work-detail .project-detail .title {
-				font-size: 18px;
+				font-size: 16px;
 				margin: 10px 0;
+				text-align: center;
+				color:#aaa;
+			}
+			
+			.page-work-detail .project-detail .link-project {
+				font-size: 14px;
+				margin: 20px 0 0;
+				text-align: center;
+				color:#00F;
 			}
 			
 			.page-work-detail .project-detail .scrollable {
@@ -651,7 +661,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 				height:600px;
 				top:50%;
 				left:50%;
-				margin:-325px 0 0 -300px;
+				margin:-325px 0 0 -400px;
 			}
 
 			.page-work-detail .project-detail .scrollable .items {
@@ -673,7 +683,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 				cursor: pointer;
 				position: absolute;
 				top: 50%;
-				right:25px;
+				right:50px;
 				margin-top: -10px;
 				
 				overflow: hidden;
@@ -683,7 +693,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 				background:url(/img/work/arrows.jpg) no-repeat right top;
 			}
 			.page-work-detail .project-detail .prev {
-				right:75px;
+				right:90px;
 				background-position:-24px top;
 			}
 			.page-work-detail .project-detail .prev:hover {
@@ -1171,22 +1181,39 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 }
 
-@media only screen and (max-width: 1350px) {
+@media only screen and (max-width: 1500px) {
 
 	.page-work-detail .project-detail .scrollable {
-		width: 500px;
-		height:600px;
-		
 		left:340px;
 		margin:-325px 0 0 0;
 	}
 
-	.page-work-detail .project-detail .items .item {
-		width:500px;
+}
+
+@media only screen and (max-width: 1280px) {
+	
+	.page-work-detail .breadcrumb-work-details {
+		display:none;
+		visibility: hidden;
+	}
+	.page-work-detail .navigation-work {
+		width:80px;
+	}
+	.page-work-detail .project-detail .scrollable {
+		left:50%;
+		margin-left: -375px;
 	}
 	
-	.page-work-detail .project-detail .first .text {
-		margin-left:50px;
+}
+@media only screen and (max-width: 1024px) {
+	
+	.page-work-detail .project-detail .scrollable {
+		left:110px;
+		margin-left: 0;
+	}
+	.page-work-detail .project-detail .prev {
+		right:50px;
+		margin-top: 30px;
 	}
 	
 }
