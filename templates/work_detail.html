@@ -20,12 +20,20 @@
 	<ul class="project-detail">
 		<% for ( var i = projects.length - 1; i >= 0; i-- ) { %>
 			<li <% if ( (selectedSlug && projects[i].get('slug') !== selectedSlug) || (!selectedSlug && i !== (projects.length - 1)) ) { print('class="hidden"'); } %> data-index="<%= projects[i].get('index') %>" data-slug="<%= projects[i].get('slug') %>" data-color="<%= projects[i].get('color') %>">
+				<span class="scrollable-title"></span>
+				<span class="scrollable-link">
+					<% if ( projects[i].get("link") ) { %>
+						<a href="<%= projects[i].get('link') %>" class="link-project transition" rel="external"><%= projects[i].get('linkText') %></a>
+					<% } %>
+				</span>
 				<span class="scrollable">
 					<span class="items">
 						<span class="item first active">
 							<span class="text"><%= projects[i].get("text") %></span>
-							<% if ( projects[i].get("link") ) { %><a href="<%= projects[i].get('link') %>" class="link transition"><%= projects[i].get("linkText") %></a><% } %>
 							<img alt="<%= projects[i].get('title') %>" src="/img/work/projects/<%= projects[i].get('slug') %>/logo.png" />
+							<% if ( projects[i].get("link") ) { %>
+								<a href="<%= projects[i].get('link') %>" class="base-link" rel="external"><%= projects[i].get('linkText') %></a>
+							<% } %>
 						</span>
 						<% 
 							slug = projects[i].get('slug');
@@ -63,7 +71,7 @@
 									break;
 								}
 								%>
-								<a href="<%= slide['link'] %>" class="link-project" rel="external"><%= slide["link"] %></a>
+								<a href="<%= slide['link'] %>" class="link-project transition" rel="external"><%= slide["linkText"] %></a>
 							</span>
 						<% }); %>
 						

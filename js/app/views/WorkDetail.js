@@ -448,6 +448,17 @@ PF.View.WorkDetail = Backbone.View.extend({
 		var activeItem = container.find(".item").get(currentIndex);
 		$(activeItem).addClass("active");
 		
+		container.find(".scrollable-title").text( container.find(".active .title").text() || "" );
+		
+		var link = currentIndex > 0 ? container.find(".active .link-project").clone() : container.find(".active .base-link").clone();
+		if ( currentIndex == 0 ) {
+			link
+				.removeClass("base-link")
+				.addClass("link-project")
+				.addClass("transition");
+		}
+		container.find(".scrollable-link").empty().append( link );
+		
 		if ( currentIndex > 0 ) $(".breadcrumb-work-details").fadeOut(300);
 		else $(".breadcrumb-work-details").fadeIn(300);
 		

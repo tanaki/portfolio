@@ -621,8 +621,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 				
 				font-family: Abadi, Arial, sans-serif;
 				font-size: 16px;
-				
-				background: #ddd;
 			}
 			.page-work-detail .project-detail > li {
 				height: 100%;
@@ -639,18 +637,38 @@ table { border-collapse: collapse; border-spacing: 0; }
 				display: block;
 			}
 			
-			.page-work-detail .project-detail .title {
+			.page-work-detail .project-detail .scrollable-title,
+			.page-work-detail .project-detail .scrollable-link {
 				font-size: 16px;
-				margin: 10px 0;
 				text-align: center;
 				color:#aaa;
+				
+				display: block;
+				width:750px;
+				position:absolute;
+				top:50%;
+				left:50%;
+				margin:-305px 0 0 -400px;
+				z-index: 10;
+			}
+			.page-work-detail .project-detail .scrollable-link {
+				text-align: right;
+				margin:210px 0 0 -405px;
+			}
+			.page-work-detail .project-detail .scrollable-link a {
+				float: right;
+				font-size: 14px;
+				color:#000;
+				padding-left:16px;
+				background:url(/img/work/link.png) no-repeat -11px 6px;
+			}
+			.page-work-detail .project-detail .scrollable-link a:hover {
+				background-position:left 6px;
 			}
 			
-			.page-work-detail .project-detail .link-project {
-				font-size: 14px;
-				margin: 20px 0 0;
-				text-align: center;
-				color:#00F;
+			.page-work-detail .project-detail .title,
+			.page-work-detail .project-detail .item .link-project {
+				visibility:hidden;
 			}
 			
 			.page-work-detail .project-detail .scrollable {
@@ -661,7 +679,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 				height:600px;
 				top:50%;
 				left:50%;
-				margin:-325px 0 0 -400px;
+				margin:-290px 0 0 -400px;
 			}
 
 			.page-work-detail .project-detail .scrollable .items {
@@ -709,7 +727,10 @@ table { border-collapse: collapse; border-spacing: 0; }
 			.page-work-detail .project-detail .first .text {
 				width:200px;
 				font-size: 14px;
-				margin:310px 0 0 0;
+				margin:310px 0 0 50px;
+			}
+			.page-work-detail .project-detail .first .base-link {
+				display:none;
 			}
 			.page-work-detail .project-detail .first .text a {
 				text-decoration: underline;
@@ -724,8 +745,8 @@ table { border-collapse: collapse; border-spacing: 0; }
 				bottom: -40px;
 				right: 20px;
 				
-				color:#026cfe;
-				font-size: 14px;
+				color:#000;
+				font-size: 14px;	
 				padding-left:16px;
 				background:url(/img/work/link.png) no-repeat -11px 6px;
 			}
@@ -1185,7 +1206,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 	.page-work-detail .project-detail .scrollable {
 		left:340px;
-		margin:-325px 0 0 0;
+		margin-left:0;
 	}
 
 }

@@ -16,19 +16,22 @@
 					"type" : "image",
 					"src" : "my-toblerone.jpg",
 					"title" : "My Toblerone",
-					"link" : "http://mytoblerone.co.uk"
+					"link" : "http://mytoblerone.co.uk",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "sony-ar.jpg",
 					"title" : "Sony - TV Size Guide",
-					"link" : "http://www.sony.co.uk/article/tv-size-guide"
+					"link" : "http://www.sony.co.uk/article/tv-size-guide",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "renault.jpg",
 					"title" : "Renault",
-					"link" : "http://renault.fr"
+					"link" : "http://renault.fr",
+					"linkText" : "Visit site"
 				}
 			]
 		},
@@ -52,25 +55,29 @@
 					"type" : "image",
 					"src" : "howbama-1.jpg",
 					"title" : "Howbama - Home Page",
-					"link" : "http://howbama.nicolaspigelet.com"
+					"link" : "http://howbama.nicolaspigelet.com",
+					"linkText" : "Download Air Application"
 				},
 				{
 					"type" : "image",
 					"src" : "howbama-2.jpg",
 					"title" : "Howbama - Detail Page",
-					"link" : "http://howbama.nicolaspigelet.com"
+					"link" : "http://howbama.nicolaspigelet.com",
+					"linkText" : "Download Air Application"
 				},
 				{
 					"type" : "image",
 					"src" : "howbama-3.jpg",
 					"title" : "Howbama - Detail Page",
-					"link" : "http://howbama.nicolaspigelet.com"
+					"link" : "http://howbama.nicolaspigelet.com",
+					"linkText" : "Download Air Application"
 				},
 				{
 					"type" : "image",
 					"src" : "howbama-4.jpg",
 					"title" : "Howbama - Detail Page",
-					"link" : "http://howbama.nicolaspigelet.com"
+					"link" : "http://howbama.nicolaspigelet.com",
+					"linkText" : "Download Air Application"
 				}
 			]
 		},
@@ -122,28 +129,32 @@
 					"videoType" : "youtube",
 					"src" : "mCgDMyp4bug",
 					"title" : "Yummy",
-					"link" : "http://projet-yummy.com/en"
+					"link" : "http://projet-yummy.com/en",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "video",
 					"videoType" : "mp4",
 					"src" : "http://projet-yummy.com/europrix/scheduling_and_shopping.mp4",
 					"title" : "Yummy - Scheduling and Shopping",
-					"link" : "http://projet-yummy.com/en"
+					"link" : "http://projet-yummy.com/en",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "video",
 					"videoType" : "mp4",
 					"src" : "http://projet-yummy.com/europrix/searching_and_cooking.mp4",
 					"title" : "Yummy - Searching and Cooking",
-					"link" : "http://projet-yummy.com/en"
+					"link" : "http://projet-yummy.com/en",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "video",
 					"videoType" : "mp4",
 					"src" : "http://projet-yummy.com/europrix/profile_and_diet.mp4",
 					"title" : "Yummy - Profile and Diet",
-					"link" : "http://projet-yummy.com/en"
+					"link" : "http://projet-yummy.com/en",
+					"linkText" : "Visit site"
 				}
 			]
 		},
@@ -170,19 +181,22 @@
 					"videoType" : "vimeo",
 					"src" : "30428082",
 					"title" : "Push Snowboarding - Nokia+Burton",
-					"link" : "http://pushsnowboarding.com"
+					"link" : "http://pushsnowboarding.com",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "nokia-push-1.jpg",
 					"title" : "Push Snowboarding - Nokia+Burton",
-					"link" : "http://pushsnowboarding.com"
+					"link" : "http://pushsnowboarding.com",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "nokia-push-2.jpg",
 					"title" : "Push Snowboarding - Nokia+Burton",
-					"link" : "http://pushsnowboarding.com"
+					"link" : "http://pushsnowboarding.com",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "swf",
@@ -190,7 +204,8 @@
 					"height" : "192",
 					"src" : "nokia-push.swf",
 					"title" : "Push Snowboarding - Nokia+Burton - Interactive Demos",
-					"link" : "http://pushsnowboarding.com"
+					"link" : "http://pushsnowboarding.com",
+					"linkText" : "Visit site"
 				}
 			]
 		},
@@ -215,25 +230,29 @@
 					"videoType" : "vimeo",
 					"src" : "30427703",
 					"title" : "INQ Mobile",
-					"link" : "http://inqmobile.com"
+					"link" : "http://inqmobile.com",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "inq-mobile-1.jpg",
 					"title" : "INQ Mobile",
-					"link" : "http://inqmobile.com"
+					"link" : "http://inqmobile.com",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "inq-mobile-2.jpg",
 					"title" : "INQ Mobile",
-					"link" : "http://inqmobile.com"
+					"link" : "http://inqmobile.com",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "inq-mobile-3.jpg",
 					"title" : "INQ Mobile",
-					"link" : "http://inqmobile.com"
+					"link" : "http://inqmobile.com",
+					"linkText" : "Visit site"
 				}
 			]
 		},
@@ -260,13 +279,15 @@
 					"videoType" : "vimeo",
 					"src" : "33547309",
 					"title" : "Mindreader",
-					"link" : "http://mindreader.mindshareworld.com"
+					"link" : "http://mindreader.mindshareworld.com",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "mindreader-1.jpg",
 					"title" : "Mindreader",
-					"link" : "http://mindreader.mindshareworld.com"
+					"link" : "http://mindreader.mindshareworld.com",
+					"linkText" : "Visit site"
 				}
 			]
 		},
@@ -291,19 +312,22 @@
 					"type" : "image",
 					"src" : "marie-laurent-1.jpg",
 					"title" : "Portfolio Marie Laurent",
-					"link" : "http://marielaurent.fr"
+					"link" : "http://marielaurent.fr",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "marie-laurent-2.jpg",
 					"title" : "Portfolio Marie Laurent",
-					"link" : "http://marielaurent.fr"
+					"link" : "http://marielaurent.fr",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "marie-laurent-3.jpg",
 					"title" : "Portfolio Marie Laurent",
-					"link" : "http://marielaurent.fr"
+					"link" : "http://marielaurent.fr",
+					"linkText" : "Visit site"
 				}
 			]
 		},
@@ -328,19 +352,22 @@
 					"type" : "image",
 					"src" : "nike-makeitcount-1.jpg",
 					"title" : "Nike - Make it count",
-					"link" : "http://www.nike.com/makeitcount"
+					"link" : "http://www.nike.com/makeitcount",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "nike-makeitcount-2.jpg",
 					"title" : "Nike - Make it count",
-					"link" : "http://www.nike.com/makeitcount"
+					"link" : "http://www.nike.com/makeitcount",
+					"linkText" : "Visit site"
 				},
 				{
 					"type" : "image",
 					"src" : "nike-makeitcount-3.jpg",
 					"title" : "Nike - Make it count",
-					"link" : "http://www.nike.com/makeitcount"
+					"link" : "http://www.nike.com/makeitcount",
+					"linkText" : "Visit site"
 				}
 			]
 		}
