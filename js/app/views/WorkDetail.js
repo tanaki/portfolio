@@ -229,7 +229,6 @@ PF.View.WorkDetail = Backbone.View.extend({
 
 		var currentLi = $(".project-detail > li:not(.hidden)");
 		this._initCarousel( currentLi );
-		this._initVideo( currentLi );
 		this._updateCloseBtn();
 		this._updateNavPos();
 		this._updateBreadcrumb();
@@ -352,10 +351,9 @@ PF.View.WorkDetail = Backbone.View.extend({
 				"fill" : newColor
 			});
 		}
-
-		this._initCarousel(targetArticle);
-		this._initVideo(targetArticle, currentArticle);
+		this._initVideo( targetArticle.find(".active"), currentArticle.find(".active") );
 		
+		this._initCarousel(targetArticle);
 		this._updateCloseBtn();
 		this._updateNavPos();
 		this._updateBreadcrumb();
@@ -374,32 +372,38 @@ PF.View.WorkDetail = Backbone.View.extend({
 	
 	_initVideo : function( newContainer, oldContainer ) {
 		
-		if ( oldContainer ) oldContainer.find("iframe").remove();
+		if ( oldContainer ) {
+			oldContainer.find("iframe").remove();
+			oldContainer.find("video").remove();
+		}
 		
+		if ( !newContainer ) return;
 		var 
 			videoType = newContainer.data("video-type"),
 			videoId = newContainer.data("video-id"),
-			color = newContainer.data("color"),
 			iframe = "";
 			
 		switch(videoType) {
-			
 			case "youtube" : 
-				iframe = '<iframe width="435" height="251" src="http://www.youtube.com/embed/' + videoId + '?rel=0" frameborder="0" allowfullscreen></iframe>';
+				iframe = '<iframe width="750" height="470" src="http://www.youtube.com/embed/' + videoId + '?rel=0" frameborder="0" allowfullscreen></iframe>';
 				break;
 			case "vimeo" : 
-				iframe = '<iframe src="http://player.vimeo.com/video/' + videoId + '?title=0&amp;byline=0&amp;portrait=0&amp;color=' + color + '" width="435" height="261" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+				iframe = '<iframe src="http://player.vimeo.com/video/' + videoId + '?title=0&amp;byline=0&amp;portrait=0" width="750" height="470" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+				break;
+			case "mp4" : 
+				iframe = '<video src="' + videoId + '" class="jwplayer" height="470" width="750"></video>';
+				break;
+			case 'swf' :
+				iframe = '<iframe frameborder="0" src="/img/work/projects/nokia-push/nokia-push.swf" width="550" height="192" style="margin:170px 0 0 100px;"></iframe>';;
 				break;
 			
 		}
 		if ( videoType ) {
-			newContainer.find(".left-column").prepend($(iframe));
+			newContainer.prepend($(iframe));
 		}
-		
 	},
 	
 	_initCarousel : function( container ) {
-		
 		
 		if ( container.data("carousel-index") > 0 ) $(".breadcrumb-work-details").fadeOut(300);
 		else $(".breadcrumb-work-details").fadeIn(300);
@@ -444,9 +448,12 @@ PF.View.WorkDetail = Backbone.View.extend({
 			container.find(".next").removeClass("disable");
 		} 
 		
-		container.find(".active").removeClass("active");
+		var oldItem = container.find(".active");
 		var activeItem = container.find(".item").get(currentIndex);
+		oldItem.removeClass("active")
 		$(activeItem).addClass("active");
+		
+		this._initVideo($(activeItem), oldItem);
 		
 		container.find(".scrollable-title").text( container.find(".active .title").text() || "" );
 		
@@ -458,6 +465,7 @@ PF.View.WorkDetail = Backbone.View.extend({
 				.addClass("transition");
 		}
 		container.find(".scrollable-link").empty().append( link );
+		
 		
 		if ( currentIndex > 0 ) $(".breadcrumb-work-details").fadeOut(300);
 		else $(".breadcrumb-work-details").fadeIn(300);

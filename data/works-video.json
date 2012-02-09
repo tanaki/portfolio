@@ -133,22 +133,25 @@
 					"linkText" : "Visit site"
 				},
 				{
-					"type" : "image",
-					"src" : "yummy-1.jpg",
+					"type" : "video",
+					"videoType" : "mp4",
+					"src" : "http://projet-yummy.com/europrix/scheduling_and_shopping.mp4",
 					"title" : "Yummy - Scheduling and Shopping",
 					"link" : "http://projet-yummy.com/en",
 					"linkText" : "Visit site"
 				},
 				{
-					"type" : "image",
-					"src" : "yummy-2.jpg",
+					"type" : "video",
+					"videoType" : "mp4",
+					"src" : "http://projet-yummy.com/europrix/searching_and_cooking.mp4",
 					"title" : "Yummy - Searching and Cooking",
 					"link" : "http://projet-yummy.com/en",
 					"linkText" : "Visit site"
 				},
 				{
-					"type" : "image",
-					"src" : "yummy-3.jpg",
+					"type" : "video",
+					"videoType" : "mp4",
+					"src" : "http://projet-yummy.com/europrix/profile_and_diet.mp4",
 					"title" : "Yummy - Profile and Diet",
 					"link" : "http://projet-yummy.com/en",
 					"linkText" : "Visit site"

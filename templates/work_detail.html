@@ -37,38 +37,17 @@
 						</span>
 						<% 
 							slug = projects[i].get('slug');
+							color = projects[i].get('color');
 							_.each( projects[i].get('slides'), function(slide){ 
 						%>
-							<span class="item">
+							<span class="item" <% if ( slide['type'] == 'video' ) { print('data-video-type="' + slide['videoType'] + '" data-video-id="' + slide['src'] + '" data-color="' + color + '"'); } %>>
 								<span class="title"><%= slide["title"] %></span>
 								<% 
-								switch ( slide["type"] ) {
-									case 'video' :
-										switch( slide["videoType"] ){
-											case 'youtube':
-												print('youtube');
-											break;
-											case 'vimeo':
-												print('vimeo');
-											break;
-											case 'mp4':
-												print('mp4');
-											break;
-										}
-									break;
-									case 'swf' :
-										src = slide['src'];
-										width = slide['width'];
-										height = slide['height'];
-										iframe = '<iframe frameborder="0" src="/img/work/projects/' + slug + '/' + src + '" width="' + width + '" height="' + height + '"></iframe>';
-										print(iframe);
-									break;
-									case 'image' :
-										src = "/img/work/projects/" + projects[i].get("slug") + "/" + slide['src'];
-										alt = slide['title'];
-										img = '<img src="' + src + '" alt="' + alt + '" />';
-										print(img);
-									break;
+								if ( slide["type"] == 'image' ) {
+									src = "/img/work/projects/" + projects[i].get("slug") + "/" + slide['src'];
+									alt = slide['title'];
+									img = '<img src="' + src + '" alt="' + alt + '" />';
+									print(img);
 								}
 								%>
 								<a href="<%= slide['link'] %>" class="link-project transition" rel="external"><%= slide["linkText"] %></a>

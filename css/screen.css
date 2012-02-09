@@ -695,6 +695,12 @@ table { border-collapse: collapse; border-spacing: 0; }
 				width:750px;
 				position:relative;
 			}
+
+			.page-work-detail .project-detail .items .item iframe,
+			.page-work-detail .project-detail .items .item #video-container {
+				display:block;
+				margin-top: 20px;
+			}
 			
 			.page-work-detail .project-detail .prev,
 			.page-work-detail .project-detail .next {
