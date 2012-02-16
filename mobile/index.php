@@ -4,6 +4,7 @@
 		<meta charset="utf-8" />
 		<title>Nicolas Pigelet - Portfolio - Multimedia Developer</title>
 		
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="icon" type="image/png" href="favicon.png" />
 		<link rel="stylesheet" href="/css/mobile/base.css" />
 		<link rel="stylesheet" href="/css/mobile/layout.css" />
