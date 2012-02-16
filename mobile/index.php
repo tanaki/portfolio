@@ -44,7 +44,7 @@
 				$string_works = file_get_contents("../data/works.json");
 				$json_works = json_decode($string_works,true);
 
-				for ( $i = count($json_works["projects"]) - 1; $i > 0; $i--  ) {
+				for ( $i = count($json_works["projects"]) - 1; $i >= 0; $i--  ) {
 					$project = $json_works["projects"][$i];
 					echo "<li>";
 					echo '<span class="color" style="background:#' . $project["color"] . '";></span>';
