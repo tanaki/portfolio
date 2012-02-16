@@ -138,6 +138,7 @@ PF.View.Links = Backbone.View.extend({
 		
 		$(this.el).html( tpl(params) ).fadeIn(300, function(){
 			self._initLinks();
+			$(".a-z ul").css("opacity", 0);
 		});
 	},
 	

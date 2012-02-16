@@ -113,7 +113,7 @@ PF.View.WorkDetail = Backbone.View.extend({
 	_display : function() {
 		
 		$("body").addClass("page-work-detail");
-		this.$el.show()
+		this.$el.show();
 		this._drawBlock();
 		
 	},

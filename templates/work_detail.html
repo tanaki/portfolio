@@ -5,7 +5,7 @@
 				<li <% if ( (selectedSlug && projects[i].get('slug') === selectedSlug) || (!selectedSlug && i === (projects.length - 1)) ) { print('class="current"'); } %> data-index="<%= projects[i].get('index') %>" data-slug="<%= projects[i].get('slug') %>" data-white="<%= projects[i].get('white') %>">
 					<a href="/work/<%= projects[i].get('slug') %>">
 						<span>
-							<img src="/img/work/projects/<%= projects[i].get('slug') %>.jpg" alt="<%= projects[i].get('slug') %>" />
+							<img src="/img/work/projects/<%= projects[i].get('slug') %>.png" alt="<%= projects[i].get('slug') %>" />
 						</span>
 					</a>
 				</li>
@@ -62,23 +62,6 @@
 				</span>
 				<a class="prev browse disable">PREV</a>
 				<a class="next browse">NEXT</a>
-		
-
-<!--
-<span class="work-detail-content">
-	<span class="left-column">
-		<% if ( !projects[i].get('videoType') ) print( '<img src="/img/work/illus/<%= projects[i].get('slug') %>.jpg" alt="<%= projects[i].get('title') %>" />' ); %>
-
-		<span class="title"><%= projects[i].get('title') %></span>
-		<span class="text"><%= projects[i].get('text') %></span>
-	</span>
-	<span class="right-column">
-		<span class="color" style="background-color:#<%= projects[i].get('color') %>;"></span>
-		<% if ( projects[i].get('videoType') === "vimeo" || projects[i].get('videoType') === "youtube" ) print( '<img src="/img/work/illus/<%= projects[i].get('slug') %>.jpg" alt="<%= projects[i].get('title') %>" />' ); %>
-		<% if ( projects[i].get('linkText') !== "") print( '<a href="<%= projects[i].get('link') %>" rel="external"><%= projects[i].get('linkText') %></a>'); %>
-	</span>
-</span>
--->
 			</li>
 		<% }; %>
 	</ul>

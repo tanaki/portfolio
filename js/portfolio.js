@@ -36,7 +36,7 @@ PF.Events = {
 
 $(window).ready(function(){
 	
-	//if ( $(window).width() < 640 ) window.location.href = "/mobile";
+	if ( $(window).width() < 960 ) window.location.href = "/mobile";
 	
 	// start background graphic
 	PF.AppBackground = new PF.Background();
@@ -45,4 +45,8 @@ $(window).ready(function(){
 	PF.AppRouter = new PF.Router();
 	Backbone.history.start({ pushState : true });
 	
+});
+
+$(window).resize(function(){
+	if ( $(window).width() < 960 ) window.location.href = "/mobile";
 });

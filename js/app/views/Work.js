@@ -89,7 +89,7 @@ PF.View.Work = Backbone.View.extend({
 				success : function(response){
 					
 					var 
-						total = response.projects.length - 1,
+						total = response.projects.length - 1 + 3,// +3 for arrow and 2*close button
 						indexLoaded = 0,
 						contentLoading = $(".content-loading");
 						
@@ -121,8 +121,29 @@ PF.View.Work = Backbone.View.extend({
 							if ( indexLoaded == total ) self._display();
 							indexLoaded++;
 						}
-						thumb.src = "/img/work/projects/" + el.slug + ".jpg";
+						thumb.src = "/img/work/projects/" + el.slug + ".png";
 					});
+					
+					var arrows = new Image();
+					arrows.onload = function(){
+						if ( indexLoaded == total ) self._display();
+						indexLoaded++;
+					}
+					arrows.src = "/img/work/arrows.jpg";
+					
+					var closebtn = new Image();
+					closebtn.onload = function(){
+						if ( indexLoaded == total ) self._display();
+						indexLoaded++;
+					}
+					closebtn.src = "/img/work/btn_close_8.png";
+					
+					var closebtn2 = new Image();
+					closebtn2.onload = function(){
+						if ( indexLoaded == total ) self._display();
+						indexLoaded++;
+					}
+					closebtn2.src = "/img/work/btn_close-white_8.png";
 				}
 			});
 		}
@@ -303,7 +324,7 @@ PF.View.Work = Backbone.View.extend({
 
 				data.title.shuffle( breadcrumb.find(".current:last") );
 				
-				var url = "/img/work/projects/"+ data.slug +".jpg";
+				var url = "/img/work/projects/"+ data.slug +".png";
 				$("nav .selected span").css({
 					"background-image" : "url(" + url + ")",
 					"background-position" : "50% -5px"
