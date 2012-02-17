@@ -1214,6 +1214,11 @@ table { border-collapse: collapse; border-spacing: 0; }
 		left:340px;
 		margin-left:0;
 	}
+	.page-work-detail .project-detail .scrollable-title,
+	.page-work-detail .project-detail .scrollable-link {
+		left:340px;
+		margin-left:0;
+	}
 
 }
 
@@ -1227,6 +1232,11 @@ table { border-collapse: collapse; border-spacing: 0; }
 		width:80px;
 	}
 	.page-work-detail .project-detail .scrollable {
+		left:50%;
+		margin-left: -375px;
+	}
+	.page-work-detail .project-detail .scrollable-title,
+	.page-work-detail .project-detail .scrollable-link {
 		left:50%;
 		margin-left: -375px;
 	}
