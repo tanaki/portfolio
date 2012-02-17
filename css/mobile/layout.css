@@ -37,11 +37,11 @@
 	}
 	
 	h1 {
-		margin: 15px 0;
+		margin: 15px 0 15px 20px;
 	}
 	h1 span {
 		display:block;
-		text-align: center;
+		text-align: left;
 	}
 	h1 span.main {
 		font-size: 50px;
@@ -53,6 +53,7 @@
 	
 	h2 {
 		margin: 20px 0 10px;
+		padding-top:5px;
 		text-align: center;
 		color:#222;
 		background:#fff;
@@ -71,7 +72,7 @@
 	/* ABOUT */
 	.about {
 		margin:0 15px;
-		text-align: justify;
+		text-align: left;
 	}
 
 	/* CONTACT */
@@ -108,13 +109,14 @@
 		float: right;
 		width:10px;
 		height:10px;
+		border:2px solid white;
 	}
 	.works .detail img {
 		margin: 0 auto;
 	}
 	.works .description {
 		margin: 10px auto 20px;
-		text-align: justify;
+		text-align: left;
 	}
 	.works .video {
 		margin: 0 auto;

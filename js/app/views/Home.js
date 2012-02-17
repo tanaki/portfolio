@@ -254,6 +254,9 @@ PF.View.Home = Backbone.View.extend({
 			});
 		
 		self.pull.drag( self._handleMove, self._handleStart, self._handleStop, self);
+//		self.pull.touchstart( self._handleStart );
+//		self.pull.touchmove( self._handleMove );
+//		self.pull.touchend( self._handleStop );
 
 		self.pull
 			.mouseover(function(){
