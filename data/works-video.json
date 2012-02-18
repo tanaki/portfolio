@@ -9,7 +9,11 @@
 			"tags" : [
 				"HTML",
 				"CSS",
-				"JS"
+				"JS",
+				"AS3",
+				"PHP",
+				"Processing",
+				"JSP"
 			],
 			"slides" : [
 				{
@@ -223,7 +227,8 @@
 			"tags" : [
 				"HTML",
 				"CSS",
-				"JS"
+				"JS",
+				"PHP"
 			],
 			"slides" : [
 				{

@@ -69,6 +69,11 @@
 						echo '</a>';
 					}
 					echo '<span class="description">' . $project["text"] . '</span>';
+					echo '<span class="tags">Tags = [';
+					for ( $j = 0; $j < count($project["tags"]); $j++ ) {
+						echo ( $j == 0 ? '' : ', ') . $project["tags"][$j];
+					}
+					echo ']</span>';
 					
 						
 					
