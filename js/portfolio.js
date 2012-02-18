@@ -19,6 +19,9 @@ PF.Model = PF.Model || {};
 /* VIEWS */
 PF.View = PF.View || {};
 
+/* HELPERS */
+PF.isiPad = navigator.userAgent.match(/iPad/i) != null;
+
 /*
  * EVENTS
  */
@@ -36,7 +39,7 @@ PF.Events = {
 
 $(window).ready(function(){
 	
-	if ( $(window).width() < 960 ) window.location.href = "/mobile";
+	if ( $(window).width() < 960 || PF.isiPad ) window.location.href = "/mobile";
 	
 	// start background graphic
 	PF.AppBackground = new PF.Background();
@@ -48,5 +51,5 @@ $(window).ready(function(){
 });
 
 $(window).resize(function(){
-	if ( $(window).width() < 960 ) window.location.href = "/mobile";
+	if ( $(window).width() < 960 || PF.isiPad ) window.location.href = "/mobile";
 });
