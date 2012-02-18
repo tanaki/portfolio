@@ -48,7 +48,6 @@
 				for ( $i = count($json_works["projects"]) - 1; $i >= 0; $i--  ) {
 					$project = $json_works["projects"][$i];
 					echo "<li>";
-					echo '<span class="color" style="background:#' . $project["color"] . '";></span>';
 					echo '<span class="title">' . $project["title"] . '</span>';
 					
 					
