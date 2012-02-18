@@ -51,19 +51,27 @@
 					echo '<span class="color" style="background:#' . $project["color"] . '";></span>';
 					echo '<span class="title">' . $project["title"] . '</span>';
 					
-					$image = ($project["slides"][0]["type"] == "image" ) ? $project["slides"][0]["src"] : $project["slides"][1]["src"] ;
-					echo '<span class="detail"><img src="/img/work/projects/' . $project["slug"] . '/' . $image . '" alt="' . $project["title"] . '" /></span>';
-					echo '<span class="description">' . $project["text"] . '</span>';
 					
 					$videoType = ( isset($project["slides"][0]["videoType"]) ) ? $project["slides"][0]["videoType"] : false;
 					if ($videoType) {
 						if ( $videoType == "vimeo" ) {
-							echo '<a class="video" target="_blank" href="http://vimeo.com/' . $project["slides"][0]["src"] . '">Watch video</a>';
+							echo '<a class="video" target="_blank" href="http://vimeo.com/' . $project["slides"][0]["src"] . '">';
 						}
 						if ( $videoType == "youtube" ) {
-							echo '<a class="video" target="_blank" href="http://youtube.com/watch?v=' . $project["slides"][0]["src"] . '">Watch video</a>';
+							echo '<a class="video" target="_blank" href="http://youtube.com/watch?v=' . $project["slides"][0]["src"] . '">';
 						}
+						echo '<span class="play_btn"></span>';
 					}
+					$image = ($project["slides"][0]["type"] == "image" ) ? $project["slides"][0]["src"] : $project["slides"][1]["src"] ;
+					echo '<span class="detail" style="background-color:#'. $project["color"] .';">';
+					echo '<img src="/img/work/projects/' . $project["slug"] . '/' . $image . '" alt="' . $project["title"] . '" />';
+					echo '</span>';
+					if ($videoType) {
+						echo '</a>';
+					}
+					echo '<span class="description">' . $project["text"] . '</span>';
+					
+						
 					
 					echo "</li>";
 				}
