@@ -693,13 +693,26 @@ table { border-collapse: collapse; border-spacing: 0; }
 				display:block;
 				float:left;
 				width:750px;
+				height:470px;
 				position:relative;
+			}
+			
+			.page-work-detail .project-detail .items .item .illus {
+				display:block;
+				width:100%;
 			}
 
 			.page-work-detail .project-detail .items .item iframe,
 			.page-work-detail .project-detail .items .item #video-container {
 				display:block;
 				margin-top: 20px;
+			}
+			.page-work-detail .project-detail .items .item iframe.swf {
+				display:block;
+				position: absolute;
+				top:50%;
+				left:50%;
+				margin:-96px 0 0 -275px;
 			}
 			
 			.page-work-detail .project-detail .prev,

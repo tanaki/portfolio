@@ -120,7 +120,7 @@ PF.View.Links = Backbone.View.extend({
 			if ( self.indexLoaded == self.totalImages ) self._display();
 			self.indexLoaded++;
 		}
-		thumb.src = "/img/links/external/" + slug + ".jpg";
+		thumb.src = "/img/links/external/" + slug + ".png";
 	},
 	
 	_display : function() {
@@ -158,7 +158,7 @@ PF.View.Links = Backbone.View.extend({
 		$(".container ul li a").hover(
 			function(){
 				
-				var url = "/img/links/external/"+ $(this).data('slug') +".jpg";
+				var url = "/img/links/external/"+ $(this).data('slug') +".png";
 				
 				$("nav .selected span").css({
 					"background-image" : "url(" + url + ")",

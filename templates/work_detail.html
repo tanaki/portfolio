@@ -44,9 +44,9 @@
 								<span class="title"><%= slide["title"] %></span>
 								<% 
 								if ( slide["type"] == 'image' ) {
-									src = "/img/work/projects/" + projects[i].get("slug") + "/" + slide['src'];
+									src = "/img/work/projects/" + projects[i].get("slug") + "/large/" + slide['src'];
 									alt = slide['title'];
-									img = '<img src="' + src + '" alt="' + alt + '" />';
+									img = '<img class="illus" src="' + src + '" alt="' + alt + '" />';
 									print(img);
 								}
 								%>

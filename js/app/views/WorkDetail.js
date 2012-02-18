@@ -15,6 +15,11 @@ PF.View.WorkDetail = Backbone.View.extend({
 	block : null,
 	whiteBG : null,
 	
+	itemWidth : 750,
+	itemHeight : 470,
+
+	navigateObj : {},
+	
 	initialize : function(){
 		var self = this;
 		self.$el = $(self.el);
@@ -43,6 +48,7 @@ PF.View.WorkDetail = Backbone.View.extend({
 				var rightPath = "M" + (self.winWidth - 20) + ",20L" + (self.winWidth - 20) + "," + (self.winHeight - 40) + " " + (self.winWidth - 30) + "," + (self.winHeight - 39) + " " + (self.winWidth - 70) + ", 20Z";
 				self.rightColor.attr("path", rightPath);
 			}
+			self.resizeImageBlock();
 		});
 		
 		$(window).keydown(function(e){
@@ -201,10 +207,11 @@ PF.View.WorkDetail = Backbone.View.extend({
 			tpl = _.template( this.tpl_work_detail );
 		
 		this.$block.html( tpl(params) )
-			.fadeIn(300, function(){
-				self._drawRightColor();
-				self._initHTML();
-			});
+		this.resizeImageBlock();
+		this.$block.fadeIn(300, function(){
+			self._drawRightColor();
+			self._initHTML();
+		});
 	},
 	
 	_drawRightColor : function(){
@@ -232,6 +239,7 @@ PF.View.WorkDetail = Backbone.View.extend({
 		this._updateCloseBtn();
 		this._updateNavPos();
 		this._updateBreadcrumb();
+		this._updateNavigateObject();
 
 		var self = this;
 		self.$el.find(".nav-work-details li").live({
@@ -314,9 +322,22 @@ PF.View.WorkDetail = Backbone.View.extend({
 	_updateBreadcrumb : function(i) {
 		var 
 			index = this.$el.find(".nav-work-details li.current").data("index"),
-			title = this.collection.models[(i >= 0 ? i : index)].attributes.title;
+			title = this.collection.models[(i >= 0 ? i : index)].attributes.title,
+			target = this.$el.find(".breadcrumb-work-details a.slug");
 
-		this.$el.find(".breadcrumb-work-details a.slug").html(title);
+		title.shuffle( target );
+	},
+
+	_updateNavigateObject : function() {
+		
+		var container = $(".project-detail li:not(.hidden)");
+		this.navigateObj.max = container.find(".item").length - 1;
+		this.navigateObj.min = 0;
+		this.navigateObj.prevButton = container.find(".prev");
+		this.navigateObj.nextButton = container.find(".next");
+		this.navigateObj.scrollableTitle = container.find(".scrollable-title");
+		this.navigateObj.scrollableLink = container.find(".scrollable-link");
+		this.navigateObj.breadcrumb = $(".breadcrumb-work-details");
 	},
 	
 	_nextItem : function(slug){
@@ -357,6 +378,7 @@ PF.View.WorkDetail = Backbone.View.extend({
 		this._updateCloseBtn();
 		this._updateNavPos();
 		this._updateBreadcrumb();
+		this._updateNavigateObject();
 		
 		var self = this;
 		$.each( this.collection.models, function(i, model){
@@ -385,16 +407,16 @@ PF.View.WorkDetail = Backbone.View.extend({
 			
 		switch(videoType) {
 			case "youtube" : 
-				iframe = '<iframe width="750" height="470" src="http://www.youtube.com/embed/' + videoId + '?rel=0" frameborder="0" allowfullscreen></iframe>';
+				iframe = '<iframe width="' + this.itemWidth + '" height="' + this.itemHeight + '" src="http://www.youtube.com/embed/' + videoId + '?rel=0" frameborder="0" allowfullscreen></iframe>';
 				break;
 			case "vimeo" : 
-				iframe = '<iframe src="http://player.vimeo.com/video/' + videoId + '?title=0&amp;byline=0&amp;portrait=0" width="750" height="470" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+				iframe = '<iframe src="http://player.vimeo.com/video/' + videoId + '?title=0&amp;byline=0&amp;portrait=0" width="' + this.itemWidth + '" height="' + this.itemHeight + '" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 				break;
 			case "mp4" : 
 				iframe = '<video src="' + videoId + '" class="jwplayer" height="470" width="750"></video>';
 				break;
 			case 'swf' :
-				iframe = '<iframe frameborder="0" src="/img/work/projects/nokia-push/nokia-push.swf" width="550" height="192" style="margin:170px 0 0 100px;"></iframe>';;
+				iframe = '<iframe class="swf" frameborder="0" src="/img/work/projects/nokia-push/nokia-push.swf" width="550" height="192"></iframe>';;
 				break;
 			
 		}
@@ -423,58 +445,154 @@ PF.View.WorkDetail = Backbone.View.extend({
 			self._navigate("prev", container);
 		});
 	},
+
+	_resetCarousel : function( container ) {
+		
+		if ( !container.data("carousel") ) return;
+
+		$(".breadcrumb-work-details").fadeIn(300);
+		
+		var self = this;
+		container.data("carousel", true);
+		container.data("carousel-index", "0");
+	},
 	
 	_navigate : function(direction, container){
 		
 		var 
-			max = container.find(".item").length - 1,
-			min = 0,
+			self = this,
 			currentIndex = parseInt(container.data("carousel-index")) || 0;
 
 		if ( direction == "next") {
 			
-			if ( currentIndex >= max ) return;
+			if ( currentIndex >= self.navigateObj.max ) return;
 			currentIndex++;
 			
-			if ( currentIndex >= max ) container.find(".next").addClass("disable");
-			container.find(".prev").removeClass("disable");
+			if ( currentIndex >= self.navigateObj.max ) self.navigateObj.nextButton.addClass("disable");
+			self.navigateObj.prevButton.removeClass("disable");
 			
 		} else if ( direction == "prev") {
 			
-			if ( currentIndex <= min ) return;
+			if ( currentIndex <= self.navigateObj.min ) return;
 			currentIndex--;
 			
-			if ( currentIndex <= min ) container.find(".prev").addClass("disable");
-			container.find(".next").removeClass("disable");
+			if ( currentIndex <= self.navigateObj.min ) self.navigateObj.prevButton.addClass("disable");
+			self.navigateObj.nextButton.removeClass("disable");
 		} 
 		
-		var oldItem = container.find(".active");
-		var activeItem = container.find(".item").get(currentIndex);
+		var 
+			oldItem = container.find(".active"),
+			activeItem = container.find(".item").get(currentIndex);
+
 		oldItem.removeClass("active")
 		$(activeItem).addClass("active");
 		
 		this._initVideo($(activeItem), oldItem);
 		
-		container.find(".scrollable-title").text( container.find(".active .title").text() || "" );
+		self.navigateObj.scrollableTitle.text( container.find(".active .title").text() || "" );
 		
-		var link = currentIndex > 0 ? container.find(".active .link-project").clone() : container.find(".active .base-link").clone();
+		var link = currentIndex > 0 ? container.find(".active .link-project").clone() : container.find(".active .base-link").clone()
 		if ( currentIndex == 0 ) {
 			link
 				.removeClass("base-link")
 				.addClass("link-project")
 				.addClass("transition");
 		}
-		container.find(".scrollable-link").empty().append( link );
+		self.navigateObj.scrollableLink.empty().append( link );
 		
-		
-		if ( currentIndex > 0 ) $(".breadcrumb-work-details").fadeOut(300);
-		else $(".breadcrumb-work-details").fadeIn(300);
+		if ( currentIndex > 0 ) self.navigateObj.breadcrumb.fadeOut(300);
+		else self.navigateObj.breadcrumb.fadeIn(300);
 		
 		container.find(".items").animate({
-			"left" : -750 * currentIndex
-		}, 300);
+			"left" : -self.itemWidth * currentIndex
+		}, 400, "linear");
 		container.data("carousel-index", currentIndex);
-	}
+	},
 	
+	resizeImageBlock : function(){
+		var 
+			self = this,
+			minWidth = 1500,
+			
+			li = $(".project-detail li:not(.hidden)"),
+			scrollable = $(".scrollable"),
+			scrollableTitle = $(".scrollable-title"),
+			scrollableLink = $(".scrollable-link"),
+			items = $(".items"),
+			item = $(".item"),
+			next = $(".next"),
+			prev = $(".prev")
+			text = $(".first .text");
+		
+		if ( self.winWidth > minWidth ) {
+			
+			var 
+				initWidth = 1000,
+				initHeight = 725,
+				initImageHeight = 600,
+				newWidth = Math.round( self.winWidth * initWidth / minWidth ),
+				newHeight = Math.round((newWidth * initHeight) / initWidth),
+				halfWidth = Math.round(newWidth / 2),
+				halfHeight = Math.round(newHeight / 2),
+				videoHeight = (newHeight * initImageHeight) / initHeight + 30,
+				imgPos = Math.round(((newHeight * initImageHeight) / initHeight) / 2) + 10;
+			
+			self.itemWidth = newWidth;
+			self.itemHeight = videoHeight;
+			
+			scrollable.css({
+				"width" : newWidth,
+				"height" : newHeight,
+				"margin" : "-" + (halfHeight - 20) + "px 0 0 -" + halfWidth + "px"
+			});
+
+			scrollableTitle
+				.css({
+					"width": newWidth,
+					"margin" : "-" + halfHeight + "px 0 0 -" + halfWidth + "px"
+				})
+				.text("");
+
+			scrollableLink.css({
+					"width": newWidth,
+					"margin" : imgPos + "px 0 0 -" + halfWidth + "px"
+				});
+			
+			item.css({
+				"width" : newWidth,
+				"height" : newHeight
+			});
+			
+			self._resetCarousel(li);
+
+			next.removeClass("disable");
+			prev.addClass("disable");
+
+			items.css("left", 0);
+			text.css("margin", (halfHeight - 30) + "px 0 0 150px" );
+
+		} else {
+			
+			self.itemWidth = 750;
+			self.itemHeight = 470;
+
+			scrollable.attr("style", "");
+			item.attr("style", "");
+
+			scrollableTitle
+				.attr("style", "")
+				.text("");
+
+			scrollableLink.attr("style", "");
+			
+			self._resetCarousel(li);
+			
+			next.removeClass("disable");
+			prev.addClass("disable");
+
+			items.css("left", 0);
+			text.attr("style", "");
+		}
+	}
 	
 });

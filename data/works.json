@@ -291,6 +291,13 @@
 					"title" : "Mindreader",
 					"link" : "http://mindreader.mindshareworld.com",
 					"linkText" : "Visit site"
+				},
+				{
+					"type" : "image",
+					"src" : "mindreader-2.jpg",
+					"title" : "Mindreader",
+					"link" : "http://mindreader.mindshareworld.com",
+					"linkText" : "Visit site"
 				}
 			]
 		},
