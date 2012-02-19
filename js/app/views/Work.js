@@ -113,7 +113,7 @@ PF.View.Work = Backbone.View.extend({
 							tags: el.tags,
 							slides: el.slides
 						}));
-						
+
 						var thumb = new Image();
 							
 						thumb.onload = function(){
@@ -122,6 +122,20 @@ PF.View.Work = Backbone.View.extend({
 							indexLoaded++;
 						}
 						thumb.src = "/img/work/projects/" + el.slug + ".png";
+
+						$.each(el.slides, function(j, slide){
+							if ( slide.type == "image" ) {
+								total++;
+								var slideImage = new Image();
+								slideImage.onload = function(){
+									contentLoading.text("Loading... " + Math.round(indexLoaded * 100 / total) + "%" ) ;
+									if ( indexLoaded == total ) self._display();
+									indexLoaded++;
+								}
+								slideImage.src = "/img/work/projects/" + el.slug + "/large/" + slide.src;
+							}
+						});
+
 					});
 					
 					var arrows = new Image();
